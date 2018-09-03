@@ -1,0 +1,50 @@
+.sty1-radio,.sty2-radio,.sty1-checkbox {
+    padding: 0;
+    margin: -2px 7px 0 0;
+    display: inline-block;
+    *display: inline;
+    vertical-align: middle;
+    webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.sty1-radio {
+    width: 15px;
+    height: 15px;
+    background: url(pay.png) no-repeat 0 0;
+}
+.sty1-radio.checked {
+    background-position: 0 -65px;
+}
+
+.sty2-radio {
+    width: 14px;
+    height: 14px;
+    background: url(radio2.png) no-repeat -65px 0;
+}
+.sty2-radio.checked {
+    background-position: 0 0;
+}
+
+
+/*checkbox*/
+
+.sty1-checkbox {
+    margin-right: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #bababa;
+}
+.sty1-checkbox.hover {
+    background: url(sty1.png) no-repeat center;
+}
+.sty1-checkbox.checked {
+    border-color: #f34e4e;
+    background: #f34e4e url(sty1-a.png) no-repeat center;
+}
+.sty1-checkbox.disabled {
+    border-color: #dbdbdb;
+    background: #eee;
+    cursor: not-allowed;
+}

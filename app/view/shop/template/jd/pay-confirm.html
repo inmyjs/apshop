@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>完成付款</title>
+    <link href="/public/css/cart.css" rel="stylesheet"/>
+<style>
+    body {
+        background-color: #f4f4f4;
+    }
+</style>
+{% endblock %}
+{% block body %}
+        <div class="cart-header wrapper">
+            <div class="logo">
+                <a href="index.html"><img src="/public/img/logo.png" alt="logo" /></a>
+            </div>
+            <div class="step-box">
+                <div class="row">
+                    <div class="step first active col-3">
+                        <span class="num">1</span><span class="line"></span><span class="label">我的购物车</span>
+                    </div>
+                    <div class="step active col-3">
+                        <span class="num">2</span><span class="line"></span><span class="label">确认订单信息</span>
+                    </div>
+                    <div class="step active col-3">
+                        <span class="num">3</span><span class="line"></span><span class="label">选择支付方式</span>
+                    </div>
+                    <div class="step last active col-3">
+                        <span class="num">4</span><span class="line"></span><span class="label">完成付款</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--头部-->
+
+    <div class="wrapper">
+        <div class="pay-wrap">
+            <div class="order-result">
+                <div class="section clearfix">
+                    <img src="/public/img/ico/order-success.jpg" class="ico" />
+                    <div class="paytitbox">
+                        <div class="tit">订单已完成付款 {{order.billAmount}} 元</div>
+                        <div class="stit">系统将 30 秒后自动返回商城主页</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="pay-confirm-bottom">
+            <a href="/shop/uc/order" class="go-next ui-btn-theme">查看订单</a>
+        </div>
+    </div>
+
+    <!--脚部-->
+    <div class="fatfooter">
+
+    </div>
+    <!--脚部-->
+<script>
+
+</script>
+{% endblock %}
+{% block footer %}
+{% endblock %}

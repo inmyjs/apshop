@@ -1,0 +1,110 @@
+@baseline : 1.7em;
+.rounded(@radius:3px){
+-webkit-border-radius : @radius;
+-moz-border-radius : @radius;
+border-radius : @radius; }
+
+.bordered(@top-color: #eee, @right-color: #eee, @bottom-color: #eee, @left-color: #eee) {
+border-top : solid 1px @top-color;
+border-left : solid 1px @left-color;
+border-right : solid 1px @right-color;
+border-bottom : solid 1px @bottom-color; }
+
+.border-radius(@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+-webkit-border-top-right-radius : @topright;
+-webkit-border-bottom-right-radius : @bottomright;
+-webkit-border-bottom-left-radius : @bottomleft;
+-webkit-border-top-left-radius : @topleft;
+-moz-border-radius-topright : @topright;
+-moz-border-radius-bottomright : @bottomright;
+-moz-border-radius-bottomleft : @bottomleft;
+-moz-border-radius-topleft : @topleft;
+border-top-right-radius : @topright;
+border-bottom-right-radius : @bottomright;
+border-bottom-left-radius : @bottomleft;
+border-top-left-radius : @topleft; }
+
+// boxshadow
+
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
+-webkit-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+-moz-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha); }
+
+.inset-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4) {
+-webkit-box-shadow : inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+-moz-box-shadow : inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+box-shadow : inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha); }
+
+.box-shadow(@arguments) {
+-webkit-box-shadow : @arguments;
+-moz-box-shadow : @arguments;
+box-shadow : @arguments; }
+
+
+
+// cssgradients
+
+.grad-bw(@color: #f5f5f5, @start: 0, @stop: 255) {
+background : @color;
+background : -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(@start,@start,@start)), color-stop(1, rgb(@stop,@stop,@stop)));
+background : -moz-linear-gradient(center bottom,
+rgb(@start,@start,@start) 0%,
+rgb(@stop,@stop,@stop) 100%); }
+
+.grad-col(@color: #f5f5f5, @start: #eee, @stop: #fff){
+  background : @color;
+  background: -moz-linear-gradient(top,  @stop 0%, @start 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @start), color-stop(100%,rgba(29,29,29,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  @stop 0%, @start 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  @stop 0%, @start 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  @stop 0%, @start 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  @stop 0%, @start 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=@start, endColorstr=@stop, GradientType=0 );
+}
+
+// csstransforms
+
+.rotate(@deg : 5deg){ 
+  -webkit-transform: rotate(@deg);
+  -moz-transform: rotate(@deg);
+  -ms-transform: rotate(@deg);
+  -o-transform: rotate(@deg);  
+  transform: rotate(@deg);
+ }
+ 
+ .ms-rotate(@deg:5){
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=@deg); /*for IE*/
+ }
+ 
+.scale(@ratio : 1.5){
+-webkit-transform : scale(@ratio);
+-moz-transform : scale(@ratio);
+transform : scale(@ratio); }
+
+.translate(@transformX : 20px, @transformY : 20px) {
+-webkit-transform : translate(@transformX, @transformY);
+-moz-transform : translate(@transformX, @transformY);
+transform : translate(@transformX, @transformY); }
+
+// csstransitions
+
+.transition-duration(@duration : .2s) {
+-moz-transition-duration : @duration;
+-webkit-transition-duration : @duration;
+transition-duration: @duration; }
+
+.transition(@duration : .2s, @ease:ease-out) {
+-webkit-transition : all @duration @ease;
+-moz-transition : all @duration @ease;
+transition : all @duration @ease; }
+
+// opacity
+
+.opacity(@opacity : .5, @opacity_2 : 90) {
+	-webkit-opacity : @opacity;
+	-moz-opacity : @opacity;
+	opacity : @opacity;  
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@opacity_2)";  
+  filter: alpha(opacity=@opacity_2);	
+}

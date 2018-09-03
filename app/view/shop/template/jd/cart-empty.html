@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>购物车</title>
+    <link href="/public/css/cart.css" rel="stylesheet"/>
+<style>
+    body {
+        background-color: #f4f4f4;
+    }
+</style>
+{% endblock %}
+{% block body %}
+        <div class="cart-header wrapper">
+            <div class="logo">
+                <a href="index.html"><img src="/public/img/logo.png" alt="logo" /></a>
+            </div>
+            <div class="step-box">
+                <div class="row">
+                    <div class="step first active col-3">
+                        <span class="num">1</span><span class="line"></span><span class="label">我的购物车</span>
+                    </div>
+                    <div class="step col-3">
+                        <span class="num">2</span><span class="line"></span><span class="label">确认订单信息</span>
+                    </div>
+                    <div class="step col-3">
+                        <span class="num">3</span><span class="line"></span><span class="label">选择支付方式</span>
+                    </div>
+                    <div class="step last col-3">
+                        <span class="num">4</span><span class="line"></span><span class="label">完成付款</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--头部-->
+        <div class="bd-t"></div>
+        <div class="wrapper">
+            <div class="ui-page-notice cartempty">
+                <div class="section">
+                    <i class="ico iconfont icon-cartempty"></i>
+                    <div class="cont">
+                        <div class="tit">购物车空空的哦~，去看看心仪的商品吧~</div>
+                        <div>
+                            <a href="/" class="ui-btn-theme">去逛逛</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     <!--脚部-->
+    <div class="fatfooter">
+
+    </div>
+    <!--脚部-->
+{% endblock %}
+{% block footer %}
+{% endblock %}

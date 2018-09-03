@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>账号安全</title>
+    <link href="/public/css/uc.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/public/js/icheck/style.css"/>
+<script src="/public/js/icheck/icheck.min.js"></script>
+<script src="/public/js/laydate/laydate.js"></script>
+{% endblock %}
+{% block body %}
+<div class="uc-header-bg">
+    <div class="uc-header wrapper">
+        <a class="logo" href="/"><img src="/public/img/logo2.png" alt="" /></a>
+        <div class="back-home"><a href="/">返回首页</a></div>
+        <ul class="uc-nav">
+            <li><a href="/shop/uc">首页</a></li>
+            <li class="toggle">
+                <span class="label">账户设置<i class="iconfont"></i></span>
+                <div class="toggle-cont">
+                    <!--<a href="">个人信息</a>-->
+                    <a href="/shop/uc/safe">安全设置</a>
+                </div>
+            </li>
+            <!--<li><a href="">消息中心</a></li>-->
+        </ul>
+    </div>
+</div>
+
+<div class="wrapper uc-router">
+    <ul>
+        <li><a href="/shop/uc">首页</a></li>
+        <li><span class="divider"></span></li>
+        <li><span>账号安全</span></li>
+    </ul>
+</div>
+
+    <div class="wrapper">
+        <div class="uc-main clearfix">
+            <div class="uc-aside">
+                <div class="uc-menu">
+                    <div class="tit">个人中心</div>
+                    <ul class="sublist">
+                        <!--<li><a href="uc-account.html">账户信息</a></li>-->
+                        <li><a href="/shop/uc/safe">账户安全</a></li>
+                        <li><a href="/shop/order">我的订单</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="uc-content">
+                <div class="uc-panel">
+                    <div class="uc-bigtit bd-b">账号安全</div>
+                    <div class="uc-panel-bd">
+
+                        <div class="safe-list">
+                            <div class="list-item">
+                                <a href="/shop/uc/verify2" class="edit ui-btn-low ui-btn-hollow uc-btn-md">修改</a>
+                                <div class="cont">
+                                    <img src="img/uc/pwd.jpg" class="ico" />
+                                    <div class="tit">帐号密码</div>
+                                    <div class="desc">用于保护帐号信息和登录安全</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--脚部-->
+    <div class="fatfooter">
+
+    </div>
+    <!--脚部-->
+{% endblock %}
+{% block footer %}
+{% endblock %}

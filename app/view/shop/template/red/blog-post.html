@@ -1,0 +1,161 @@
+{% extends 'base_red.html' %}
+{% block title %}
+<title>{{page_title}}-天启皮肤使用文档</title>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block body %}
+<div id="main-container" class="no-header-top">
+  <div class="page-top-leader omega">
+    <div class="container_12 relatived clearfix">
+      <h1 class="page-title">天启皮肤使用文档</h1>
+      <div class="breadcrumb">
+        <span class="br_before">当前位置:</span>
+        <a href="/">首页</a>
+        <span class="br_sep">/</span>
+        <span class="cur_link">天启皮肤使用文档</span>
+      </div>
+    </div>
+  </div><!-- .page-top-leader -->
+  <div class="container_12">
+    <div id="column-left" class="grid_3 aside">
+      <div class="box">
+        <div class="box-heading">介绍</div>
+        <div class="box-content">
+          <div class="box-category">
+            <ul id="blog_list">
+              {% for blogClass in blogClasss %}
+              <li><a  onclick="loadBlog(this,'{{blogClass.blogClassID}}')" href="javascript:void(0)">{{blogClass.name}}</a>
+                {% if blogClass.isLeaf==false %}
+                <span onclick="getList(this,'{{blogClass.blogClassID}}')" class="subDropdown plus"></span>
+                <ul id="ul_{{blogClass.blogClassID}}">
+                </ul>
+                {% endif  %}
+              </li>
+              {% endfor  %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-heading">精品推荐</div>
+        {% for hotGoods in shopRecommendGoods %}
+        <div class="product-box ">
+          <span class="ribbon-new"></span>
+          <a class="img-cover" href="/shop/goods/{{hotGoods.goodsID}}">
+            <img src="{{hotGoods.imgurl}}" alt="product-image">
+          </a>
+          <div class="product-meta">
+            <div class="title"><a href="/shop/goods/{{hotGoods.goodsID}}">{{hotGoods.name}}</a></div>
+            <img src="/public/red/images/stars-5.png" alt="5-stars-ratting">
+            <div class="price">
+              <span class="old-price">￥{{hotGoods.priceMarket}}</span>
+              <span class="new-price">￥{{hotGoods.price}}</span>
+            </div>
+          </div><!-- product-meta -->
+          <ul class="product-action">
+            <li>
+              <div class="tooltip-wrapper">
+                <span class="tooltip">收藏</span>
+              </div>
+              <a href="javascript:void(0)" title="收藏" onclick="addWishList('{{hotGoods.goodsID}}')" class="icomoon" aria-hidden="true" data-icon="&#xe00d;"></a>
+            </li>
+            <li>
+              <div class="tooltip-wrapper">
+                <span class="tooltip">加入购物车</span>
+              </div>
+              <a href="javascript:void(0)" title="加入购物车" onclick="addCart('{{hotGoods.goodsID}}','1','{{hotGoods.price}}')" class="icomoon" aria-hidden="true" data-icon="&#x25e0;"></a>
+            </li>
+          </ul>
+        </div><!-- .product-box -->
+        {% endfor %}
+      </div>
+
+    </div><!-- end #column-left -->
+
+    <div class="aside-container grid_9 omega">
+      <div class="blog-post clearfix">
+        <div class="grid_9 meta clearfix omega">
+          <span class="posted-in"><i class="icomoon" aria-hidden="true" data-icon="&#xe029;"></i><span id="blog_title"></span></span>
+          <span class="date"><i class="icomoon" aria-hidden="true" data-icon="&#xe018;"></i><span class="day"id="blog_createTime" ></span></span>
+        </div>
+        <article class="grid_9 omega">
+          <a class="img-cover prettyphoto"  id="blog_cover_a" href="">
+            <i class="icomoon" aria-hidden="true" data-icon="&#xe003;"></i>
+            <img id="blog_cover_img" src="" alt="news-image">
+          </a>
+          <div class="content" id="blog_content">
+          </div>
+        </article>
+        <!-- <div class="share-in clearfix">
+
+        </div>-->
+      </div><!-- .blog-post -->
+    </div><!-- end .aside-container -->
+  </div><!-- end .container_12 -->
+</div><!-- end .main-container -->
+<script>
+    var currentA;
+    function li_html(data) {
+        return `<li><a  onclick="loadBlog(this,'${ data.blogClassID }')" href="javascript:void(0)">${ data.name }</a></li>`;
+        /* if(data.isLeaf=='1'){
+             return `<li><a  onclick="loadBlog(this,'${ data.blogClassID }')" href="javascript:void(0)">${ data.name }</a></li>`;
+         }else{
+             return `<li><a  onclick="loadBlog(this,'${ data.blogClassID }')" href="javascript:void(0)">${ data.name }</a>
+                       <span onclick="getList('${ data.blogClassID }')" class="subDropdown plus"></span>
+                       <ul id="ul_${ data.blogClassID }">
+                       </ul>
+                   </li>`;
+         }*/
+
+    }
+    function getList(me,parentId) {
+        var lis=$('#ul_'+parentId).children();
+        if(lis.length>0){
+            Swet.util.subDropdown(me);
+            return;
+        }
+        Swet.request.get('/shop/blogClass',{parentId,blogType:'A'},function (res) {
+            if(res.success){
+                for(var blogClass of res.result){
+                    $('#ul_'+parentId).append(li_html(blogClass));
+                }
+                Swet.util.subDropdown(me);
+            }else{
+                Swet.msg.error(res.msg);
+            }
+        });
+    }
+    function loadBlog(me,blogClassID) {
+        activeLi(me);
+        getArticle(blogClassID);
+    }
+    function getArticle(blogClassID) {
+        Swet.request.get('/shop/blog/get',{blogClassID},function (res) {
+            if(res.success){
+                $('#blog_title').html(res.result.title);
+                $('#blog_createTime').html(moment(res.result.createTime).format('D MMM YYYY'));
+                $('#blog_content').html(res.result.content);
+                $('#blog_cover_a').attr('href',res.result.coverImg);
+                $('#blog_cover_img').attr('src',res.result.coverImg);
+            }else{
+                Swet.msg.error(res.msg);
+            }
+        });
+    }
+    function activeLi(me) {
+        var li = $(me);
+        currentA.removeClass("active");
+        li.addClass("active");
+        currentA=li;
+    }
+
+    $(function () {
+        var a=$('#blog_list').find('a');
+        if(a.length>0){
+            currentA=$(a[0]);
+            currentA.trigger('click');
+        }
+    });
+</script>
+{% endblock %}

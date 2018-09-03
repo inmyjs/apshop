@@ -1,0 +1,32 @@
+@font-face {
+ font-family: 'entypo';
+ src: url('entypo.eot?#iefix') format('embedded-opentype'), url('entypo.woff') format('woff'), url('entypo.ttf') format('truetype'), url('entypo.svg#entypo') format('svg');
+ src: url('entypo.eot'); 
+ font-weight: normal;
+ font-style: normal;
+}
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot');
+	src:
+		url('fonts/icomoon.svg#icomoon') format('svg'),
+		url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.woff') format('woff'),
+		url('fonts/icomoon.ttf') format('truetype');		
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+.icomoon:before {
+	font-family: 'icomoon';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;	
+	-webkit-font-smoothing: antialiased;
+}
+
+.icomoon{
+	font-family: 'icomoon';
+}

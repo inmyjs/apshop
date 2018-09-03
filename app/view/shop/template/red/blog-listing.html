@@ -1,0 +1,120 @@
+{% extends 'base_red.html' %}
+{% block title %}
+<title>{{page_title}}-定制服务</title>
+{% endblock %}
+
+{% block body %}
+<div id="main-container">
+  <div class="page-top-leader omega">
+    <div class="container_12 relatived clearfix">
+      <h1 class="page-title">定制服务</h1>
+      <div class="breadcrumb">
+        <span class="br_before">当前位置:</span>
+        <a href="/">首页</a>
+        <span class="br_sep">/</span>
+        <span class="cur_link">定制服务</span>
+      </div>
+    </div>
+  </div><!-- .page-top-leader -->
+  <div class="container_12">
+    <div id="column-left" class="grid_3 aside">
+      <div class="box">
+        <div class="box-heading">服务内容</div>
+        <div class="box-content">
+          <div class="box-category">
+            <ul id="blog_list">
+              {% for blogClass in blogClasss %}
+              <li><a  onclick="loadBlog(this,'{{blogClass.blogClassID}}')" href="javascript:void(0)">{{blogClass.name}}</a></li>
+              {% endfor  %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-heading">精品推荐</div>
+        {% for hotGoods in shopRecommendGoods %}
+        <div class="product-box ">
+          <span class="ribbon-new"></span>
+          <a class="img-cover" href="/shop/goods/{{hotGoods.goodsID}}">
+            <img src="{{hotGoods.imgurl}}" alt="product-image">
+          </a>
+          <div class="product-meta">
+            <div class="title"><a href="/shop/goods/{{hotGoods.goodsID}}">{{hotGoods.name}}</a></div>
+            <img src="/public/red/images/stars-5.png" alt="5-stars-ratting">
+            <div class="price">
+              <span class="old-price">￥{{hotGoods.priceMarket}}</span>
+              <span class="new-price">￥{{hotGoods.price}}</span>
+            </div>
+          </div><!-- product-meta -->
+          <ul class="product-action">
+            <li>
+              <div class="tooltip-wrapper">
+                <span class="tooltip">收藏</span>
+              </div>
+              <a href="javascript:void(0)" title="收藏" onclick="addWishList('{{hotGoods.goodsID}}')" class="icomoon" aria-hidden="true" data-icon="&#xe00d;"></a>
+            </li>
+            <li>
+              <div class="tooltip-wrapper">
+                <span class="tooltip">加入购物车</span>
+              </div>
+              <a href="javascript:void(0)" title="加入购物车" onclick="addCart('{{hotGoods.goodsID}}','1','{{hotGoods.price}}')" class="icomoon" aria-hidden="true" data-icon="&#x25e0;"></a>
+            </li>
+          </ul>
+        </div><!-- .product-box -->
+        {% endfor %}
+      </div>
+
+    </div><!-- end #column-left -->
+
+    <div class="aside-container grid_9 omega">
+      <div class="blog-listing clearfix">
+        <article class="grid_9 omega">
+          <div class="grid_5">
+            <div class="meta">
+              <span class="date"><span class="day">07</span><span class="month">MAY</span></span>
+              <div class="title"><h4>News Title</h4><span><a href="#">News</a>,<a href="#">Offers</a>,<a href="#">Bestsellers</a></span></div>
+            </div>
+            <a class="img-cover prettyphoto" href="/public/red/images/images/blog-listing.jpg">
+              <i class="icomoon" aria-hidden="true" data-icon=""></i>
+              <img src="/public/red/images/images/blog-listing.jpg" alt="news-image">
+            </a>
+          </div>
+          <div class="grid_4 omega">
+            <div class="excerpt">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat.</p>
+            </div>
+            <a class="blog-link" href="blog-post.html"><i class="icomoon" aria-hidden="true" data-icon=""></i>Read More</a>
+          </div>
+        </article>
+      </div><!-- .blog-listing -->
+      <div class="grid_9 omega">
+        <div class="pagination right">
+          <a href="#">Prev</a>
+          <b>2</b>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">Next</a>
+        </div>
+      </div>
+    </div>
+  </div><!-- end .container_12 -->
+</div><!-- end .main-container -->
+<script>
+  function loadBlog(me,blogClassID) {
+      activeLi(me);
+  }
+  function activeLi(me) {
+      var li = $(me);
+      li.parent().parent().find('a').removeClass("active");
+      li.addClass("active");
+  }
+  $(function () {
+      var a=$('#blog_list').find('a');
+      if(a.length>0)
+          $(a[0]).trigger('click');
+  });
+</script>
+{% endblock %}

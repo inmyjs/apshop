@@ -1,0 +1,33 @@
+/**
+ * Controller
+ * @param app
+ */
+
+
+module.exports = app => {
+    return class BlogController extends app.Controller {
+        async create(ctx){
+            var data= await this.getUserInfo();
+            data.active_page=4;
+            const shopRecommendGoods = await ctx.model.ShopGoods.findAll({
+                where:{recommendFlag:'1',goodsStatus:'U'},
+                order:[['sortNo', 'ASC']]
+            });
+            data.shopRecommendGoods=shopRecommendGoods;
+            var {blogType}=ctx.query;
+            data.blogClasss=await ctx.model.BlogClass.findAll({
+                where:{blogType,status:'0'}
+            });
+            await ctx.render('shop/template/'+app.config.viewTemplate+'/blog-listing', data);
+        }
+        async list(ctx){
+            var {blogClassID,page,limit}=ctx.query;
+            limit=Number(limit);
+            var offset=(Number(page)-1)*limit;
+            const result=await ctx.model.Blog.findAndCountAll({
+                where:{blogClassID},offset,limit,raw:true
+            });
+            this.success("查询成功",result.rows,result.count);
+        }
+    };
+};

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>支付</title>
+    <link href="/public/css/cart.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/public/js/icheck/style.css"/>
+<script src="/public/js/icheck/icheck.min.js"></script>
+<style>
+    body {
+        background-color: #f4f4f4;
+    }
+</style>
+{% endblock %}
+{% block body %}
+        <div class="cart-header wrapper">
+            <div class="logo">
+                <a href="index.html"><img src="/public/img/logo.png" alt="logo" /></a>
+            </div>
+            <div class="step-box">
+                <div class="row">
+                    <div class="step first active col-3">
+                        <span class="num">1</span><span class="line"></span><span class="label">我的购物车</span>
+                    </div>
+                    <div class="step active col-3">
+                        <span class="num">2</span><span class="line"></span><span class="label">确认订单信息</span>
+                    </div>
+                    <div class="step active col-3">
+                        <span class="num">3</span><span class="line"></span><span class="label">选择支付方式</span>
+                    </div>
+                    <div class="step last col-3">
+                        <span class="num">4</span><span class="line"></span><span class="label">完成付款</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--头部-->
+
+    <div class="wrapper">
+        <div class="pay-wrap">
+            <div class="order-result">
+                <div class="section clearfix">
+                    <img src="/public/img/ico/order-success.jpg" class="ico" />
+                    <div class="titbox">
+                        <div class="tit">订单提交成功，应付金额 {{order.billAmount}} 元</div>
+                        <div class="stit">订单号：{{order.billNo}}    请您在 2小时 内完成支付，否则订单会被自动取消</div>
+                    </div>
+                    <div class="mt20">
+                        {% for good in goods %}
+                        <div class="meta">
+                            <div class="hd">主题</div>
+                            <div class="bd">{{good.title}}* {{good.num}}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pay-wrap-tit">
+            在线支付
+        </div>
+        <div class="pay-wrap">
+            <div class="pay-way">
+                <div class="row">
+                    <div class="col col-3">
+                        <label><input class="check" type="radio" name="a" /><img src="/public/img/pay/zfb.jpg" /></label>
+                    </div>
+                    <div class="col col-3">
+                        <label><input class="check" type="radio" name="a" /><img src="/public/img/pay/weixin.jpg" /></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-panel">
+            <a href="/shop/confirmPay/{{order.billNo}}" class="go-next ui-btn-theme">下一步</a>
+        </div>
+    </div>
+
+    <!--脚部-->
+    <div class="fatfooter">
+
+    </div>
+    <!--脚部-->
+<script>
+    $('.check').iCheck({
+            radioClass: 'sty1-radio'
+    });
+</script>
+{% endblock %}
+{% block footer %}
+{% endblock %}
