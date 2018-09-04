@@ -50,7 +50,7 @@ module.exports = {
     },
     email: {
         service: 'QQ',
-        user: '573391755@qq.com',
-        pass: 'etpwhpnxtmfybebe',
+        user: 'xxxxxxxxx@qq.com',
+        pass: 'xxxxxxxxxxxxx',
     }
 };
