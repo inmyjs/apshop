@@ -6,11 +6,11 @@
 var bcrypt = require('bcryptjs');
 module.exports = app => {
     const UserLogin = app.model.import('../domain/userlogin');
-    UserLogin.updatePassword=function*(username,pass) {
+    UserLogin.updatePassword=async function(username,pass) {
         const saltRounds = 10;
         var salt = bcrypt.genSaltSync(saltRounds);
         var password = bcrypt.hashSync(pass, salt);
-        const userLogin=yield this.findOne({where:{loginString:username}});
+        const userLogin=await this.findOne({where:{loginString:username}});
         if(!userLogin){
             return null;
         }

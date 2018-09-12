@@ -86,12 +86,12 @@
 <script>
     function addOrder() {
         var billAmount="{{sumPrice}}";
-        //Swet.loading.start("正在创建订单...");
-        Swet.request.post("/shop/order",{billAmount},function (res) {
-            //Swet.loading.end();
+        //Ap.loading.start("正在创建订单...");
+        Ap.request.post("/shop/order",{billAmount},function (res) {
+            //Ap.loading.end();
             if(res.success){
                 window.location="/shop/pay/"+res.result;
-            }else Swet.msg.success(res.msg);
+            }else Ap.msg.success(res.msg);
         })
     }
 </script>

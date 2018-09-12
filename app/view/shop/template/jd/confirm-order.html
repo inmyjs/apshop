@@ -84,7 +84,7 @@
 <script>
     function addOrder() {
         var billAmount="{{sumPrice}}";
-        Swet.request.post("/shop/order",{billAmount},function (res) {
+        Ap.request.post("/shop/order",{billAmount},function (res) {
             if(res.success){
                 window.location.href="/shop/pay/"+res.result;
             }

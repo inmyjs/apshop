@@ -323,54 +323,54 @@
     var cartCount="{{cartCount}}";
     function checkout() {
         if(cartCount<=0)
-            Swet.msg.warning("购物车还是空的")
+            Ap.msg.warning("购物车还是空的")
         else{
             window.location="/shop/checkout";
         }
     }
     function logout() {
-        Swet.request.post("/logout",{},function (res) {
+        Ap.request.post("/logout",{},function (res) {
             if(res.success){
                 window.location="/";
             }
         })
     }
     function delCart(id) {
-        Swet.request.del("/shop/cart/"+id,{},function (res) {
+        Ap.request.del("/shop/cart/"+id,{},function (res) {
             if (res.success) {
                 $(".div_cart_"+id).slideUp('fast',function(){
                     $(".div_cart_"+id).remove();
                     setAccount();
-                    Swet.msg.success("已从购物车中删除");
+                    Ap.msg.success("已从购物车中删除");
                 });
             }else{
-                Swet.msg.error("删除失败");
+                Ap.msg.error("删除失败");
             }
         });
     }
     function delWishList(id) {
-        Swet.request.del("/shop/wishlist/"+id,{},function (res) {
+        Ap.request.del("/shop/wishlist/"+id,{},function (res) {
             if (res.success) {
                 $(".div_wishlist_"+id).remove();
-                Swet.msg.success("已删除收藏");
+                Ap.msg.success("已删除收藏");
             }else{
-                Swet.msg.error("删除失败");
+                Ap.msg.error("删除失败");
             }
         });
     }
     function addWishList(goodsID) {
-        Swet.request.post("/shop/wishlist",{goodsID},function (res) {
+        Ap.request.post("/shop/wishlist",{goodsID},function (res) {
             if (res.success) {
-                Swet.msg.success("已收藏");
+                Ap.msg.success("已收藏");
             }else{
-                Swet.msg.error("收藏失败");
+                Ap.msg.error("收藏失败");
             }
         });
     }
     function addCart(goodsID,num,price) {
-        Swet.request.post("/shop/cart",{goodsID,num,price},function (res) {
+        Ap.request.post("/shop/cart",{goodsID,num,price},function (res) {
             if(res.success){
-                Swet.msg.success("已加入购物车");
+                Ap.msg.success("已加入购物车");
                 var goods=res.result[0];
                 var isNew=res.result[1];
                 if(isNew) {
@@ -391,7 +391,7 @@
                     setAccount();
                 }
             }else{
-                Swet.msg.error("加入购物车失败");
+                Ap.msg.error("加入购物车失败");
             }
         });
     }

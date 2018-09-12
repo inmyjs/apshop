@@ -19,7 +19,7 @@
         init: function(options) {
             var me=this;
             if(taget==null){
-                Swet.msg.error("列表容器错误");
+                Ap.msg.error("列表容器错误");
                 return null;
             }
             if (options) {
@@ -70,7 +70,7 @@
             var data = settings.params;
             data['page'] = page;
             data['limit'] = settings.limit;
-            Swet.request.get(settings.url,data,function (res) {
+            Ap.request.get(settings.url,data,function (res) {
                 //$("#waitbox").remove();
                 if(res.success){
                     if(page>1){
@@ -84,7 +84,7 @@
                         app.listData=res.result;
                     }
                 }else
-                    Swet.msg.error(res.msg);
+                    Ap.msg.error(res.msg);
             });
         },
         refreshData: function(params) {

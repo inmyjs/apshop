@@ -4,6 +4,13 @@
 -- 版本 V1.0.171101
 /*===============================================================*/
 
+-- ------------------------------------------------------------
+-- 初始化管理员信息
+-- ------------------------------------------------------------
+
+INSERT INTO `user` VALUES (
+10000000,'admin','Admin','A','0',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0','0','0',NULL,NULL,'0',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'0','0','\n2017-12-09 16:30:06  禁用\n2017-12-09 16:30:10  正常','2017-11-20 02:46:55','2017-12-12 19:19:18',NULL,9,'2017-12-12 19:19:18');
+INSERT INTO `userlogin` VALUES ('admin',10000000,'$2a$10$nrRFB0Y53DauFxVdrm1yk.preQ9KKgWGPUO33CXW6BRxyF7WRPbqG','$2a$10$nrRFB0Y53DauFxVdrm1yk.','0');
 
 -- ------------------------------------------------------------
 -- 初始化【简易词典表, 词典标题表: WordbookTitle, Wordbook】
@@ -135,3 +142,4 @@ INSERT INTO WordbookTitle(KeyWord, KeyWord_DESC) VALUES('LOGINLOG_TYPE', '登录
 INSERT INTO Wordbook(KeyWord,Word_Value,Word_Display,Sort_No) VALUES('LOGINLOG_TYPE','L','登录',10);
 INSERT INTO Wordbook(KeyWord,Word_Value,Word_Display,Sort_No) VALUES('LOGINLOG_TYPE','Q','退出',20);
 INSERT INTO Wordbook(KeyWord,Word_Value,Word_Display,Sort_No) VALUES('LOGINLOG_TYPE','P','重要行为',30);
+

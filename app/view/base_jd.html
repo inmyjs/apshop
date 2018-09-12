@@ -101,7 +101,7 @@
 </div>
 <script>
     function logout() {
-        Swet.request.post("/logout",{},function (res) {
+        Ap.request.post("/logout",{},function (res) {
             if(res.success){
                 window.location.href="/";
             }

@@ -86,14 +86,14 @@
             debug:true,
             submitHandler: function(form)
             {
-                Swet.loading.start();
+                Ap.loading.start();
                 var encrypt = new JSEncrypt();
                 encrypt.setPublicKey(public_key);
                 var json={username:app.username,password:app.password,rememberMe:app.rememberMe};
                 var data=JSON.stringify(json);
                 var encrpted = encrypt.encrypt(data);
-                Swet.request.post('/login',{content:encrpted},function (res) {
-                    Swet.loading.end();
+                Ap.request.post('/login',{content:encrpted},function (res) {
+                    Ap.loading.end();
                         if(res.success){
                         window.location.href='/';
                     }else{

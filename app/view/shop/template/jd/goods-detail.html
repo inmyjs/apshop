@@ -154,7 +154,7 @@
         var goodsID=dom.attr('data-goodsID');
         var num=1;
         var price=dom.attr('data-price');
-        Swet.request.post("/shop/cart",{goodsID,num,price},function (res) {
+        Ap.request.post("/shop/cart",{goodsID,num,price},function (res) {
             if(res.success){
                 $('#span_cartNum').html(parseInt($('#span_cartNum').html())+1);
                 $.msgbox({
@@ -175,7 +175,7 @@
         var goodsID=dom.attr('data-goodsID');
         var num=1;
         var price=dom.attr('data-price');
-        Swet.request.post("/shop/cart",{goodsID,num,price},function (res) {
+        Ap.request.post("/shop/cart",{goodsID,num,price},function (res) {
             if(res.success){
                 $('#span_cartNum').html(parseInt($('#span_cartNum').html())+1);
                 window.location.href="/shop/cart";

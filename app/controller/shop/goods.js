@@ -35,7 +35,7 @@ module.exports = app => {
                 }
             });
             data.shopGoods=shopGoods;
-            const shopHotGoods = await ctx.model.query("SELECT async FROM `shop_goods` where goodsID in (SELECT goodsID FROM shop_hot_goods)", { type: ctx.model.QueryTypes.SELECT});
+            const shopHotGoods = await ctx.model.query("SELECT * FROM `shop_goods` where goodsID in (SELECT goodsID FROM shop_hot_goods)", { type: ctx.model.QueryTypes.SELECT});
             data.shopHotGoods=shopHotGoods;
             await this.ctx.render('shop/template/'+app.config.viewTemplate+'/search', data);
         }

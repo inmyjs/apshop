@@ -22,11 +22,11 @@ $.ajaxSetup({
     }
 });
 
-var Swet={};
+var Ap={};
 /**
  * 封装ajax请求
  */
-Swet.request={
+Ap.request={
     ajax:function(url,data,type,successCallback,errorCallback,contentType){
         data = (data==null || data=="" || typeof(data)=="undefined")? {"date": new Date().getTime()} : data;
         var ajax = {
@@ -38,14 +38,14 @@ Swet.request={
                 if(jQuery.isFunction(successCallback))
                     successCallback(result);
                 else if("GET"!=type){
-                   Swet.msg.success(result.msg);
+                   Ap.msg.success(result.msg);
                 }
 
             },
             error: function (XMLHttpRequest,msg,exception) {
-                Swet.loading.end();
+                Ap.loading.end();
                 if(XMLHttpRequest.responseText=="AccessDenied"){
-                    Swet.msg.confirm("登录方可操作，快去登录吧！",function (res) {
+                    Ap.msg.confirm("登录方可操作，快去登录吧！",function (res) {
                         if(res)window.location="/login";
                     });
                     return;
@@ -53,7 +53,7 @@ Swet.request={
                 if(jQuery.isFunction(errorCallback))
                     errorCallback(XMLHttpRequest,msg,exception);
                 else{
-                    Swet.msg.error(exception);
+                    Ap.msg.error(exception);
                 }
             }
         };
@@ -93,7 +93,7 @@ alertify.set({
     buttonReverse : false,
     buttonFocus  : "ok"
 });
-Swet.msg={
+Ap.msg={
     alert:function (msg,fn) {
         alertify.alert(msg,fn);
     },
@@ -113,9 +113,9 @@ Swet.msg={
 
 /**
  * 统一进度条
- * @type {{start: Swet.loading.start, end: Swet.loading.end}}
+ * @type {{start: Ap.loading.start, end: Ap.loading.end}}
  */
-Swet.loading={
+Ap.loading={
     /**
      * 打开数据加载进度框
      */
@@ -133,7 +133,7 @@ Swet.loading={
  * 基础工具类
  * @type
  */
-Swet.util={
+Ap.util={
     subDropdown:function (obj) {
         $(obj).toggleClass('plus');
         $(obj).toggleClass('minus');

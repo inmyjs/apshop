@@ -310,7 +310,7 @@
              //删除
              $('.goods .del').on('click',function () {
                  var self=$(this), shop = self.parents('tbody').prev('tbody'), gbox = self.parents('tbody');
-                 Swet.request.del("/shop/cart/"+self.attr('id'),{},function (res) {
+                 Ap.request.del("/shop/cart/"+self.attr('id'),{},function (res) {
                      if (res.success) {
                          self.parents('.goods').remove();
                          var len = gbox.find('.goods').length;

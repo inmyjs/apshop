@@ -112,17 +112,17 @@
     function getList(me,parentId) {
         var lis=$('#ul_'+parentId).children();
         if(lis.length>0){
-            Swet.util.subDropdown(me);
+            Ap.util.subDropdown(me);
             return;
         }
-        Swet.request.get('/shop/blogClass',{parentId,blogType:'A'},function (res) {
+        Ap.request.get('/shop/blogClass',{parentId,blogType:'A'},function (res) {
             if(res.success){
                 for(var blogClass of res.result){
                     $('#ul_'+parentId).append(li_html(blogClass));
                 }
-                Swet.util.subDropdown(me);
+                Ap.util.subDropdown(me);
             }else{
-                Swet.msg.error(res.msg);
+                Ap.msg.error(res.msg);
             }
         });
     }
@@ -131,7 +131,7 @@
         getArticle(blogClassID);
     }
     function getArticle(blogClassID) {
-        Swet.request.get('/shop/blog/get',{blogClassID},function (res) {
+        Ap.request.get('/shop/blog/get',{blogClassID},function (res) {
             if(res.success){
                 $('#blog_title').html(res.result.title);
                 $('#blog_createTime').html(moment(res.result.createTime).format('D MMM YYYY'));
@@ -139,7 +139,7 @@
                 $('#blog_cover_a').attr('href',res.result.coverImg);
                 $('#blog_cover_img').attr('src',res.result.coverImg);
             }else{
-                Swet.msg.error(res.msg);
+                Ap.msg.error(res.msg);
             }
         });
     }

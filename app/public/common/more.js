@@ -67,12 +67,12 @@
             var counter = data.length;
             if (counter == 0) {
                 if (variables.page == 0)
-                    root.append(Swet.util.renderTemplate(settings.emptyTemplate, this));
+                    root.append(Ap.util.renderTemplate(settings.emptyTemplate, this));
                 else
                     root.append("<div id='load_more'><p>----------到底啦----------</p></div>");
             } else {
                 $(data).each(function () {
-                    root.append(Swet.util.renderTemplate(settings.template, this));
+                    root.append(Ap.util.renderTemplate(settings.template, this));
                 });
                 root.append("<div id='load_more'><p>----------下滑加载更多----------</p></div>");
                 variables.page++;
@@ -91,7 +91,7 @@
             var postdata = settings.data;
             postdata['page'] = variables.page;
             postdata['limit'] = ile;
-            Swet.request.get(settings.url, postdata, function(res) {
+            Ap.request.get(settings.url, postdata, function(res) {
                 if(res.success){
                     lock = false;
                     $("#waitbox").remove();
@@ -99,7 +99,7 @@
                     methods.add_elements(res.result);
 
                 }else
-                    Swet.msg.error(res.msg);
+                    Ap.msg.error(res.msg);
             });
         }
     };

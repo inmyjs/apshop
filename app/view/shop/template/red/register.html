@@ -116,23 +116,23 @@
             submitHandler: function(form)
             {
                 if(!app.remember){
-                    Swet.msg.error("请勾选使用协议");
+                    Ap.msg.error("请勾选使用协议");
                     return;
                 }
-                Swet.loading.start();
+                Ap.loading.start();
                 var encrypt = new JSEncrypt();
                 encrypt.setPublicKey(public_key);
                 var json={username:app.username,password:app.password};
                 var data=JSON.stringify(json);
                 var encrpted = encrypt.encrypt(data);
-                Swet.request.post('/signIn',{content:encrpted,nickname:app.nickname,code:app.code},function (res) {
-                    Swet.loading.end();
+                Ap.request.post('/signIn',{content:encrpted,nickname:app.nickname,code:app.code},function (res) {
+                    Ap.loading.end();
                     if(res.success){
-                        Swet.msg.alert("注册成功,赶快去登录吧!",function () {
+                        Ap.msg.alert("注册成功,赶快去登录吧!",function () {
                             window.location='/login';
                         })
                     }else{
-                        Swet.msg.error(res.msg);
+                        Ap.msg.error(res.msg);
                     }
                 });
             }

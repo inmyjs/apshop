@@ -128,9 +128,9 @@
         $("#form_valid").validate({
             debug: true,
             submitHandler: function (form) {
-                Swet.request.post('/email/send', {act:"forget",email: app.email,code:app.code}, function (res) {
+                Ap.request.post('/email/send', {act:"forget",email: app.email,code:app.code}, function (res) {
                     if (res.success) {
-                        Swet.msg.alert("邮件已发送，验证后即可重置密码",function () {
+                        Ap.msg.alert("邮件已发送，验证后即可重置密码",function () {
                             countdown(60);
                             btn.attr("disabled", true);
                             btn.addClass("style-valid");
@@ -138,7 +138,7 @@
                             app.code="";
                         });
                     } else {
-                        Swet.msg.error(res.msg);
+                        Ap.msg.error(res.msg);
                     }
                 });
             }
@@ -146,23 +146,23 @@
         $("#form_pass").validate({
             debug: true,
             submitHandler: function (form) {
-                //Swet.loading.start();
+                //Ap.loading.start();
                 var encrypt = new JSEncrypt();
                 encrypt.setPublicKey(public_key);
                 var json = {email: app2.email,password:app2.password};
                 var data = JSON.stringify(json);
                 var encrpted = encrypt.encrypt(data);
                 if(!encrpted){
-                    Swet.msg.error("encrpted is error");
+                    Ap.msg.error("encrpted is error");
                 }else {
-                    Swet.request.post('/reset', {content: encrpted,act:"F",token:"{{token}}"}, function (res) {
-                        //Swet.loading.end();
+                    Ap.request.post('/reset', {content: encrpted,act:"F",token:"{{token}}"}, function (res) {
+                        //Ap.loading.end();
                         if (res.success) {
-                            Swet.msg.alert("密码修改成功，快去登录吧", function () {
+                            Ap.msg.alert("密码修改成功，快去登录吧", function () {
                                 window.location = "/login";
                             });
                         } else {
-                            Swet.msg.error(res.msg);
+                            Ap.msg.error(res.msg);
                         }
                     });
                 }

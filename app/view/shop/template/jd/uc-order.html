@@ -140,7 +140,7 @@ function cancelOrder(billNo) {
         content: '您确认取消该订单吗？',
         onClose: function(){
             if(this.val()){
-                Swet.request.post("/shop/cancelOrder/"+billNo,{},function (res) {
+                Ap.request.post("/shop/cancelOrder/"+billNo,{},function (res) {
                     if(res.success){
                         $("#"+billNo+"_status").html("已取消");
                         $("#"+billNo+"_td").empty();

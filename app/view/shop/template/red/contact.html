@@ -99,15 +99,15 @@
         $("#form_contact").validate({
             debug: true,
             submitHandler: function (form) {
-                //Swet.loading.start();
+                //Ap.loading.start();
                 var json = {name: app.name, email: app.email, title: app.title, content: app.content};
-                Swet.request.post('/shop/contact', json, function (res) {
-                    //Swet.loading.end();
+                Ap.request.post('/shop/contact', json, function (res) {
+                    //Ap.loading.end();
                     if (res.success) {
                         form.reset();
-                        Swet.msg.success(res.msg);
+                        Ap.msg.success(res.msg);
                     } else {
-                        Swet.msg.error(res.msg);
+                        Ap.msg.error(res.msg);
                     }
                 });
             }
