@@ -17,7 +17,7 @@
 
 ### 未实现功能
 1. 广告位
-2. 支付
+2. 支付（目前仅实现的是通过支付宝转账，用了一个开源项目AlipayOrdersSupervisor来监控支付宝转账订单）
 3. 文章管理
 4. 订单管理
 5. 商品分类
@@ -45,3 +45,8 @@
 ![](https://raw.githubusercontent.com/wiki/inmyjs/apshop/images/15.png)
 ![](https://raw.githubusercontent.com/wiki/inmyjs/apshop/images/16.png)
 ![](https://raw.githubusercontent.com/wiki/inmyjs/apshop/images/17.png)
+
+### 非常感谢您的支持
+撸码不易，如果对你有所帮助，欢迎您的赞赏！微信赞赏码：
+
+![](https://raw.githubusercontent.com/wiki/inmyjs/asweb/images/20180831154543.jpg)
