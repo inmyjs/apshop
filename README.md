@@ -15,8 +15,6 @@
 1. 商品管理
 2. 客户管理
 
-后端源码：https://github.com/inmyjs/apshop_admin
-
 ### 未实现功能
 1. 广告位
 2. 支付（目前仅实现的是通过支付宝转账，用了一个开源项目AlipayOrdersSupervisor来监控支付宝转账订单）
@@ -47,6 +45,9 @@
 ![](https://raw.githubusercontent.com/wiki/inmyjs/apshop/images/15.png)
 ![](https://raw.githubusercontent.com/wiki/inmyjs/apshop/images/16.png)
 ![](https://raw.githubusercontent.com/wiki/inmyjs/apshop/images/17.png)
+
+安装见：https://github.com/inmyjs/apshop/wiki/Install
+后端源码：https://github.com/inmyjs/apshop_admin
 
 ### 非常感谢您的支持
 撸码不易，如果对你有所帮助，欢迎您的赞赏！微信赞赏码：
