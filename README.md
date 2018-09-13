@@ -15,6 +15,8 @@
 1. 商品管理
 2. 客户管理
 
+后端源码：https://github.com/inmyjs/apshop_admin
+
 ### 未实现功能
 1. 广告位
 2. 支付（目前仅实现的是通过支付宝转账，用了一个开源项目AlipayOrdersSupervisor来监控支付宝转账订单）
