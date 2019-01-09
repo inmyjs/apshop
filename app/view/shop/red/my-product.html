@@ -1,0 +1,85 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-我的仓库</title>
+
+<style>
+    .status {
+        color: white;
+        padding: 5px 15px;
+
+    }
+    .finish_status{
+        background-color: green;
+        cursor: default;
+    }
+    .cancel_status {
+        background-color: grey;
+        cursor: default;
+    }
+
+</style>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block body %}
+<div id="main-container" class="no-header-top">
+  <div class="page-top-leader omega">
+    <div class="container_12 relatived clearfix">
+      <h1 class="page-title">我的仓库</h1>
+      <div class="breadcrumb">
+        <span class="br_before">当前位置:</span>
+        <a href="/">首页</a>
+        <span class="br_sep">/</span>
+        <span class="cur_link">我的仓库</span>
+      </div>
+    </div>
+  </div><!-- .page-top-leader -->
+  <div class="container_12 aside-container">
+    <div class="grid_9">
+      <div class="wishlist-info">
+        <table>
+          <thead>
+          <tr>
+            <td>封面</td>
+            <td>产品名称</td>
+            <td>类型</td>
+            <td>操作</td>
+          </tr>
+          </thead>
+          <tbody>
+          {% for good in goods %}
+          <tr>
+            <td><a href="/shop/goods/{{good.goodsID}}" target="_blank" title="{{good.name}}"><img  src="{{good.imgurl}}" alt=""></a></td>
+            <td>{{good.name}}</td>
+            <td>{% if good.goodsType=="T" %}主题{% elif good.goodsType=="C" %}组件{% endif %}</td>
+            <td><a href="/file/download" class="style-button">下载</a>
+            <a target="_blank" href="/shop/blog/detail?blogType=A" class="style-button">使用文档</a></td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div><!-- .wishlist-info -->
+    </div>
+    <div id="column-left" style="padding-top: 0px;" class="grid_3 aside omega">
+      <div class="box">
+        <div class="box-heading">账户管理</div>
+        <div class="box-content">
+          <div class="box-category">
+            <ul>
+                <li><a  href="/shop/uc">我的账户</a></li>
+                <li><a href="/shop/wishlist">收藏夹</a></li>
+                <li><a class="active" href="/shop/myProduct">我的仓库</a></li>
+                <li><a  href="/shop/order">我的订单</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div><!--end #column-left -->
+  </div><!-- end .container_12 -->
+   </div><!-- end #main-container -->
+<script>
+    function queryOrder(billStatus) {
+        
+    }
+</script>
+{% endblock %}

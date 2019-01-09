@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="zh"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="zh"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="zh"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="zh"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="天启商城安装">
+    <meta name="author" content="Inmyjs">
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/public/red/css/reset.css" media="screen">
+    <link rel="stylesheet" href="/public/red/css/text.css" media="screen">
+    <link href='/public/red/css/font.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/public/red/css/prettyPhoto.css" media="screen">
+    <link rel="stylesheet" href="/public/red/css/jquery.jqzoom.css" media="screen">
+    <link rel="stylesheet" href="/public/red/css/icons/icons.css" media="screen">
+    <link rel="stylesheet" href="/public/red/css/custom.css" media="screen">
+    <link rel="stylesheet" href="/public/red/css/responsive.css" media="screen">
+    <link id="custom-style" rel="stylesheet" href="/public/red/css/styles/red.css" media="screen">
+
+    <link rel="stylesheet" href="/public/jd/css/iconfont/iconfont.css">
+    <!-- JAVASCRIPT
+    ================================================== -->
+    <script src="/public/red/js/jquery-1.7.1.min.js"></script>
+    <script src="/public/red/js/jquery.easing.1.3.js"></script>
+    <script src="/public/red/js/jquery-ui-1.10.3.min.js"></script>
+
+    <!-- revolution slider JS files -->
+    <script src="/public/red/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+    <script src="/public/red/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+    <script src="/public/red/js/jquery.flexslider.js"></script>
+    <script src="/public/red/js/idangerous.swiper-1.9.min.js"></script>
+    <script src="/public/red/js/jquery.sharrre-1.3.4.min.js"></script>
+    <script src="/public/red/js/kenburns.js"></script>
+    <script src="/public/red/js/twitter/jquery.tweet.js"></script>
+    <script src="/public/red/js/jquery.fitvids.min.js"></script>
+    <script src="/public/red/js/jquery.jqzoom-core-pack.js"></script>
+    <script src="/public/red/js/jquery.prettyPopin.js"></script>
+    <script src="/public/red/js/jquery.prettyPhoto.js"></script>
+    <script src="/public/red/js/jquery.cookies.js"></script>
+    <script src="/public/red/js/custom.js"></script>
+
+    <!-- include alertify.css -->
+    <link rel="stylesheet" href="/public/common/alertify_old/alertify.core.css">
+    <link rel="stylesheet" href="/public/common/alertify_old/default.css">
+    <style>
+        .alertify-logs {
+            top: 50px;
+        }
+    </style>
+    <script src="/public/common/alertify_old/alertify.min.js"></script>
+
+    <!-- Common JS files -->
+    <link rel="stylesheet" href="/public/common/loading/shape.css">
+    <script src="/public/common/ap.js"></script>
+    <script src="/public/common/moment.min.js"></script>
+    <script src="/public/common/vue.v2.5.2.js"></script>
+    <script>
+        Vue.options.delimiters = ['${', '}'];
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="/public/red/js/html5.min.js"></script>
+    <script src="/public/red/js/ie9.min.js"></script>
+    <link rel="stylesheet" href="/public/red/css/font-awesome-ie7.min.css">
+    <![endif]-->
+
+    {% block title %}
+    <title>天启皮肤商城</title>
+    {% endblock %}
+</head>
+<body>
+<div class='ap-loading loader-shade'>
+</div>
+<div class="ap-loading loader">
+    <p id="ap_loading_title"></p>
+</div>
+<div id="wrapper">
+    <div id="demo-panel">
+        <span aria-hidden="true" data-icon="&#xe01c;" class="panle-toggle icomoon"></span>
+        <h5>选择一种颜色吧</h5>
+        <div class="style-preview yellow-box" data-style="yellow"></div>
+        <div class="style-preview red-box" data-style="red"></div>
+        <div class="style-preview blue-box" data-style="blue"></div>
+        <div class="style-preview rose-box" data-style="rose"></div>
+        <div class="style-preview green-box" data-style="green"></div>
+        <div class="style-preview brown-box" data-style="brown"></div>
+        <div class="style-preview deep-blue-box" data-style="deep-blue"></div>
+        <div class="style-preview orange-box" data-style="orange"></div>
+        <h5>局部定制</h5>
+        <p>选择区域,更换背景</p>
+        <select name="pattren-for" style="width: 150px;" id="pattren-for">
+            <option value="body">整体</option>
+            <option value="header">导航</option>
+            <option value="#top-wrapper">顶部</option>
+            <option value="#main-container">内容</option>
+            <option value="footer">底部</option>
+        </select>
+        <div class="pattern-preview p1"></div>
+        <div class="pattern-preview p2"></div>
+        <div class="pattern-preview p3"></div>
+        <div class="pattern-preview p4"></div>
+        <div class="pattern-preview p5"></div>
+        <div class="pattern-preview p6"></div>
+        <div class="pattern-preview p7"></div>
+        <div class="pattern-preview p8"></div>
+        <div class="pattern-preview p9"></div>
+        <div class="pattern-preview p10"></div>
+        <div class="pattern-preview p11"></div>
+        <div class="pattern-preview p12"></div>
+        <div class="pattern-preview p13"></div>
+        <div class="pattern-preview p14"></div>
+        <div class="pattern-preview p15"></div>
+        <div class="pattern-preview p16"></div>
+        <div class="pattern-preview p17"></div>
+        <div class="pattern-preview p18"></div>
+        <div class="pattern-preview p19"></div>
+        <div class="pattern-preview p20"></div>
+        <div class="pattern-preview p21"></div>
+        <div class="pattern-preview p22"></div>
+        <div class="pattern-preview p23"></div>
+        <div class="pattern-preview p24"></div>
+        <div class="pattern-preview p25"></div>
+        <div class="pattern-preview p26"></div>
+        <div class="pattern-preview p27"></div>
+        <div class="pattern-preview p28"></div>
+        <div class="pattern-preview p29"></div>
+        <div class="pattern-preview p30"></div>
+        <div class="pattern-preview p31"></div>
+        <div class="pattern-preview p32"></div>
+    </div>
+    <span aria-hidden="true" data-icon="&#xe010;" class="gotoTop icomoon"></span>
+    {% block head %}
+    <div class="top-nav">
+        <!--<span aria-hidden="true" data-icon="&#xe001;" class="slide-toggle icomoon"></span>-->
+        <div id="top-wrapper">
+        <div class="container_12">
+            <div class="top-select-buttons grid_2">
+                <div id="language" class="top-icon">
+                    <form action="#" method="get">
+                        <div class="top-select-menu">
+                            <div>
+                                <a class="active_option" title="中文"><img width="18" height="12" src="/public/red/images/icons/zh-flag.png" alt="chinese"/></a>
+                            </div>
+                            <i class="icomoon" aria-hidden="true" data-icon="&#xe00f;"></i>
+                        </div>
+                    </form>
+                </div><!-- end #language -->
+                <div  class="top-icon">
+                   <!-- <form action="#" method="get">
+                        <div class="top-select-menu">
+                            <div>
+                                <a class="active_option" title="人民币">￥</a>
+                            </div>
+                            <i class="icomoon" aria-hidden="true" data-icon="&#xe00f;"></i>
+                        </div>
+                    </form>-->
+                    <a style="color:#cacaca;" href="/">首页</a>
+                </div><!-- end #currency -->
+            </div>
+            <div class="grid_7 account-links">
+                {% if uid %}
+                <a href="/shop/uc"><i class="icomoon" aria-hidden="true" data-icon="&#x2191;"></i>欢迎您, {{nickname}}</a>
+                <a href="javascript:void(0) " onclick="logout()"><i class="icomoon" aria-hidden="true" data-icon="&#x2617;"></i>退出</a>
+                <a href="/shop/order"><i class="ico iconfont icon-dianpu" ></i>我的订单</a>
+                {% else %}
+                <a href="/login"><i class="icomoon" aria-hidden="true" data-icon="&#x2617;"></i>登录</a>
+                {% endif %}
+            </div>
+            {% if uid %}
+            <div class="grid_3 mini-cart clearfix omega">
+                <div class="click-trigger">
+                    <span class="cart-top"><i class="cart-top-icon icomoon" aria-hidden="true" data-icon="&#x25e0;"></i>
+                    </span>
+                    <a class="checkout-icon right icomoon" onclick="checkout()" aria-hidden="true" data-icon="&#xe014;" href="javascript:void(0);"></a>
+                    <div class="cart-data">购物车 (<span class="cart_num">{{cartCount}}</span>) 件</div>
+                    <div class="cart-dropdown hidden_box">
+                        <div id="cart-list">
+                            {% for goods in cart %}
+                            <div class="mini-product div_cart_{{goods.id}}">
+                                <div class="product-meta">
+                                    <a href="/shop/goods/{{goods.goodsID}}" target="_blank">
+                                        <img width="55" height="50" src="{{goods.imgurl}}" alt="placeholder" />
+                                        {{goods.name}}
+                                        <span>{{goods.num}} x ￥{{goods.price}}</span>
+                                    </a>
+                                    <span class="price" data-price="{{goods.num*goods.price}}">￥{{goods.num*goods.price}}</span>
+                                </div>
+                                <div class="action">
+                                    <a href="javascript:void(0);" onclick="delCart('{{goods.id}}')" class="top-cart icomoon" aria-hidden="true" data-icon="&#xe004;"></a>
+                                </div>
+                            </div><!-- mini-product -->
+                            {% endfor %}
+                            <table class="mini-cart-total">
+                                <tbody>
+                                <tr>
+                                    <td class="left"><span>小计: </span></td>
+                                    <td class="right"><span class="cart_xj">￥0.00</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="left"><span>优惠: </span></td>
+                                    <td class="right"><span>￥0.00</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="left"><span>总计: </span></td>
+                                    <td class="right"><span class="total cart_total">￥0.00</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- end .cart-list -->
+                        <div class="checkout clearfix">
+                            <a class="cart left" href="/shop/cart"><i class="icomoon" aria-hidden="true" data-icon="&#x25e0;"></i>查看购物车</a>
+                            <a class="check right"  onclick="checkout()" href="javascript:void(0);">去结算<i class="icomoon" aria-hidden="true" data-icon="&#xe014;"></i></a>
+                        </div>
+                    </div>
+                </div><!-- end .mini-cart -->
+            </div>
+            {% endif %}
+        </div><!-- end .container_12 -->
+    </div><!-- end #top-wrapper -->
+    </div>
+    {% endblock %}
+    {% block nav %}
+    <header>
+        <div class="container_12 header-inner relatived">
+            <div id="logo" class="grid_3">
+                <a href="/"><img src="/public/red/images/logo.png" alt="olympia-logo" /></a>
+            </div>
+            <nav class="grid_8 right omega">
+                <div class="mobile-menu-trigger"><span class="icomoon mobile-icon-menu" aria-hidden="true">&#xe008;</span><a class="menu-label">选择一个页面</a></div>
+                <ul class="primary-nav">
+                    <li><a {% if active_page=='1' %}class="active-page" {% endif %} href="/">首页</a></li>
+                    <li><a {% if active_page=='2' %}class="active-page" {% endif %} href="/shop/dz">定制服务</a></li>
+                    <li><a {% if active_page=='3' %}class="active-page" {% endif %} href="/shop/contact">联系我们</a></li>
+                    <li class="search-wrapper">
+                        <a href="#" aria-hidden="true" data-icon="&#x2610;" class="search-popup-trigger icomoon"></a>
+                        <div id="top-search-wrapper">
+                            <div class="relatived">
+                                <form action="/shop/get">
+                                    <input aria-hidden="true" type="submit" value="&#x2610;" id="search" class="search-button icomoon">
+                                    <input type="text" name="search" placeholder="search..."/>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div><!-- container_12 -->
+    </header>
+    {% endblock %}
+    {% block body %}
+
+    {% endblock %}
+    {% block foot %}
+    <div class="base-info">
+        <div class="container_12">
+            <div class="info-block grid_4">
+                <span class="icomoon" aria-hidden="true" data-icon="&#xe078;"></span>
+                <div class="base-info-data">
+                    <h4>精美主题</h4>
+                    <span>总有您中意的特效</span>
+                </div>
+            </div>
+            <div class="info-block grid_4">
+                <span class="icomoon" aria-hidden="true" data-icon="&#x25df;"></span>
+                <div class="base-info-data">
+                    <h4>华丽组件 </h4>
+                    <span>无所不能</span>
+                </div>
+            </div>
+            <div class="info-block grid_4 omega">
+                <span class="icomoon" aria-hidden="true" data-icon="&#xe06a;"></span>
+                <div class="base-info-data">
+                    <h4>专业定制</h4>
+                    <span>没有做不到,只有想不到 </span>
+                </div>
+            </div>
+        </div>
+    </div><!-- end .base-info -->
+    <footer>
+        <span class="style-border"></span>
+        <div class="container_12">
+            <div class="grid_6 widget-box">
+                <div class="box-heading">
+                    <h4>使用手册</h4>
+                </div>
+                <ul class="list-links">
+                    <li><a href="#">如何使用主题</a></li>
+                    <li><a href="#">组件使用方法</a></li>
+                </ul>
+            </div>
+            <div class="grid_6 widget-box omega">
+                <div class="box-heading">
+                    <h4>联系我们</h4>
+                </div>
+                <ul class="contact-info">
+                    <li><i class="icomoon" aria-hidden="true" data-icon="&#x25df;"></i><span>15555535455</span></li>
+                    <li><i class="icomoon" aria-hidden="true" data-icon="&#x21b4;"></i><span>sales@yourstore.com</span></li>
+                    <li><i class="icomoon" aria-hidden="true" data-icon="&#xe007;"></i><span>云南省昆明市科光路8号 天启工作室</span></li>
+                </ul>
+            </div>
+            <div class="footer-base">
+                <div class="grid_6 copyright">
+                    <p>天启皮肤商城  <a href="">备案号：</a>CopyRight © 2018</p>
+                </div>
+                <div class="grid_6 payments omega">
+                    <ul>
+                        <li><a href="#"><img src="/public/red/images/payments/american-express.png" alt="american-express"></a></li>
+                        <li><a href="#"><img src="/public/red/images/payments/amex.png" alt="amex"></a></li>
+                    </ul>
+                </div>
+            </div><!--end .footer-base -->
+        </div><!-- end .container_12 -->
+    </footer>
+    {% endblock %}
+</div><!-- end #wrapper This wrapper cover all the website-->
+<script>
+    let cartCount="{{cartCount}}";
+    function checkout() {
+        if(cartCount<=0)
+            InmyjsKit.msg.warning("购物车还是空的")
+        else{
+            window.location="/shop/checkout";
+        }
+    }
+    function logout() {
+        InmyjsKit.request.post("/logout",{},function (res) {
+            if(res.success){
+                window.location="/";
+            }
+        })
+    }
+    function delCart(id) {
+        InmyjsKit.request.del("/shop/cart/"+id,{},function (res) {
+            if (res.success) {
+                $(".div_cart_"+id).slideUp('fast',function(){
+                    $(".div_cart_"+id).remove();
+                    setAccount();
+                    InmyjsKit.msg.success("已从购物车中删除");
+                });
+            }else{
+                InmyjsKit.msg.error("删除失败");
+            }
+        });
+    }
+    function delWishList(id) {
+        InmyjsKit.request.del("/shop/wishlist/"+id,{},function (res) {
+            if (res.success) {
+                $(".div_wishlist_"+id).remove();
+                InmyjsKit.msg.success("已删除收藏");
+            }else{
+                InmyjsKit.msg.error("删除失败");
+            }
+        });
+    }
+    function addWishList(goodsID) {
+        InmyjsKit.request.post("/shop/wishlist",{goodsID},function (res) {
+            if (res.success) {
+                InmyjsKit.msg.success("已收藏");
+            }else{
+                InmyjsKit.msg.error("收藏失败");
+            }
+        });
+    }
+    function addCart(goodsID,num,price) {
+        InmyjsKit.request.post("/shop/cart",{goodsID,num,price},function (res) {
+            if(res.success){
+                InmyjsKit.msg.success("已加入购物车");
+                let goods=res.result[0];
+                let isNew=res.result[1];
+                if(isNew) {
+                    let dom = '<div class="mini-product div_cart_' + goods.id + '">\n' +
+                        '<div class="product-meta">\n' +
+                        '<a href="/shop/goods/' + goods.goodsID + '">\n' +
+                        '<img width="55" height="50" src="' + goods.imgurl + '" alt="placeholder" />\n' +
+                        '' + goods.name + '\n' +
+                        '<span>' + goods.num + ' x ￥' + goods.price + '</span>\n' +
+                        '</a>\n' +
+                        '<span class="price" data-price="' + goods.num * goods.price + '">￥' + goods.num * goods.price + '</span>\n' +
+                        '</div>\n' +
+                        '<div class="action">\n' +
+                        '<a href="javascript:void(0);" onclick="delCart(\'' + goods.id + '\')" class="top-cart icomoon" aria-hidden="true" data-icon="&#xe004;"></a>\n' +
+                        '</div>\n' +
+                        '</div>';
+                    $('#cart-list').prepend(dom);
+                    setAccount();
+                }
+            }else{
+                InmyjsKit.msg.error("加入购物车失败");
+            }
+        });
+    }
+    function sum() {
+        let account=new Number(0.00);
+        let nums=0;
+        $('#cart-list .price').each(function () {
+            let price=new Number($(this).data('price'));
+            account+=price;
+            nums++;
+        });
+        return {nums,account:account.toFixed(2)};
+    }
+    function setAccount() {
+        let {nums,account}=sum();
+        $('.cart_xj').text('￥'+account);
+        $('.cart_total').text('￥'+account);
+        $('.cart_num').text(nums);
+        cartCount=nums;
+    }
+    $(function() {
+        setAccount();
+        //首先获取导航栏距离浏览器顶部的高度
+        /*let top = $('#top-wrapper').offset().top;
+        //开始监控滚动栏scroll
+        $(document).scroll(function () {
+            //获取当前滚动栏scroll的高度并赋值
+            let scrTop = $(window).scrollTop();
+            //开始判断如果导航栏距离顶部的高度等于当前滚动栏的高度则开启悬浮
+            if (scrTop > top) {
+                $('#top-wrapper').animate({'opacity': '0.9'});
+            } else {
+                //否则清空悬浮
+                $('#top-wrapper').animate({'opacity': '1'});
+            }
+        });*/
+    });
+</script>
+</body>
+</html>

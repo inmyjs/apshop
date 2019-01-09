@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>确认订单</title>
+
+    <link href="/public/css/cart.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/public/js/icheck/style.css"/>
+<script src="/public/js/icheck/icheck.min.js"></script>
+<script src="/public/js/layer/layer.js"></script>
+<style>
+    body {
+        background-color: #f4f4f4;
+    }
+</style>
+{% endblock %}
+{% block body %}
+        <div class="cart-header wrapper">
+            <div class="logo">
+                <a href="index.html"><img src="/public/img/logo.png" alt="logo" /></a>
+            </div>
+            <div class="step-box">
+                <div class="row">
+                    <div class="step first active col-3">
+                        <span class="num">1</span><span class="line"></span><span class="label">我的购物车</span>
+                    </div>
+                    <div class="step active col-3">
+                        <span class="num">2</span><span class="line"></span><span class="label">确认订单信息</span>
+                    </div>
+                    <div class="step col-3">
+                        <span class="num">3</span><span class="line"></span><span class="label">选择支付方式</span>
+                    </div>
+                    <div class="step last col-3">
+                        <span class="num">4</span><span class="line"></span><span class="label">完成付款</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--头部-->
+
+    <div class="wrapper confirm-wrap" id="div_order">
+        <div class="confirm-tit">
+           <span class="tit">确认商品信息:</span><div class="right"><a class="back" href="/shop/cart">返回购物车></a></div>
+        </div>
+        <div class="confirm-goods">
+            <div class="confirm-goods-hd clearfix">
+                <div class="col col1">主题</div>
+                <div class="col col2">单价（元）</div>
+                <div class="col col3">数量</div>
+                <div class="col col4">小计（元）</div>
+            </div>
+            {% for goods in cart %}
+            <div class="confirm-goods-bd">
+                <div class="goods clearfix">
+                    <div class="col col1">
+                        <img src="{{goods.imgurl}}" alt="">
+                        <div class="info">
+                            <div class="name">{{goods.title}}</div>
+                            <div class="meta"><span>亮丽</span></div>
+                        </div>
+                    </div>
+                    <div class="col col2">￥{{goods.price}}</div>
+                    <div class="col col3">{{goods.num}}</div>
+                    <div class="col col4">￥{{goods.price*goods.num}}</div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="confirm-goods-ft clearfix">
+                <div class="fl"><span class="vm-ib">买家留言： </span><textarea class="ui-txtin" style="width: 410px;" name="" placeholder="在此输入给我们留言"></textarea></div>
+                <div class="fr">合计: ¥ {{sumPrice}}</div>
+            </div>
+        </div>
+         <div class="confirm-total">
+            <div class="box">
+                <div class="item">应付总额：<strong id="pay_price"> ¥ {{sumPrice}}</strong></div>
+                <a class="ui-btn-theme go-charge" href="javascript:void(0)" onclick="addOrder()">去结算</a>
+            </div>
+        </div>
+    </div>
+
+    <!--脚部-->
+    <div class="fatfooter">
+
+    </div>
+
+<script>
+    function addOrder() {
+        let billAmount="{{sumPrice}}";
+        InmyjsKit.request.post("/shop/order",{billAmount},function (res) {
+            if(res.success){
+                window.location.href="/shop/pay/"+res.result;
+            }
+        })
+    }
+//这里不使用自带按钮，因为设计按钮较特殊，不准备作为通用样式
+$('.confirm-address .edit,.confirm-address .add').on('click',function () {
+    layer.open({
+        type: 1,
+        skin: 'layui-layer-seaing',
+        title: '标题',
+        area: ['720px', 'auto'],
+        content: $('#addressform')
+        //btn: ['按钮一', '按钮二']
+    });
+});
+$(document.body).on('click','.layer-address .cancle',function () {
+    layer.closeAll();
+    return false;
+})
+
+//
+function juggeAddressNum () {
+    let col=$('.confirm-address .col'),
+    cH=col.height();
+    $('.confirm-address').height(cH)
+    if (col.length>3) {
+        $('.confirm-address-bar').show();
+    }
+    else {
+        $('.confirm-address-bar').hide();
+    }
+}
+juggeAddressNum();
+zAction.add({
+    'drop':function () {
+        $('.confirm-address').height('auto')
+        let h=$('.confirm-address').height()
+        juggeAddressNum();
+        $('.confirm-address').animate({height: h}, 300);
+        $(this).parent().remove();
+    }
+});
+</script>
+{% endblock %}
+{% block footer %}
+{% endblock %}

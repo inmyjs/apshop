@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
     goodsType: {
       type: DataTypes.CHAR(1),
       allowNull: false,
-      defaultValue: 'T'
+      defaultValue: 'E'
     },
     num: {
       type: DataTypes.INTEGER(32),

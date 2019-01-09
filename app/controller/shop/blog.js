@@ -5,53 +5,69 @@
 
 
 module.exports = app => {
-    return class UserController extends app.Controller {
+    return class BlogController extends app.Controller {
         async index(ctx){
-            var data= await this.getUserInfo();
-            data.active_page=4;
+            let data= await ctx.getUserInfo();
+            let blogClassID=ctx.query.blogClassID;
+            data.active_page=3;
             const shopRecommendGoods = await ctx.model.ShopGoods.findAll({
                 where:{recommendFlag:'1',goodsStatus:'U'},
-                order:[['sortNo', 'ASC']]
+                order:[['sortNo', 'ASC']],
+                limit:3
             });
             data.shopRecommendGoods=shopRecommendGoods;
-            var {blogType}=ctx.query;
             data.blogClasss=await ctx.model.BlogClass.findAll({
-                where:{blogType,status:'0'}
+                where:{parentID:0,status:'0'}
             });
-            await ctx.render('shop/template/'+app.config.viewTemplate+'/blog-listing', data);
+            if(blogClassID){
+                data.blogs = await ctx.model.Blog.findAll({
+                    where:{status:'0',blogClassID},
+                    order:[['createTime', 'desc']],
+                    limit:6
+                });
+            }else{
+                data.blogs = await ctx.model.Blog.findAll({
+                    where:{status:'0'},
+                    order:[['createTime', 'desc']],
+                    limit:6
+                });
+            }
+            await ctx.render('shop/red/blog-listing', data);
         }
         async list(ctx){
-            var {blogClassID,page,limit}=ctx.query;
+            let {blogClassID,page,limit}=ctx.query;
             limit=Number(limit);
-            var offset=(Number(page)-1)*limit;
+            let offset=(Number(page)-1)*limit;
             const result=await ctx.model.Blog.findAndCountAll({
                 where:{blogClassID},offset,limit,raw:true
             });
-            this.success("查询成功",result.rows,result.count);
+            ctx.success("查询成功",result.rows,result.count);
         }
         async detail(ctx){
-            var data= await this.getUserInfo();
+            let data= await ctx.getUserInfo();
             //data.active_page=4;
             const shopRecommendGoods = await ctx.model.ShopGoods.findAll({
                 where:{recommendFlag:'1',goodsStatus:'U'},
-                order:[['sortNo', 'ASC']]
+                order:[['sortNo', 'ASC']],
+                limit:3
             });
             data.shopRecommendGoods=shopRecommendGoods;
-            var {blogType}=ctx.query;
             data.blogClasss=await ctx.model.BlogClass.findAll({
-                where:{blogType,status:'0',parentId:0}
+                where:{parentID:0,status:'0'}
             });
-            await ctx.render('shop/template/'+app.config.viewTemplate+'/blog-post', data);
+            let blogID=ctx.params.id;
+            data.blog=await ctx.model.Blog.findByPk(blogID);
+            await ctx.render('shop/red/blog-post', data);
         }
         async get(ctx){
-            var {blogClassID}=ctx.query;
-            var blogs=await ctx.model.Blog.findAll({
+            let {blogClassID}=ctx.query;
+            let blogs=await ctx.model.Blog.findAll({
                 where:{blogClassID,status:'0'},raw:true
             });
             if(blogs.length>0){
-                this.success("查询成功",blogs[0]);
+                ctx.success("查询成功",blogs[0]);
             }else{
-                this.failure("未查询到相关信息");
+                ctx.failure("未查询到相关信息");
             }
         }
     };

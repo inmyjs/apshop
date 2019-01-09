@@ -1,0 +1,98 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-订单详情</title>
+
+<style>
+    .status {
+        color: white;
+        padding: 5px 15px;
+
+    }
+    .finish_status{
+        background-color: green;
+        cursor: default;
+    }
+    .cancel_status {
+        background-color: grey;
+        cursor: default;
+    }
+
+</style>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block body %}
+<div id="main-container" class="no-header-top">
+  <div class="page-top-leader omega">
+    <div class="container_12 relatived clearfix">
+      <h1 class="page-title">订单详情</h1>
+      <div class="breadcrumb">
+        <span class="br_before">当前位置:</span>
+        <a href="/">首页</a>
+        <span class="br_sep">/</span>
+        <span class="cur_link">订单详情</span>
+      </div>
+    </div>
+  </div><!-- .page-top-leader -->
+  <div class="container_12 aside-container">
+    <div class="grid_9">
+        <div class="my-order">
+            <h4 class="grid_4" style="line-height: 35px;">订单号: {{order.billNo}}</h4>
+            <h5 class="grid_2" style="line-height: 35px;">{{order.billDate}}</h5>
+            {% if order.billStatus=="P" %}
+            <a class="style-button right status" href="/shop/pay/{{order.billNo}}">去付款</a>
+            {% endif %}
+            {% if order.billStatus=="S" %}
+            <a class="status finish_status right" href="javascript:void(0);">已付款</a>
+            {% endif %}
+            {% if order.billStatus=="C" %}
+            <a class="status cancel_status right" href="javascript:void(0);">已取消</a>
+            {% endif %}
+        </div>
+      <div class="wishlist-info">
+        <table>
+          <thead>
+          <tr>
+            <td>封面</td>
+            <td>产品名称</td>
+            <td>类型</td>
+            <td>金额</td>
+          </tr>
+          </thead>
+          <tbody>
+          {% for good in goods %}
+          <tr>
+            <td><a href="/shop/goods/{{good.goodsID}}" target="_blank" title="{{good.name}}"><img  src="{{good.imgurl}}" alt=""></a></td>
+            <td>{{good.name}}</td>
+            <td>{% if good.goodsType=="T" %}主题{% elif good.goodsType=="C" %}组件{% endif %}</td>
+            <td>{{good.num}}&nbsp;&nbsp;X&nbsp;&nbsp;￥{{good.price}}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div><!-- .wishlist-info -->
+        <div class="my-order-amount"><h5 class="right" style="margin-right: 20px;">总计：￥{{order.payableAmount}}</h5></div>
+    </div>
+    <div id="column-left" style="padding-top: 0px;" class="grid_3 aside omega">
+      <div class="box">
+        <div class="box-heading">账户管理</div>
+        <div class="box-content">
+          <div class="box-category">
+            <ul>
+                <li><a  href="/shop/uc">我的账户</a></li>
+                <li><a href="/shop/wishlist">收藏夹</a></li>
+                <li><a href="/shop/myProduct">我的仓库</a></li>
+                <li><a class="active" href="/shop/order">我的订单</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div><!--end #column-left -->
+  </div><!-- end .container_12 -->
+   </div><!-- end #main-container -->
+<script>
+    function queryOrder(billStatus) {
+        
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-收藏夹</title>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block body %}
+    <div id="main-container" class="no-header-top">
+      <div class="page-top-leader omega">
+        <div class="container_12 relatived clearfix">
+          <h1 class="page-title">收藏夹</h1>
+          <div class="breadcrumb">
+            <span class="br_before">当前位置:</span>
+            <a href="/">首页</a>
+            <span class="br_sep">/</span>
+            <span class="cur_link">收藏夹</span>
+          </div>
+        </div>
+      </div><!-- .page-top-leader -->
+      <div class="container_12 aside-container">
+      <div class="grid_9">
+          {% if wishlist.length==0 %}
+          <div class="ui-page-notice  aside-container">
+              <div class="section">
+                  <!--<i class="ico iconfont icon-dianpu" ></i>-->
+                  <i class="ico icomoon" aria-hidden="true" data-icon="&#xe00d;"></i>
+                  <div class="cont">
+                      <div class="tit">收藏夹空空的哦~，去看看心仪的主题吧~</div>
+                      <div>
+                          <a href="/" class="style-button">去逛逛</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% else %}
+        <div class="wishlist-info">
+          <table>
+            <thead>
+              <tr>
+                <td>封面</td>
+                <td>产品名称</td>
+                <td>类型</td>
+                <td>单价</td>
+                <td>操作</td>
+              </tr>
+            </thead>
+            <tbody>
+            {% for good in wishlist %}
+              <tr class="div_wishlist_{{good.id}}">
+                <td><a href="/shop/goods/{{good.goodsID}}" target="_blank" title="{{good.name}}"><img  src="{{good.imgurl}}" alt=""></a></td>
+                <td>{{good.name}}</td>
+                <td>{% if good.goodsType=="T" %}主题{% elif good.goodsType=="C" %}组件{% endif %}</td>
+                <td>{{good.price}}</td>
+                <td class="action">
+                  <a href="javascript:void(0);" class="add_cart icomoon" data-icon="&#x25e0;"  onclick="addCart('{{good.goodsID}}','1','{{good.price}}')" title="加入购物车" aria-hidden="true"></a>
+                  <a href="javascript:void(0);" class="remove_cart icomoon" onclick="delWishList('{{good.id}}')" data-icon="&#xe004;" title="删除" aria-hidden="true"></a>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div><!-- .wishlist-info -->
+        <a class="style-button right" href="/">继续购物</a>
+          {% endif %}
+      </div>
+      <div id="column-left"  style="padding-top: 0px;" class="grid_3 aside omega">
+        <div class="box">
+          <div class="box-heading">账户管理</div>
+          <div class="box-content">
+            <div class="box-category">
+              <ul>
+                <li><a  href="/shop/uc">我的账户</a></li>
+                <li><a class="active" href="/shop/wishlist">收藏夹</a></li>
+                  <li><a href="/shop/myProduct">我的仓库</a></li>
+                <li><a href="/shop/order">我的订单</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div><!--end #column-left -->
+      </div><!-- end .container_12 -->
+        </div><!-- end #main-container -->
+{% endblock %}

@@ -5,8 +5,27 @@ module.exports = () => {
         if (ctx.session.uid) {
             await next();
         } else {
-            ctx.session.error = 'Access denied!';
-            ctx.redirect('/login');
+            if (ctx.acceptJSON) {
+                ctx.session.error = 'Access denied!';
+                ctx.body = "AccessDenied";
+            }else{
+                let path=ctx.request.path;
+                let first=path.split('/')[1];
+                ctx.session.error = 'Access denied!';
+                let redi='/';
+                switch (first) {
+                    case 'admin':
+                        redi='/admin';
+                        break;
+                    case 'shop':
+                        redi='/shop/login';
+                        break;
+                    case 'wx':
+                        redi='/wx/login';
+                        break;
+                }
+                ctx.redirect(redi);
+            }
         }
     };
 };

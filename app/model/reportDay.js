@@ -1,9 +1,9 @@
 /**
- * Model
+ * reportDay Model
  * @param app
  * @returns {*}
  */
 module.exports = app => {
-    const ReportDay = app.model.import('../domain/report_day');
-    return ReportDay;
+    const reportDay = app.model.import('../domain/report_day');
+    return reportDay;
 };

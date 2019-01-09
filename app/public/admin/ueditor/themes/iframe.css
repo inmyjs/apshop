@@ -1,0 +1,29 @@
+/*可以在这里添加你自己的css*/
+img {
+    max-width: 100%; /*å›¾ç‰‡è‡ªé€‚åº”å®½åº¦*/
+}
+body {
+    overflow-y: visible !important;
+
+}
+.view {
+    word-break: break-all;
+}
+.vote_area {
+    display: block;
+}
+.vote_iframe {
+    background-color: transparent;
+    border: 0 none;
+    height: 100%;
+}
+html{
+    overflow-y: auto;
+    overflow-x:hidden;
+
+}
+.edui-editor-bottombar{
+    display: none;
+}
+
+#edui1_imagescale{display:none !important;} /*åŽ»é™¤ç‚¹å‡»å›¾ç‰‡åŽå‡ºçŽ°çš„æ‹‰ä¼¸è¾¹æ¡†*/

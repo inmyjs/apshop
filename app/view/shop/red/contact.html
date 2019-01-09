@@ -1,0 +1,126 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-联系我们</title>
+
+<script src="/public/assets/common/moment.min.js"></script>
+<script src="/public/assets/common/vue.v2.5.1.min.js"></script>
+<script>
+    Vue.options.delimiters = ['${', '}'];
+</script>
+<style>
+    .error {
+        color: red !important;
+    }
+
+    input.error {
+        border: 1px dotted red !important;
+    }
+</style>
+<script src="/public/assets/common/jquery/jquery.validate.min.js"></script>
+<script src="/public/assets/common/jquery/messages_zh.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <div id="main-container" class="contact-page">
+      <div class="page-top-leader omega">
+        <div class="container_12 relatived clearfix">
+          <h1 class="page-title">联系我们</h1>
+          <div class="breadcrumb">
+            <span class="br_before">当前位置:</span>
+            <a href="/">首页</a>
+            <span class="br_sep">/</span>
+            <span class="cur_link">联系我们</span>
+          </div>
+        </div>
+      </div><!-- .page-top-leader -->
+      <!--<div id="google-map" class="grid_12 omega"></div>  -->
+      <div class="container_12">
+      <div class="grid_9 aside-container">
+        <h3>给我们留言吧</h3>
+        <form action="post" id="form_contact">
+          <div class="grid_3">
+            <label>姓名: (*)</label>
+            <br>
+            <input type="text" name="name" v-model="name" value="" placeholder="输入您的姓名" required>
+          </div>
+          <div class="grid_3">
+            <label>电话: (*)</label>
+            <br/>
+            <input type="text" name="tell" v-model="tell" value="" placeholder="输入您的联系电话" required>
+          </div>
+          <div class="grid_3 omega">
+            <label>标题:(*)</label>
+            <br/>
+            <input type="text" v-model="title" name="title" required>
+          </div>
+          <div class="grid_9 omega">
+            <label>内容:</label>
+            <textarea name="content" v-model="content" cols="30" rows="10"></textarea>
+          </div>
+          <div class="grid_3">
+            <label>验证码:</label>
+            <br/>
+            <input  type="text" v-model="code" name="code" required>
+          </div>
+          <div class="grid_3">
+            <img _ngcontent-c3="" src="/captcha" id="img_captcha" onclick="refresh()">
+          </div>
+          <div class="grid_3 omega">
+              <input class="style-button" style="float: right;" type="submit" value="发送"/>
+          </div>
+        </form>
+      </div>
+      <div id="column-left" class="grid_3 aside omega">
+        <div class="box contact-info-box">
+          <div class="box-heading">联系我们</div>
+          <div class="box-content">
+            <div class="box-category inner-padding">
+              <h6>地址 :</h6>
+              <span>{{shop.location+shop.completeAddress}}</span>
+              <h6>电话:</h6>
+              <span>(+86){{shop.serviceCall}}</span>
+              <h6>EMAIL:</h6>
+              <span>{{shop.serviceEmail}}</span>
+            </div>
+          </div>
+        </div>
+      </div><!--end #column-left -->
+      </div><!-- end .container_12 -->
+   </div><!-- end #main-container -->
+<script>
+    let app = new Vue({
+        el: '#form_contact',
+        data: {
+            name: '',
+            tell: '',
+            code: '',
+            title: '',
+            content: ''
+        },
+        methods: {
+            focus: function () {
+                $('#label_error').empty();
+            }
+        }
+    });
+    $(function () {
+
+        $("#form_contact").validate({
+            debug: true,
+            submitHandler: function (form) {
+                //Ap.loading.start();
+                let json = {name: app.name, tell: app.tell, title: app.title, content: app.content, code: app.code};
+                Ap.request.post('/shop/contact', json, function (res) {
+                    //Ap.loading.end();
+                    if (res.success) {
+                        form.reset();
+                        Ap.msg.success(res.msg);
+                    } else {
+                        Ap.msg.error(res.msg);
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>我的订单</title>
+    <link href="/public/css/uc.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/public/js/icheck/style.css"/>
+<script src="/public/js/icheck/icheck.min.js"></script>
+{% endblock %}
+{% block body %}
+<div class="uc-header-bg">
+    <div class="uc-header wrapper">
+        <a class="logo" href="/"><img src="/public/img/logo2.png" alt="" /></a>
+        <div class="back-home"><a href="/">返回首页</a></div>
+        <ul class="uc-nav">
+            <li><a href="/shop/uc">首页</a></li>
+            <li class="toggle">
+                <span class="label">账户设置<i class="iconfont"></i></span>
+                <div class="toggle-cont">
+                    <!--<a href="">个人信息</a>-->
+                    <a href="/shop/uc/safe">安全设置</a>
+                </div>
+            </li>
+            <!--<li><a href="">消息中心</a></li>-->
+        </ul>
+    </div>
+</div>
+
+    <div class="wrapper uc-router">
+        <ul>
+            <li><a href="/shop/uc">首页</a></li>
+            <li><span class="divider"></span></li>
+            <li><span>我的订单</span></li>
+        </ul>
+    </div>
+
+    <div class="wrapper">
+        <div class="uc-main clearfix">
+            <div class="uc-aside">
+                <div class="uc-menu">
+                    <div class="tit">个人中心</div>
+                    <ul class="sublist">
+                        <!--<li><a href="uc-account.html">账户信息</a></li>-->
+                        <li><a href="/shop/uc/safe">账户安全</a></li>
+                        <li><a href="/shop/order">我的订单</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="uc-content">
+                <div class="uc-panel">
+                    <div class="uc-bigtit">我的订单</div>
+                    <div class="uc-panel-bd">
+                        <div class="uc-sort">
+                            <div class="uc-tabs">
+                                <a class="item active" href="">所有订单</a>
+                                <a class="item" href="">待付款（1）</a>
+                            </div>
+                            <div class="uc-search">
+                                <form action="">
+                                    <input type="text" class="sch-input" placeholder="输入商品名称,订单号" />
+                                    <button class="sch-btn"><i class="iconfont icon-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        <table class="uc-table">
+                            <thead>
+                                <td></th>
+                                <th></th>
+                                <th></th>
+                                <th width="120"></th>
+                            </thead>
+                            {% for order in orders %}
+                            <tr class="hd order-meta">
+                                <td colspan="4">
+                                    <div class="left">{{order.billDate}}   订单号: {{order.billNo}}</div>
+                                    <div class="right"> <!--<span class="del iconfont icon-shanchu"></span>--></div>
+                                </td>
+                            </tr>
+                            <tr class="order-goods">
+                                <td>
+                                    {% for good in order.goods %}
+                                    <div class="goods-info">
+                                        <img class="figure" src="" alt="" />
+                                         <!--<a class="text-info refund" href="uc-apply-refund.html">申请退货</a>-->
+                                        <div class="info">
+                                            <div>{{good.title}}</div>
+                                            <div>{{good.price}}元×{{good.num}}</div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    金额：<span class="text-theme fwb">{{order.billAmount}}元</span>
+                                </td>
+                                <td>
+                                    <span id="{{order.billNo}}_status" class="status">
+                                        {% if order.billStatus=="P" %}
+                                        待付款
+                                        {% elif  order.billStatus=="S" %}
+                                        已付款
+                                        {% else  %}
+                                        已取消
+                                        {% endif  %}
+                                    </span><br />
+                                    <a class="text-info" href="/shop/orderDetail/{{order.billNo}}">订单详情</a><br />
+                                </td>
+                                <td id="{{order.billNo}}_td">
+                                    {% if order.billStatus=="P" %}
+                                    <a href="/shop/pay/{{order.billNo}}" class="ui-btn-theme uc-btn-md">去付款</a>
+                                    <a href="javascript:void(0)" onclick="cancelOrder('{{order.billNo}}')" class="ui-btn-low ui-btn-hollow uc-btn-md mt10">取消订单</a>
+                                    {% endif  %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                         <div class="pages">
+                            <a class="page prev" href="">上一页</a>
+                            <a class="page" href="">1</a>
+                            <span class="cur-page">2</span>
+                            <a class="page" href="">3</a>
+                            <a class="page" href="">4</a>
+                            <i class="page-split">...</i>
+                            <a class="page" href="">71</a>
+                            <a class="page next" href="">下一页</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--脚部-->
+    <div class="fatfooter">
+
+    </div>
+    <!--脚部-->
+<script>
+function cancelOrder(billNo) {
+    $.msgbox({
+        type: 'confirm',
+        title:' 提示',
+        content: '您确认取消该订单吗？',
+        onClose: function(){
+            if(this.val()){
+                InmyjsKit.request.post("/shop/cancelOrder/"+billNo,{},function (res) {
+                    if(res.success){
+                        $("#"+billNo+"_status").html("已取消");
+                        $("#"+billNo+"_td").empty();
+                    }
+                });
+            }
+        }
+    });
+}
+</script>
+{% endblock %}
+{% block footer %}
+{% endblock %}

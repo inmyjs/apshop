@@ -1,0 +1,136 @@
+{% include "./library/new_page_header.html" %}
+<div class="con m-b7 new-maxbox">
+	<header class="header-max-box">
+		{% if subscribe==0 %}
+		<div class="ect-header-banner dis-box">
+			<div class="box-flex">
+				<div class="ect-header-text fl">
+					<h4>欢迎进入<span class="color-red">Inmyjs商城</span></h4>
+					<p>关注公众号,享专属服务</p>
+				</div>
+			</div>
+			<a class="btn-submit1 j-ewm-box" href="javascript:;">立即关注</a>
+		</div>
+		<div class="index-weixin-box">
+			<div><img src="/public/wap/statics/img/ewm.png"></div>
+			<p class="text-c">长按二维码关注公众微信</p>
+		</div>
+		<div class="index-bg-box"></div>
+		{% endif %}
+	</header>
+	<div class="index-banner swiper-container box position-rel banner-first">
+				<div class="index-nav-box">
+			<ul class="dis-box">
+				<li class="index-left-box"><a href="{:url('category/top_all')}"><i class="iconfont icon-caidan color-whie"></i></a></li>
+				<li class="box-flex n-input-index-box">
+					<div class="index-search-box j-search-input" id="j-input-focus"><i class="iconfont icon-sousuo"></i>请输入您搜索的关键词!</div>
+				</li>
+				<li class="index-right-box"><a href="{:url('user/msg_list')}"><i class="iconfont icon-xiaoxi1 color-whie n-xiaoxi-size"></i></a></li>
+			</ul>
+		</div>
+		<div class="swiper-wrapper">
+			{insert name='ads' id=255 num=3}
+		</div>
+		<!-- 分页器 -->
+		<div class="swiper-pagination banner-first-pagination"></div>
+		<!--linear-->
+		<div class="linear"></div>
+	</div>
+	<!--menu-->
+	<nav class="bg-white ptb-1 index-nav">
+		<ul class="box ul-4 text-c bg-white">
+			<!--{foreach from=$navigator item=nav}-->
+			<li class="fl">
+				<a href="{$nav.url}" {if $nav.opennew eq 1}target="_blank" {/if}><img src="{$nav.pic}" /></a>
+				<a class="index-menu-text" href="{$nav.url}" {if $nav.opennew eq 1}target="_blank" {/if}>{$nav.name}</a>
+			</li>
+			<!--{/foreach}-->
+
+		</ul>
+	</nav>
+	<!--discount-->
+	<div class="box  title inx-ms m-top06">
+		<div class="dis-box m-top1px b-color-f">
+			<div class="box-flex title text-c  pt-1 position-rel index-sale-list">
+				{insert name='ads' id=257 num=1}
+			</div>
+			<div class="box-flex ">
+				<ul class="index-discount">
+					<li class="">
+						{insert name='ads' id=258 num=2}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<ul class="index-cate-box m-top06">
+		{insert name='ads' id=256 num=4}
+	</ul>
+
+	<!--like-->
+	<div class="text-c n-cate-box">
+		<p class="index-title"><i class="iconfont icon-cainixihuan is-cainixihuan"></i>猜你喜欢</p>
+		<p class="index-small-title">实时推荐最适合您的宝贝</p>
+	</div>
+	<section class="product-list j-product-list n-index-box " data="1">
+
+		<ul class="index-more-list" id="J_ItemList">
+			<div class="single_item"></div>
+			<a href="javascript:;" style="text-align:center" class="get_more"></a>
+		</ul>
+	</section>
+</div>
+<!--悬浮菜单s-->
+<div class="filter-top" id="scrollUp">
+	<i class="iconfont icon-dingbu"></i>
+</div>
+<!--悬浮菜单e-->
+<footer class="footer-nav dis-box">
+				<a href="{:url('index/index')}" class="box-flex nav-list active">
+					<i class="nav-box i-home"></i><span>首页</span>
+				</a>
+				<a href="{:url('category/top_all')}" class="box-flex nav-list">
+					<i class="nav-box i-cate"></i><span>分类</span>
+				</a>
+				<!---->
+				<a href="{:url('flow/cart')}" class="box-flex position-rel nav-list">
+					<i class="nav-box i-flow"></i><span>购物车</span>
+				</a>
+				<a href="{:url('user/index')}" class="box-flex nav-list">
+					<i class="nav-box i-user"></i><span>我的</span>
+				</a>
+		</footer>
+{% include "./library/new_search.html" %}
+{% include "./library/new_page_footer.html" %}
+<script type="text/javascript" src="/public/wap/assets/js/jquery.more.js"></script>
+<script type="text/javascript">
+	get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+</script>
+<script type="text/javascript ">
+	$(function($) {
+		var mySwiper = new Swiper('.banner-first', {
+			pagination: '.banner-first-pagination',
+			loop: false,
+			grabCursor: true,
+			paginationClickable: true,
+			autoplayDisableOnInteraction: false,
+			autoplay: 3000
+		});
+	});
+	/*立即关注*/
+	if ($(".index-weixin-box").hasClass("index-weixin-box")) {
+		$(".index-banner").css({
+			"marginTop": "0rem",
+
+		})
+	} else {
+		$(".index-banner").css({
+			"marginTop": "0rem",
+
+		})
+	}
+</script>
+</body>
+
+</html>

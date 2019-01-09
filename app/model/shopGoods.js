@@ -1,9 +1,9 @@
 /**
- * Model
+ * shopGoods Model
  * @param app
  * @returns {*}
  */
 module.exports = app => {
-    const ShopGoods = app.model.import('../domain/shop_goods');
-    return ShopGoods;
+    const shopGoods = app.model.import('../domain/shop_goods');
+    return shopGoods;
 };

@@ -1,7 +1,7 @@
 /**
  * 本地配置
  * @type
- * #sequelize-auto -h localhost -d apshop -u apshop -x apShop147852
+ * #sequelize-auto -h localhost -d apshop -u admin -x 123456
  */
 exports.sequelize  = {
     // 单数据库信息配置
@@ -12,9 +12,9 @@ exports.sequelize  = {
     // 端口号
     port: '3306',
     // 用户名
-    username: 'apshop',
+    username: 'admin',
     // 密码
-    password: 'apShop147852',
+    password: '123456',
     // 数据库名
     database: 'apshop',
     pool: {
@@ -27,4 +27,10 @@ exports.sequelize  = {
         freezeTableName: true
     },
     timezone: '+08:00' //东八时区
+};
+exports.security= {
+    domainWhiteList: ['http://localhost:9527'],
+    csrf: {
+        ignore:/\/admin/,
+    }
 };

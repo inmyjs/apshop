@@ -23,7 +23,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     isLeaf: {
       type: DataTypes.CHAR(1),
-      allowNull: true
+      allowNull: true,
+      defaultValue: '0'
     },
     sortNo: {
       type: DataTypes.INTEGER(11),

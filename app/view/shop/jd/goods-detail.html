@@ -1,0 +1,357 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>商品详情页</title>
+    <link href="/public/css/goods-detail.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/public/js/slick/slick.css"/>
+<script src="/public/js/slick/slick.min.js"></script>
+{% endblock %}
+{% block body %}
+        <div class="shop-header wrapper">
+            <div class="logo">
+                <a href="index.html"><img src="/public/img/logo.png" alt="logo" /></a>
+            </div>
+            <div class="shop-schbox">
+                <div class="layout">
+                    <form action="" method="">
+                        <input class="search-txt" placeholder="搜宝贝">
+                        <button class="search-btn site">搜全站</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="shop-nav-box">
+            <div class="shop-nav wrapper">
+                <div class="shop-nav-all">
+                    <a href="">所有宝贝</a>
+                    <!--<div class="sublist">
+                        <a href=""></a>
+                    </div>-->
+                </div>
+                <ul class="shop-nav-rec">
+                    <li><a href="">首页</a></li>
+                </ul>
+            </div>
+        </div>
+    <!--头部-->
+
+    <div class="wrapper">
+        <div class="detail-top clearfix">
+            <div class="detail-goods">
+                <div class="detail-show">
+                    <div class="origin-show">
+                        <div class="zoomup"></div>
+                        <img class="big-pic" src="{{goods.imgurl}}" alt="{{goods.name}}" />
+                    </div>
+                    <div class="thumb-show">
+                        {% for img in goodsImages %}
+                        <span class="item"><img class="s-pic" src="{{img.imgurl}}" bsrc="{{img.imgurl}}" /></span>
+                        {% endfor %}
+                    </div>
+                    <div class="zoom-show">
+                        <img src="" alt="" />
+                    </div>
+                </div>
+                <div class="detail-info">
+                    <div class="item-title">{{goods.title}}</div>
+                    <div class="item-price">
+                        <span class="now" id="goods_price">￥{{goods.price}}</span><span class="dft">￥{{goods.priceMarket}}</span>
+                    </div>
+                    <ul class="item-data clearfix">
+                        <li class="col-6">销量<span class="txt-theme ml10">{{goods.numSale}}件</span></li>
+                        <li class="col-6">好评率<span class="txt-theme ml10">100%</span></li>
+                        <!--<li class="col-4">收藏<span class="txt-theme ml10">100人</span></li>-->
+                    </ul>
+                    <div class="sku-info">
+                        <div class="prop">
+                            <div class="dt">数量：</div>
+                            <div class="dd">
+                                <div class="mod-numbox chose-num" data-max="1">
+                                    <span class="count-minus"></span>
+                                    <input class="count-input" id="goods_num" value="1"  type="text" name="num" />
+                                    <span class="count-plus"></span>
+                                </div>
+                                <span>（限购1件）</span>
+                                <div class="stock">(库存{{goods.stock}}件)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-action">
+                        <a name="add_cart_order" href="javascript:void(0);"  data-goodsID="{{goods.goodsID}}" data-price="{{goods.price}}" class="buy-now">立即购买</a>
+                        <a name="add_cart" href="javascript:void(0);"  data-goodsID="{{goods.goodsID}}" data-price="{{goods.price}}" class="add-cart">加入购物车</a>
+                    </div>
+                    <!--<div class="item-extend">
+                         <a href="" class="fav"><i class="iconfont icon-star"></i>收藏</a>
+                        &lt;!&ndash;<a href="" class="fav">已收藏</a>&ndash;&gt;
+                        <a href="" class="share"><i class="iconfont icon-fenxiang"></i>分享</a>
+                    </div>-->
+                </div>
+            </div>
+            <div class="detail-shop">
+                <div class="clearfix">
+                    <a class="shop-brand" href="">
+                        <img src="/public/uploads/1.png" alt="" />
+                    </a>
+                    <div class="shop-intro">
+                        <div class="shop-name">天启工作室</div>
+                        <!-- <a class="shop-follow-btn" href="javascript:;"><i class="iconfont icon-jiaguanzhu"></i>关注</a> -->
+                        <!--<a class="shop-follow-btn active" href="javascript:;"><span class="showtxt"><i class="iconfont icon-check01"></i>已关注</span><span class="hidetxt">取消关注</span></a>
+                        <div class="shop-follow-count"><strong>268</strong>粉丝</div>-->
+                    </div>
+                </div>
+                <div class="shop-assess clearfix">
+                    <div class="col col-4">
+                        <div class="tit">描&ensp;述</div>
+                        <div class="point up">
+                            <span class="num">5.0</span><i class="iconfont">--</i>
+                        </div>
+                    </div>
+                    <div class="col col-4">
+                        <div class="tit">质&ensp;量</div>
+                        <div class="point up">
+                            <span class="num">5.0</span><i class="iconfont">--</i>
+                        </div>
+                    </div>
+                    <div class="col col-4">
+                        <div class="tit">服&ensp;务</div>
+                        <div class="point up">
+                            <span class="num">5.0</span><i class="iconfont">--</i>
+                        </div>
+                    </div>
+                </div>
+                <ul class="shop-info">
+                    <li>所在地区：云南昆明</li>
+                    <!--<li>商品数量：10</li>
+                    <li>销售数量：1002</li>-->
+                    <li>专业制作winform主题</li>
+                </ul>
+                <!--<a class="detail-shop-enter">
+                    <i class="iconfont icon-dianpu"></i>了解详情
+                </a>-->
+        </div>
+        </div>
+        <div class="detail-bottom clearfix">
+             <div class="detail-main">
+                <div class="detail-tabs">
+                    <a class="item" href="javascript:;">详情描述</a>
+                </div>
+                <div class="tab-con">
+                    <div class="mod-type-cont">
+                        {{goods.note}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--脚部-->
+    <div class="fatfooter">
+
+    </div>
+    <!--脚部-->
+<script>
+    $('a[name=add_cart]').on('click',function () {
+        let dom=$(this);
+        let goodsID=dom.attr('data-goodsID');
+        let num=1;
+        let price=dom.attr('data-price');
+        InmyjsKit.request.post("/shop/cart",{goodsID,num,price},function (res) {
+            if(res.success){
+                $('#span_cartNum').html(parseInt($('#span_cartNum').html())+1);
+                $.msgbox({
+                    type: 'confirm',
+                    title:' 提示',
+                    content: '已加入购物车，赶快去结算吧!',
+                    onClose: function(){
+                        if(this.val()){
+                            window.location.href="/shop/cart";
+                        }
+                    }
+                });
+            }
+        });
+    });
+    $('a[name=add_cart_order]').on('click',function () {
+        let dom=$(this);
+        let goodsID=dom.attr('data-goodsID');
+        let num=1;
+        let price=dom.attr('data-price');
+        InmyjsKit.request.post("/shop/cart",{goodsID,num,price},function (res) {
+            if(res.success){
+                $('#span_cartNum').html(parseInt($('#span_cartNum').html())+1);
+                window.location.href="/shop/cart";
+            }
+        });
+    });
+    /*商品数量操作*/
+    function goodsCount(o){
+            if(!(o instanceof Object)) let o={};
+            let inputCell = o.inputCell || ".count-input",
+                minusCell = o.minusCell || ".count-minus",
+                plusCell = o.plusCell || ".count-plus",
+                disClass = o.disClass || "disabled";
+            return this.each(function(){
+                let $wrap = $(this),
+                    $input = $(inputCell,$wrap),
+                    $minus = $(minusCell,$wrap),
+                    $plus = $(plusCell,$wrap),
+                    maxnum=parseInt($wrap.attr('data-max')) || false,
+                    minnum=$wrap.attr('data-min') || 1,
+                    initnum=$input.val() || minnum;
+                /*初始*/
+                $input.val(initnum);
+                checkIlegal();
+                function checkIlegal(){
+                    let value =parseInt($input.val());
+
+                    //
+                     if (maxnum&&value>maxnum) {
+                        $input.val(maxnum);
+                    }
+                    else if (value<minnum) {
+                        $input.val(minnum);
+                    }
+                    if(value<=minnum){
+                        $minus.addClass(disClass);
+                    }else{
+                        $minus.removeClass(disClass);
+                    }
+                    if (value>=maxnum) {
+                        $plus.addClass(disClass);
+                    }else {
+                        $plus.removeClass(disClass);
+                    }
+
+                }
+                function checknull() {
+                    let value =$input.val();
+                    if(value === "" || value === "0"){
+                        $input.val(minnum);
+                    }
+                }
+                $input.keyup(function(evt){
+                    let value = $(this).val();
+                    let newvalue = value.replace(/[^\d]/g,"");
+                    $(this).val(newvalue);
+                    checknull();
+                });
+                $input.blur(function(){
+                    checknull();
+                    checkIlegal();
+                })
+
+                $minus.click(function(){
+                    minus();
+                     checkIlegal();
+                });
+
+                $plus.click(function(){
+                    add();
+                    checkIlegal();
+                });
+
+                function add () {
+                    let value = $input.val();
+                    let plus = parseInt(value)+1;
+                    $input.val(plus);
+                }
+                function minus () {
+                    let value = parseInt($input.val());
+                    let minus = value-1;
+                    $input.val(minus);
+                }
+            });
+        }
+        $.fn.goodsCount = goodsCount;
+</script>
+
+<script >
+    $(function () {
+
+        +function () {
+            let index=0,
+            bsrc='',
+            timer=null,
+            box=$('.detail-show'),
+            origin=$('.origin-show'),
+            bigimg=box.find('.big-pic'),
+            tumb=box.find('.thumb-show'),
+            tumbItem=tumb.find('.item'),
+            zoomup=box.find('.zoomup'),
+            zoomshow=box.find('.zoom-show');
+
+            /*图片切换*/
+            tumbItem.on('mouseenter',function () {
+                index=$(this).index();
+                clearTimeout(timer);
+                timer=setTimeout(function (){
+                    update(index);
+                }, 300)
+
+            });
+
+            function update (index) {
+                bsrc=tumbItem.eq(index).find('.s-pic').attr('bsrc');
+                bigimg.attr('src', bsrc);
+                tumbItem.find('.s-pic').removeClass('active').end().eq(index).find('.s-pic').addClass('active');
+            }
+
+            update(index);
+
+            if ($('.detail-show .thumb-show .item').length>5) {
+                $('.detail-show .thumb-show').slick({
+                    slidesToShow: 5,
+                    infinite:false
+                });
+            }
+
+            /*放大镜*/
+            origin.on('mouseover mouseout',function (e) {
+                if (e.type=="mouseover") {
+                    let oX=$(this).offset().left,
+                    oY=$(this).offset().top,
+                    zX=e.pageX,
+                    zY=e.pageY,
+                    pW=$(this).outerWidth(),
+                    pH=$(this).outerHeight(),
+                    zW=zoomup.outerWidth(),
+                    zH=zoomup.outerHeight(),
+                    scale=pW/zW,
+                    zsW=zoomshow.width()*scale,//放大后的宽度
+                    factor=zsW/pW
+
+                    zoomshow.find('img').attr('src',bigimg.attr('src')).width(zsW);
+
+                    $(document).on('mousemove.zoom',function (e) {
+                        zX=e.pageX-oX- zW/2;
+                        zY=e.pageY-oY- zH/2;
+                        move();
+                    });
+
+                    function move () {
+                        zX=zX<=0?0:zX;
+                        zX=zX>=pW-zW?pW-zW:zX;
+                        zY=zY<=0?0:zY;
+                        zY=zY>=pH-zH?pH-zH:zY;
+                        zoomup.show().css({top:zY,left:zX});
+                        zoomshow.show().find('img').css({top:-zY*factor,left:-zX*factor});
+                    }
+                }
+                else {
+                    $(document).off('mousemove.zoom');
+                     zoomup.hide()
+                     zoomshow.hide();
+                }
+            });
+        }();
+
+        $('.mod-numbox').goodsCount(); //数量加减
+
+        $('.detail-main').zTab({
+            tabnav:'.detail-tabs',
+            trigger:'click'
+        });
+    });
+</script>
+{% endblock %}
+{% block footer %}
+{% endblock %}

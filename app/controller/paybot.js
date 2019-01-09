@@ -3,7 +3,7 @@
  * @param app
  */
 
-var crypto=require("crypto");
+let crypto=require("crypto");
 const moment=require('moment')
 module.exports = app => {
     return class WxbotController extends app.Controller {
@@ -11,10 +11,10 @@ module.exports = app => {
 
         }
         async msg(ctx){
-            var {time,memo,description,username,amount,sig,tradeNo,status}=ctx.request.body;
+            let {time,memo,description,username,amount,sig,tradeNo,status}=ctx.request.body;
             // 签名
-            var md5 = crypto.createHash("md5");
-            var sig_valid = [
+            let md5 = crypto.createHash("md5");
+            let sig_valid = [
                 time.toString(),
                 tradeNo.toString(),
                 amount.toString(),
@@ -23,10 +23,10 @@ module.exports = app => {
             ].join("|");
             sig_valid = md5.update(sig_valid, "utf8").digest("hex");
             if(sig_valid!=sig){
-                this.failure("签名错误");
+                ctx.failure("签名错误");
                 return;
             }
-            var payMsg=await ctx.model.PayMsg.findOne({where:{tradeNo}});
+            let payMsg=await ctx.model.PayMsg.findOne({where:{tradeNo}});
             if(payMsg){
                 ctx.body="success";
                 return;
@@ -49,12 +49,12 @@ module.exports = app => {
                 return;
             }
             order.update({paidAmount:(Number(order.paidAmount)+Number(amount))});
-            var payDate=moment();
-            var acc=Number(order.payableAmount)-(Number(order.paidAmount)+Number(amount));
+            let payDate=moment();
+            let acc=Number(order.payableAmount)-(Number(order.paidAmount)+Number(amount));
             if(acc<=0) {
                 order.update({billStatus: "S"});
                 ctx.model.ShopOrderGoods.findAll({where:{billNo:order.billNo}}).then(goods =>  {
-                    for(var good of goods){
+                    for(let good of goods){
                         ctx.model.ShopUserGoods.create({
                             goodsID:good.goodsID,name:good.name,goodsType:good.goodsType,num:good.num,price:good.price,imgurl:good.imgurl,payTime:payDate,uid:order.uid
                         });

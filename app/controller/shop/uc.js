@@ -6,9 +6,9 @@
 module.exports = app => {
     return class UCController extends app.Controller {
         async index(ctx){
-            var data=await this.getUserInfo();
+            let data=await ctx.getUserInfo();
 
-            await ctx.render('shop/template/'+app.config.viewTemplate+'/account',data);
+            await ctx.render('shop/red/account',data);
         }
     };
 };

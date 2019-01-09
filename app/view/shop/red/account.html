@@ -1,0 +1,47 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-我的账户</title>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block body %}
+    <div id="main-container" class="account-page no-header-top">
+      <div class="page-top-leader omega">
+        <div class="container_12 relatived clearfix">
+          <h1 class="page-title">账户管理</h1>
+          <div class="breadcrumb">
+            <span class="br_before">当前位置:</span>
+            <a href="/">首页</a>
+            <span class="br_sep">/</span>
+            <span class="cur_link">我的账户</span>
+          </div>
+        </div>
+      </div><!-- .page-top-leader -->          
+      <div class="container_12">
+      <div class="grid_9 aside-container">        
+        <div class="content">
+          <h3>我的账户</h3>
+          <ul class="list">
+            <li><a href="javascript:Ap.msg.success('功能开发中，敬请期待');">编辑我的账户信息</a></li>
+            <li><a href="/shop/reset">修改我的密码</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="column-left" class="grid_3 aside omega">        
+        <div class="box">
+          <div class="box-heading">账户管理</div>
+          <div class="box-content">
+            <div class="box-category">
+              <ul>
+                <li><a class="active" href="/shop/uc">我的账户</a></li>
+                <li><a href="/shop/wishlist">收藏夹</a></li>
+                <li><a href="/shop/myProduct">我的仓库</a></li>
+                <li><a href="/shop/order">我的订单</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div><!--end #column-left -->
+      </div><!-- end .container_12 -->
+    </div><!-- end #main-container -->
+{% endblock %}

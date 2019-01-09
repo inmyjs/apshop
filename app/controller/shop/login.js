@@ -3,49 +3,49 @@
  * @param app
  */
 const ms = require('ms');
-var bcrypt = require('bcryptjs');
+let bcrypt = require('bcryptjs');
 const JSEncrypt = require('node-jsencrypt');
-var moment=require('moment');
+let moment=require('moment');
 module.exports = app => {
     return class LoginController extends app.Controller {
         async index(ctx){
             if (ctx.session.uid)
                 ctx.redirect("/");
             else
-                await ctx.render('shop/template/'+app.config.viewTemplate+'/login');
+                await ctx.render('shop/red/login');
         }
         async forget(ctx){
             if (ctx.session.uid)
                 ctx.redirect("/");
             else
-                await ctx.render('shop/template/'+app.config.viewTemplate+'/forget');
+                await ctx.render('shop/red/forget');
         }
         async login(ctx) {
             const {content} = ctx.request.body;
             const jsEncrypt = new JSEncrypt();
             jsEncrypt.setPrivateKey(app.config.private_key);
-            var _content = jsEncrypt.decrypt(content);
+            let _content = jsEncrypt.decrypt(content);
             if (!_content) {
-                this.failure("验证失败!");
+                ctx.failure("验证失败!");
                 return;
             }
-            var json = JSON.parse(_content);
+            let json = JSON.parse(_content);
             const {username, password, rememberMe} = json;
-            var user = await ctx.model.User.findOne({where: {username}});
+            let user = await ctx.model.User.findOne({where: {username}});
             if (!user) {
-                this.failure("用户名或密码错误!");
+                ctx.failure("用户名或密码错误!");
                 return;
             }
             if (user.status=='C') {
-                this.failure("该用户已禁止登录!");
+                ctx.failure("该用户已禁止登录!");
                 return;
             }
-            var userLogin = await ctx.model.UserLogin.findOne({where: {loginString: username}});
+            let userLogin = await ctx.model.UserLogin.findOne({where: {loginString: username}});
             if (!userLogin) {
-                this.failure("用户登录信息不存在!");
+                ctx.failure("用户登录信息不存在!");
                 return;
             }
-            var res = bcrypt.compareSync(password, userLogin.password);
+            let res = bcrypt.compareSync(password, userLogin.password);
             if (res) {
                 ctx.session.uid=user.uid;
                 ctx.session.username=username;
@@ -60,20 +60,23 @@ module.exports = app => {
                     loginNum:user.loginNum+1,
                     lastLoginTime:moment()
                 });
-                this.success("登录成功!");
+                ctx.success("登录成功!");
                 return;
             } else {
-                this.failure("用户名或密码错误!");
+                ctx.failure("用户名或密码错误!");
                 return;
             }
-            this.failure("登录失败!");
+            ctx.failure("登录失败!");
         }
         async logout(ctx) {
-            var uid=ctx.session.uid;
-            var username=ctx.session.username;
+            let uid=ctx.session.uid;
+            if(!uid){
+                ctx.success("退出成功!");
+            }
+            let username=ctx.session.username;
             ctx.session = null;
             await ctx.model.UserLoginL.create({uid,loginString:username,loginLogType:'Q'});
-            this.success("退出成功!");
+            ctx.success("退出成功!");
         }
     };
 };

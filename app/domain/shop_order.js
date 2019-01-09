@@ -20,6 +20,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false
     },
+    username: {
+      type: DataTypes.STRING(30),
+      allowNull: false
+    },
     billAmount: {
       type: DataTypes.DECIMAL,
       allowNull: false
@@ -54,10 +58,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
-    },
-    username: {
-      type: DataTypes.STRING(45),
-      allowNull: true
     }
   }, {
     tableName: 'shop_order'

@@ -1,0 +1,222 @@
+{% extends './base.html' %}
+{% block title %}
+    <title>{{page_title}}</title>
+    <link rel="stylesheet" type="text/css" href="/public/assets/red/rs-plugin/css/settings.css" media="screen" />
+{% endblock %}
+
+{% block body %}
+<div class="bannercontainer rev-slider-wrapper clearfix container_12">
+    <div class="rev-banner">
+        <ul>
+            <!-- THE FIRST SLIDE -->
+            <li data-transition="slideleft" data-slotamount="1" data-masterspeed="300" data-thumb="/public/assets/red/images/revslider/slide2.jpg">
+                <img src="/public/assets/red/images/revslider/slide2.jpg" >
+                <div class="caption large_text sft"
+                     data-x="50"
+                     data-y="44"
+                     data-speed="300"
+                     data-start="800"
+                     data-easing="easeOutExpo"  >INMYJS</div>
+
+                <div class="caption medium_text sfl"
+                     data-x="50"
+                     data-y="82"
+                     data-speed="300"
+                     data-start="1100"
+                     data-easing="easeOutExpo">专业</div>
+
+                <div class="caption large_text sfr"
+                     data-x="128"
+                     data-y="78"
+                     data-speed="300"
+                     data-start="1100"
+                     data-easing="easeOutExpo" ><span style="color: #ffc600;">开发</span></div>
+
+                <div class="caption lfl"
+                     data-x="150"
+                     data-y="192"
+                     data-speed="300"
+                     data-start="1400"
+                     data-easing="easeOutExpo"  ><img src="/public/assets/red/images/revslider/inmyjs-pc.png" alt="Image 4"></div>
+
+                <div class="caption lfl"
+                     data-x="80"
+                     data-y="250"
+                     data-speed="300"
+                     data-start="1500"
+                     data-easing="easeOutExpo"  ><img src="/public/assets/red/images/revslider/inmyjs-ipad.png" alt="Image 5"></div>
+
+                <div class="caption lfl"
+                     data-x="75"
+                     data-y="313"
+                     data-speed="300"
+                     data-start="1600"
+                     data-easing="easeOutExpo"  ><img src="/public/assets/red/images/revslider/inmyjs-iphone.png" alt="Image 6"></div>
+
+                <div class="caption lfr"
+                     data-x="630"
+                     data-y="50"
+                     data-speed="950"
+                     data-start="1500"
+                     data-easing="easeOutBounce"  ><img src="/public/assets/red/images/revslider/clean-design.png" alt="Image 5"></div>
+
+                <div class="caption lfr"
+                     data-x="630"
+                     data-y="200"
+                     data-speed="950"
+                     data-start="1700"
+                     data-easing="easeOutBounce"  ><img src="/public/assets/red/images/revslider/code.png" alt="Image 5"></div>
+
+                <div class="caption lfr"
+                     data-x="630"
+                     data-y="350"
+                     data-speed="950"
+                     data-start="1900"
+                     data-easing="easeOutBounce"  ><img src="/public/assets/red/images/revslider/templates.png" alt="Image 5"></div>
+            </li>
+            <!-- THE SECOUND SLIDE -->
+            <li data-transition="flyin" data-slotamount="1" data-masterspeed="300" data-thumb="/public/assets/red/images/thumbs/thumb6.jpg">
+                <img src="/public/assets/red/images/revslider/slide3.png" >
+
+                <div class="caption large_text sfl"
+                     data-x="38"
+                     data-y="200"
+                     data-speed="300"
+                     data-start="1000"
+                     data-easing="easeOutExpo">网站</div>
+
+                <div class="caption large_text sfl"
+                     data-x="37"
+                     data-y="243"
+                     data-speed="300"
+                     data-start="1300"
+                     data-easing="easeOutExpo">微信</div>
+
+                <div class="caption large_text sfr"
+                     data-x="160"
+                     data-y="243"
+                     data-speed="300"
+                     data-start="1300"
+                     data-easing="easeOutExpo"><span style="color: #ffc600;">小程序</span></div>
+
+                <div class="caption randomrotate"
+                     data-x="50"
+                     data-y="350"
+                     data-speed="800"
+                     data-start="1600"
+                     data-easing="easeOutExpo"><a href="#"><img src="/public/assets/red/images/revslider/red-shope-now.png" alt="Image 4"></a></div>
+            </li>
+            <!-- THE THIRD SLIDE -->
+            <li data-transition="papercut" data-slotamount="15" data-masterspeed="300" data-link="#" data-delay="9400" data-thumb="/public/assets/red/images/thumbs/thumb2.jpg">
+                <img src="/public/assets/red/images/revslider/slide21.png" >
+                <div class="caption very_big_white lfl stl"
+                     data-x="18"
+                     data-y="293"
+                     data-speed="300"
+                     data-start="1100"
+                     data-easing="easeOutExpo" data-end="8800" data-endspeed="300" data-endeasing="easeInSine" >系统 平台定制</div>
+
+                <div class="caption medium_text sfl"
+                     data-x="640"
+                     data-y="300"
+                     data-speed="400"
+                     data-start="1100"
+                     data-easing="easeOutExpo">
+                    定制请联系官方微信
+                </div>
+
+                <div class="caption large_text sfl"
+                     data-x="450"
+                     data-y="250"
+                     data-speed="300"
+                     data-start="1100"
+                     data-easing="easeOutExpo">
+                    综合智能平台解决方案
+                </div>
+            </li>
+        </ul>
+    </div>
+</div><!-- end .bannercontainer -->
+    <div id="main-container" class="homepage">
+    <span class="shadow"></span>
+      <div class="container_12 full-container floatted-banners">
+        <div class="floatted-top-banners">
+            {% for subject in subjects %}
+          <div class="banner grid_4">
+              {% if subject.recommendFlag=='1' %}<span class="custom-ribbon left-ribbon" style="background-image:url('/public/assets/red/images/custom-ribbon1.png')"></span>{%endif%}
+            <span class="cover"></span>
+
+              <div class="cover-img" style="background-image:url('{{subject.coverImg}}')">
+              </div>
+            <a href="/shop/subject/{{subject.subjectID}}" target="_blank" title="查看详情" class="icomoon link-icon" aria-hidden="true" data-icon="&#xe000;"></a>
+          </div>
+            {% endfor %}
+        </div><!-- end .floatted-top-banners -->
+        <hr class="separator">
+        <div class="featured-module module clearfix">
+          <div class="box-heading"><h3>推荐产品</h3></div>
+            <div class="slides">
+                {% for goods in shopRecommendGoods %}
+                <div class="product-box grid_3">
+                    <span {% if helper.goodsIsNew(goods.upAt) %}class="ribbon-new" {% endif %}></span>
+                    <a class="img-cover" href="/shop/goods/{{goods.goodsID}}">
+                        <div style="height: 180px;">
+                            <img src="{{goods.imgurl}}" alt="product-image">
+                        </div>
+                    </a>
+                    <div class="product-meta">
+                    <div class="title"><a href="/shop/goods/{{goods.goodsID}}">{{goods.title}}</a></div>
+                    <img src="/public/assets/red/images/stars-5.png" alt="5-stars-ratting">
+                    <div class="price">
+                        <span class="old-price">￥{{goods.priceMarket}}</span>
+                        <span class="new-price">￥{{goods.price}}</span>
+                    </div>
+                    </div><!-- product-meta -->
+                <ul class="product-action">
+                    <li>
+                        <div class="tooltip-wrapper">
+                            <span class="tooltip">收藏</span>
+                        </div>
+                        <a href="javascript:void(0)" onclick="addWishList('{{goods.goodsID}}')" class="icomoon" aria-hidden="true" data-icon="&#xe00d;"></a>
+                    </li>
+                    <li>
+                        <div class="tooltip-wrapper">
+                            <span class="tooltip">加入购物车</span>
+                        </div>
+                        <a href="javascript:void(0)" onclick="addCart('{{goods.goodsID}}','1','{{goods.price}}')" class="icomoon" aria-hidden="true" data-icon="&#x25e0;"></a>
+                    </li>
+                </ul>
+                </div><!-- .product-box -->
+                {% endfor %}
+        </div><!-- end .slides -->
+      </div><!-- .featured-module -->
+          <br/>
+          <div class="home-baner"><span>No Zuo No Die,Just To Try!</span></div>
+          <br/>
+          <div class="latest-blog clearfix">
+              <div class="box-heading"><h3>最新资讯</h3>
+                  <a href="/shop/blog" class="all-blog right">更多</a>
+              </div>
+              {% for blog in blogs %}
+              <article class="grid_4 {% if loop.index==blogs.length  %}omega {% endif %}">
+                  <div class="meta">
+                      <span class="date"><span class="day">{{helper.formatTime(blog.createTime,'DD')}}</span><span class="month">{{helper.formatTime(blog.createTime,'MMM')}}</span></span>
+                      <div class="title"><h4>{{blog.title}}</h4><!--<span style="color:#b9b9b9;">{{blog.subTitle}}</span>--></div>
+                  </div>
+                  <a class="img-cover prettyphoto" href="{{blog.coverImg}}">
+                      <i class="icomoon" aria-hidden="true" data-icon="&#xe003;"></i>
+                      <img src="{{blog.coverImg}}" alt="news-image">
+                  </a>
+                  <div class="excerpt">
+                      <p>{{blog.about}}</p>
+                  </div>
+                  <a class="blog-link" target="_blank" href="/shop/blog/{{blog.blogID}}"><i class="icomoon" aria-hidden="true" data-icon="&#xe01a;"></i>Read More</a>
+              </article>
+              {% endfor %}
+          </div>
+      </div><!-- end .container_12 -->
+    </div><!-- end #main-container -->
+<script>
+
+</script>
+{% endblock %}

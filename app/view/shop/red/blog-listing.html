@@ -1,0 +1,111 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-定制服务</title>
+{% endblock %}
+
+{% block body %}
+<div id="main-container">
+  <div class="page-top-leader omega">
+    <div class="container_12 relatived clearfix">
+      <h1 class="page-title">生活看淡，不服就干</h1>
+      <div class="breadcrumb">
+        <span class="br_before">当前位置:</span>
+        <a href="/">首页</a>
+        <span class="br_sep">/</span>
+        <span class="cur_link">博客</span>
+      </div>
+    </div>
+  </div><!-- .page-top-leader -->
+  <div class="container_12">
+    <div id="column-left" class="grid_3 aside">
+      <div class="box">
+        <div class="box-heading">文章分类</div>
+        <div class="box-content">
+          <div class="box-category">
+            <ul id="blog_list">
+              <li>
+                <a  href="/shop/blog">全部</a>
+                <ul style="overflow: hidden; display: block;">
+              {% for blogClass in blogClasss %}
+              <li><a {% if helper.currentParam('blogClassID')==blogClass.blogClassID %}class="active"{% endif %}  href="/shop/blog?blogClassID={{blogClass.blogClassID}}">{{blogClass.name}}</a>
+                {% if blogClass.isLeaf!=1 %}<span class="subDropdown plus"></span>{% endif  %}
+              </li>
+              {% endfor  %}
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-heading">精品推荐</div>
+        {% for hotGoods in shopRecommendGoods %}
+        <div class="product-box ">
+          <span class="ribbon-new"></span>
+          <a class="img-cover" href="/shop/goods/{{hotGoods.goodsID}}">
+            <img src="{{hotGoods.imgurl}}" alt="product-image">
+          </a>
+          <div class="product-meta">
+            <div class="title"><a href="/shop/goods/{{hotGoods.goodsID}}">{{hotGoods.name}}</a></div>
+            <img src="/public/assets/red/images/stars-5.png" alt="5-stars-ratting">
+            <div class="price">
+              <span class="old-price">￥{{hotGoods.priceMarket}}</span>
+              <span class="new-price">￥{{hotGoods.price}}</span>
+            </div>
+          </div><!-- product-meta -->
+          <ul class="product-action">
+            <li>
+              <div class="tooltip-wrapper">
+                <span class="tooltip">收藏</span>
+              </div>
+              <a href="javascript:void(0)" title="收藏" onclick="addWishList('{{hotGoods.goodsID}}')" class="icomoon" aria-hidden="true" data-icon="&#xe00d;"></a>
+            </li>
+            <li>
+              <div class="tooltip-wrapper">
+                <span class="tooltip">加入购物车</span>
+              </div>
+              <a href="javascript:void(0)" title="加入购物车" onclick="addCart('{{hotGoods.goodsID}}','1','{{hotGoods.price}}')" class="icomoon" aria-hidden="true" data-icon="&#x25e0;"></a>
+            </li>
+          </ul>
+        </div><!-- .product-box -->
+        {% endfor %}
+      </div>
+
+    </div><!-- end #column-left -->
+
+    <div class="aside-container grid_9 omega">
+      <div class="blog-listing clearfix">
+        {% for blog in blogs %}
+        <article class="grid_9 omega">
+          <div class="grid_5">
+            <div class="meta">
+              <span class="date"><span class="day">{{helper.formatTime(blog.createTime,'DD')}}</span><span class="month">{{helper.formatTime(blog.createTime,'MMM')}}</span></span>
+              <div class="title"><h4>{{blog.title}}</h4></div>
+            </div>
+            <a class="img-cover prettyphoto" href="{{blog.coverImg}}">
+              <i class="icomoon" aria-hidden="true" data-icon=""></i>
+              <img src="{{blog.coverImg}}" alt="news-image">
+            </a>
+          </div>
+          <div class="grid_4 omega">
+            <div class="excerpt">
+              <p>{{blog.about}}</p>
+            </div>
+            <a class="blog-link" target="_blank" href="/shop/blog/{{blog.blogID}}"><i class="icomoon" aria-hidden="true" data-icon=""></i>Read More</a>
+          </div>
+        </article>
+        {% endfor %}
+      </div><!-- .blog-listing -->
+      <div class="grid_9 omega">
+        <div class="pagination right">
+          <a href="#">Prev</a>
+          <b>2</b>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">Next</a>
+        </div>
+      </div>
+    </div>
+  </div><!-- end .container_12 -->
+</div><!-- end .main-container -->
+{% endblock %}

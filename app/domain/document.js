@@ -9,13 +9,12 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true
     },
     docUrl: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(200),
       allowNull: true
     },
     docType: {
-      type: DataTypes.CHAR(1),
-      allowNull: false,
-      defaultValue: 'D'
+      type: DataTypes.STRING(20),
+      allowNull: true
     },
     docName: {
       type: DataTypes.STRING(30),

@@ -6,50 +6,52 @@
 module.exports = app => {
     return class UserController extends app.Controller {
         async list(ctx){
-            var {startDate,endDate,page,limit,status,username}=ctx.query;
+            let {startDate,endDate,page,limit,status,username}=ctx.query;
             limit=Number(limit);
-            var offset=(Number(page)-1)*limit;
+            let offset=(Number(page)-1)*limit;
             const Op = ctx.model.Op;
             const result = await ctx.model.User.findAndCountAll({
                 where:{username:{[Op.like]: `%${username}%`},status:{[Op.like]: `%${status}%`},createTime:{[Op.between]: [startDate, endDate]},userType:'C'
                 },offset,limit,raw:true
             });
-            this.success("查询成功!",result.rows,result.count);
+            ctx.success("查询成功!",result.rows,result.count);
         }
         async info(ctx){
             const token = ctx.query.token;
-            var user = await ctx.model.User.findOne({where: {uid:token},raw:true});
+            let uid=ctx.app.lru.get(token);
+            let user = await ctx.model.User.findOne({
+                attributes: ['uid', 'username','nickname','avatar','status','note'],
+                where: {uid},raw:true
+            });
             if (!user) {
-                this.failure("token已失效!");
+                ctx.failure("token已失效!");
                 return;
             }
-            user.role= ['admin'];
-            user.token= user.uid;
-            user.introduction= '我是超级管理员';
-            user.avatar= 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif';
+            user.roles= ['admin'];
+            user.introduction= user.nickname;
             user.name= user.username;
-            this.success("获取成功!",user);
+            ctx.success("获取成功!",user);
         }
         async del(ctx){
             const user = await ctx.model.User.findById(ctx.params.id);
             if(!user){
-                this.failure("删除失败!");
+                ctx.failure("删除失败!");
                 return;
             }
             user.destroy();
-            this.success("删除成功!");
+            ctx.success("删除成功!");
         }
         async status(ctx) {
-            var {status, uid,opBy} = ctx.request.body;
-            var user = await ctx.model.User.findById(uid);
+            let {status, uid,opBy} = ctx.request.body;
+            let user = await ctx.model.User.findById(uid);
             if (!user) {
-                this.failure("操作失败，未查询到用户信息！");
+                ctx.failure("操作失败，未查询到用户信息！");
                 return;
             }
             user.update({
                 status,note:ctx.helper.note(user.note,statusFilter(status))
             });
-            this.success("状态更新成功!");
+            ctx.success("状态更新成功!");
         }
     };
 };

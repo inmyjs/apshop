@@ -1,0 +1,135 @@
+.zoomPad{
+	position:relative;
+	float:left;
+	z-index:3;
+	cursor:crosshair;
+  cursor:url("../images/custom-cursor.png");
+  width: 100%;
+}
+
+
+.zoomPreload{
+   -moz-opacity:0.8;
+   opacity: 0.8;
+   filter: alpha(opacity = 80);
+   color: #333;
+   font-size: 12px;   
+   text-decoration: none;
+   border: 1px solid #CCC;
+   background-color: white;
+   padding: 8px;
+   text-align:center;
+   background-image: url(../images/loader.gif);
+   background-repeat: no-repeat;
+   background-position: 43px 30px;
+   z-index:110;
+   width:90px;
+   height:43px;
+   position:absolute;
+   margin: auto;
+   top:0;
+   left:0;
+   bottom: 0;
+   right: 0;
+    * width:100px;
+    * height:49px;
+}
+
+
+.zoomPup{
+	overflow:hidden;
+	background-color: #000;
+	-moz-opacity:0.6;
+	opacity: 0.6;
+	filter: alpha(opacity = 60);	
+  
+	position:absolute;	
+  z-index:101;
+  /*/cursor:crosshair;*/
+  cursor: pointer;
+  
+  z-index:120;
+}
+
+.zoomOverlay{
+	position:absolute;
+	left:0px;
+	top:0px;
+	background:#FFF;
+	/*opacity:0.5;*/
+	z-index:5000;
+	width:100%;
+	height:100%;
+	display:none;
+  z-index:101;
+}
+
+.zoomWindow{
+	position:absolute;
+	left:110%;
+	top:40px;
+  height: 100% !important;
+	background:#FFF;
+	z-index:6000;
+	height:auto;
+  z-index:10000;
+  z-index:110;
+}
+.zoomWrapper{
+  height: 100% !important;
+	position:relative;	
+  z-index:110;
+}
+.zoomWrapperTitle{
+	display:block;
+	background:#999;
+	color:#FFF;
+	height:18px;
+	line-height:18px;
+	width:100%;
+  overflow:hidden;
+	text-align:center;
+	font-size:10px;
+  position:absolute;
+  top:0px;
+  left:0px;
+  z-index:120;
+  -moz-opacity:0.6;
+  opacity: 0.6;
+  filter: alpha(opacity = 60);
+}
+.zoomWrapperImage{
+	display:block;
+  position:relative;
+  overflow:hidden;
+  z-index:110;
+  height: 100% !important;
+
+}
+.zoomWrapperImage img{
+  border:0px;
+  display:block;
+  position:absolute;
+  z-index:101;
+  max-width: none !important;
+  -webkit-transition : left 0.4s ease;
+  -moz-transition : left 0.4s ease;
+  transition : left 0.4s ease;
+  -webkit-transition : top 0.4s ease;
+  -moz-transition : top 0.4s ease;
+  transition : top 0.4s ease;
+}
+
+.zoomIframe{
+  z-index: -1;
+  filter:alpha(opacity=0);
+  -moz-opacity: 0.80;
+  opacity: 0.80;
+  position:absolute;
+  display:block;
+}
+
+/*********************************************************
+/ When clicking on thumbs jqzoom will add the class
+/ "zoomThumbActive" on the anchor selected
+/*********************************************************/

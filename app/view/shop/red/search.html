@@ -1,0 +1,95 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-搜索</title>
+{% endblock %}
+
+{% block body %}
+    <div id="main-container">
+      <div class="page-top-leader omega">
+        <div class="container_12 relatived clearfix">
+          <h1 class="page-title">搜索</h1>
+          <div class="breadcrumb">
+              <span class="br_before">当前位置:</span>
+              <a href="/">首页</a>
+              <span class="br_sep">/</span>
+              <span class="cur_link">搜索</span>
+          </div>
+        </div>
+      </div><!-- .page-top-leader -->
+      <div class="container_12">
+      <div class="grid_9 aside-container">
+        <div class="module clearfix">
+          <div class="box-heading">
+              <h3>搜索结果</h3></div>
+                {% for goods in shopGoods %}
+                <div class="product-box grid_3" style="margin-right: 10px;margin-bottom: 20px;">
+                    <span class="ribbon-new"></span>
+                    <a class="img-cover" href="/shop/goods/{{goods.goodsID}}">
+                        <img src="{{goods.imgurl}}" alt="product-image">
+                    </a>
+                    <div class="product-meta">
+                        <div class="title"><a href="/shop/goods/{{goods.goodsID}}">{{goods.title}}</a></div>
+                        <img src="/public/assets/red/images/stars-5.png" alt="5-stars-ratting">
+                        <div class="price">
+                            <span class="old-price">￥{{goods.priceMarket}}</span>
+                            <span class="new-price">￥{{goods.price}}</span>
+                        </div>
+                    </div><!-- product-meta -->
+                    <ul class="product-action">
+                        <li>
+                            <div class="tooltip-wrapper">
+                                <span class="tooltip">收藏</span>
+                            </div>
+                            <a href="javascript:void(0)" onclick="addWishList('{{goods.goodsID}}')" class="icomoon" aria-hidden="true" data-icon="&#xe00d;"></a>
+                        </li>
+                        <li>
+                            <div class="tooltip-wrapper">
+                                <span class="tooltip">加入购物车</span>
+                            </div>
+                            <a href="javascript:void(0)" onclick="addCart('{{goods.goodsID}}','1','{{goods.price}}')" class="icomoon" aria-hidden="true" data-icon="&#x25e0;"></a>
+                        </li>
+                    </ul>
+                </div><!-- .product-box -->
+                {% endfor %}
+
+      </div><!-- .featured-module -->
+      <hr class="block-separator">
+      </div><!-- end .grid_9 -->
+      <div id="column-right" class="grid_3 omega">
+        <div class="box">
+          <div class="box-heading">精品推荐</div>
+            {% for hotGoods in shopHotGoods %}
+            <div class="product-box ">
+                <span class="ribbon-new"></span>
+                <a class="img-cover" href="/shop/goods/{{hotGoods.goodsID}}">
+                    <img src="{{hotGoods.imgurl}}" alt="product-image">
+                </a>
+                <div class="product-meta">
+                    <div class="title"><a href="/shop/goods/{{hotGoods.goodsID}}">{{hotGoods.name}}</a></div>
+                    <img src="/public/assets/red/images/stars-5.png" alt="5-stars-ratting">
+                    <div class="price">
+                        <span class="old-price">￥{{hotGoods.priceMarket}}</span>
+                        <span class="new-price">￥{{hotGoods.price}}</span>
+                    </div>
+                </div><!-- product-meta -->
+                <ul class="product-action">
+                    <li>
+                        <div class="tooltip-wrapper">
+                            <span class="tooltip">收藏</span>
+                        </div>
+                        <a href="javascript:void(0)" title="收藏" onclick="addWishList('{{hotGoods.goodsID}}')" class="icomoon" aria-hidden="true" data-icon="&#xe00d;"></a>
+                    </li>
+                    <li>
+                        <div class="tooltip-wrapper">
+                            <span class="tooltip">加入购物车</span>
+                        </div>
+                        <a href="javascript:void(0)" title="加入购物车" onclick="addCart('{{hotGoods.goodsID}}','1','{{hotGoods.price}}')" class="icomoon" aria-hidden="true" data-icon="&#x25e0;"></a>
+                    </li>
+                </ul>
+            </div><!-- .product-box -->
+            {% endfor %}
+          </div>
+      </div><!-- end #column-right -->
+      </div><!-- end .container_12 -->
+       </div><!-- end #main-container -->
+{% endblock %}

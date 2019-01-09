@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>注册</title>
+    <link href="/public/css/login.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/public/js/icheck/style.css"/>
+    <script src="/public/js/icheck/icheck.min.js"></script>
+<style>
+    .error{ color:red !important;  }
+    input.error { border: 1px dotted  red !important; }
+</style>
+<script src="/public/js/jquery/jquery.validate.min.js"></script>
+<script src="/public/js/jquery/messages_zh.min.js"></script>
+<script src="/public/js/jquery/additional-methods.min.js"></script>
+<script src="/public/js/jsencrypt.min.js"></script>
+{% endblock %}
+{% block header %}{% endblock %}
+{% block body %}
+<!--头部-->
+    <div class="login-header">
+        <div class="wrapper">
+            <a href="" class="logo">
+                <img src="/public/img/logo3.png" alt="" />
+            </a>
+            <div class="zp">
+                <span class="ico"></span>
+                <div>正品保障</div>
+            </div>
+        </div>
+    </div>
+    <div class="main-wrap">
+        <div class="wrapper">
+            <div class="center-box">
+                <form action="" method="" id="form_sign">
+                    <div class="box-hd">
+                        <span class="tit">用户注册</span>
+                        <a href="/login">账号登陆</a>
+                    </div>
+                    <label class="txtin-box">
+                        <input class="txtin" type="text" name="username"  v-model="username" minlength="3" placeholder="用户名" required/>
+                    </label>
+                    <!--<label class="txtin-box">
+                        <input class="txtin" type="text" name="" placeholder="手机" />
+                    </label>
+                    <label class="txtin-box txtin-box-code">
+                        <input class="txtin" type="text" name="" placeholder="验证码" />
+                        <a href="" class="get-yzm">获取验证码</a>
+                    </label>-->
+                    <label class="txtin-box">
+                        <input class="txtin" id="password1" type="password" name="password" minlength="6" placeholder="输入密码" required/>
+                    </label>
+                    <label class="txtin-box">
+                        <input class="txtin" type="password" name="comfirmPassword" v-model="password" minlength="6" placeholder="确认密码" equalTo="#password1" required/>
+                    </label>
+                   <!-- <div class="clearfix tool">
+                        <label class="check"><input type="checkbox" name="" id=""  />我已阅读并同意《<a href="">服务协议</a>》</label>
+                    </div>-->
+                    <input class="tj" type="submit"  value="注&ensp;册" />
+                    <!--<div class="other-way clearfix">
+                        <a class="item first" href="">
+                            <img src="/public/img/login/weixin.jpg" alt="" class="ico" />
+                            <span class="label">微信</span>
+                        </a>
+                        <a class="item" href="">
+                            <img src="/public/img/login/qq.jpg" alt="" class="ico" />
+                            <span class="label">微信</span>
+                        </a>
+                        <a class="item" href="">
+                            <img src="/public/img/login/sina.jpg" alt="" class="ico" />
+                            <span class="label">微信</span>
+                        </a>
+                    </div>-->
+                </form>
+            </div>
+        </div>
+    </div>
+<script>
+    $(function() {
+        $("#form_sign").validate({
+            debug:true,
+            messages:{
+                comfirmPassword:{
+                    equalTo:'两次输入密码不一致'
+                }
+            },
+            submitHandler: function(form)
+            {
+                InmyjsKit.loading.start();
+                let encrypt = new JSEncrypt();
+                encrypt.setPublicKey(public_key);
+                let json={username:app.username,password:app.password};
+                let data=JSON.stringify(json);
+                let encrpted = encrypt.encrypt(data);
+                InmyjsKit.request.post('/signIn',{content:encrpted},function (res) {
+                    InmyjsKit.loading.end();
+                    if(res.success){
+                        $.msgbox({
+                            type: 'alert',
+                            title:' 提示',
+                            content: "注册成功，快去登录体验吧！",
+                            onClose: function(){
+                                window.location.href='/login';
+                            }
+                        });
+                    }else{
+                        $.msgbox({
+                            type: 'error',
+                            title:' 错误',
+                            content: res.msg
+                        });
+                    }
+                });
+            }
+        });
+    });
+     $('.check input').iCheck({
+            checkboxClass: 'sty1-checkbox'
+     });
+     let app = new Vue({
+         el: '#form_sign',
+         data: {
+             username: '',
+             password:''
+         }
+     });
+
+</script>
+{% endblock %}
+{% block footer %}
+<div class="login-footer">
+    天启工作室 版权所有 Copyright © 2016-2018   备案号：
+</div>
+{% endblock %}

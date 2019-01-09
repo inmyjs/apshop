@@ -4,6 +4,8 @@
   "description": "apshop plat",
   "scripts": {
     "dev": "egg-bin dev",
+    "start": "egg-scripts start --port=7001 --daemon --title=apshop",
+    "stop": "egg-scripts stop --title=apshop",
     "migrate:new": "egg-sequelize migration:create",
     "migrate:up": "egg-sequelize db:migrate",
     "migrate:down": "egg-sequelize db:migrate:undo"
@@ -12,24 +14,33 @@
   "license": "ISC",
   "dependencies": {
     "accounting": "^0.4.1",
-    "axios": "^0.17.1",
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
+    "co-wechat": "^2.3.0",
+    "co-wechat-api": "^3.8.1",
+    "co-wechat-oauth": "^2.0.1",
     "crypto": "^1.0.1",
-    "egg": "^2.9.1",
-    "egg-cors": "^2.0.0",
+    "egg": "^2.14.1",
+    "egg-cors": "^2.1.2",
+    "egg-lru": "^1.0.1",
     "egg-mysql": "^3.0.0",
-    "egg-sequelize": "^3.1.0",
-    "egg-validate": "^1.0.0",
-    "egg-view-nunjucks": "^2.1.4",
-    "moment": "^2.19.3",
-    "mysql2": "^1.5.1",
+    "egg-scripts": "^2.11.0",
+    "egg-sequelize": "^4.2.0",
+    "egg-ueditor": "^1.0.1",
+    "egg-validate": "^2.0.2",
+    "egg-view-nunjucks": "^2.2.0",
+    "moment": "^2.22.2",
+    "mysql2": "^1.6.4",
     "node-jsencrypt": "^1.0.0",
-    "nodemailer": "^4.4.1",
+    "nodemailer": "^4.7.0",
     "nodemailer-smtp-transport": "^2.7.4",
-    "stream-wormhole": "^1.0.3",
-    "svg-captcha": "^1.3.11"
+    "stream-wormhole": "^1.1.0",
+    "svg-captcha": "^1.3.12",
+    "wechat-pay": "^0.3.2",
+    "weixin-robot": "^0.5.10"
   },
   "devDependencies": {
-    "egg-bin": "^4.3.6"
+    "egg-bin": "^4.9.0",
+    "sequelize-auto": "^0.4.29"
   }
 }

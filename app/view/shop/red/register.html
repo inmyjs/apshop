@@ -1,0 +1,144 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-注册</title>
+
+<script src="/public/assets/common/moment.min.js"></script>
+<script src="/public/assets/common/vue.v2.5.1.min.js"></script>
+<script>
+    Vue.options.delimiters = ['${', '}'];
+</script>
+<style>
+  .error{ color:red !important;  }
+  input.error { border: 1px dotted  red !important; }
+</style>
+<script src="/public/assets/common/jquery/jquery.validate.min.js"></script>
+<script src="/public/assets/common/jquery/messages_zh.min.js"></script>
+<script src="/public/assets/common/jsencrypt.min.js"></script>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block body %}
+    <div id="main-container" class="account-page no-header-top">
+      <div class="page-top-leader omega">
+        <div class="container_12 relatived clearfix">
+          <h1 class="page-title">注册账户</h1>
+          <div class="breadcrumb">
+              <span class="br_before">当前位置:</span>
+              <a href="/">首页</a>
+              <span class="br_sep">/</span>
+              <span class="cur_link">注册账户</span>
+          </div>
+        </div>
+      </div><!-- .page-top-leader -->
+      <div class="container_12">
+
+      <div class="grid_9 aside-container">
+       <div class="grid_9 omega">
+        <div class="content">
+          <h3>您的信息</h3>
+            <form action="" method="" id="form_sign">
+        <label>邮箱(用户名*):</label>
+          <br>
+          <input class="full-width" type="email" v-model="username" name="username" placeholder="请输入常用邮箱,一旦忘记密码就靠它啦" required>
+          <br>
+          <br>
+                <label>昵称(*):</label>
+                <br>
+                <input class="full-width" type="text" v-model="nickname" name="nickname" placeholder="" required>
+                <br>
+                <br>
+          <label>密码(*):</label>
+          <br>
+          <input class="full-width" id="password1" type="password" name="password" minlength="6" placeholder="" required>
+          <br>
+          <br>
+          <label>确认密码(*):</label>
+          <br>
+          <input class="full-width" type="password" name="comfirmPassword" v-model="password" minlength="6" equalTo="#password1" placeholder="" required>
+          <br>
+          <br>
+                <label>验证码:</label>
+                <br>
+                <input class="full-width" type="text" v-model="code"
+                       name="code" required>
+                <img _ngcontent-c3="" src="/captcha" id="img_captcha" onclick="refresh()">
+                <br>
+                <br>
+            <div class="checkbox_skin">
+                <input type="checkbox" name="remember" v-model="remember">
+            </div>
+            <label class="input-label">我已阅读并同意天启商城使用协议</label>
+            <br>
+            <br>
+            <input class="style-button" type="submit" value="注册"/>
+            </form>
+        </div>
+      </div>
+
+      </div>
+
+      <div id="column-left" class="grid_3 aside omega">
+        <div class="box">
+            <div class="box-heading">账户管理</div>
+            <div class="box-content">
+                <div class="box-category">
+                    <ul>
+                        <li><a href="/shop/login">登录</a></li>
+                        <li><a class="active" href="/shop/signIn">注册</a></li>
+                        <li><a href="/shop/forget">忘记密码</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </div><!--end #column-left -->
+      </div><!-- end .container_12 -->
+    </div><!-- end #main-container -->
+<script>
+    function refresh() {
+        $("#img_captcha").attr("src", "/captcha?" + Math.random());
+    }
+    let app = new Vue({
+        el: '#form_sign',
+        data: {
+            username: '',
+            password:'',
+            code: '',
+            remember:false,
+            nickname:''
+        }
+    });
+    $(function() {
+        $("#form_sign").validate({
+            debug:true,
+            messages:{
+                comfirmPassword:{
+                    equalTo:'两次输入密码不一致'
+                }
+            },
+            submitHandler: function(form)
+            {
+                if(!app.remember){
+                    Ap.msg.error("请勾选使用协议");
+                    return;
+                }
+                Ap.loading.start();
+                let encrypt = new JSEncrypt();
+                encrypt.setPublicKey(public_key);
+                let json={username:app.username,password:app.password};
+                let data=JSON.stringify(json);
+                let encrpted = encrypt.encrypt(data);
+                Ap.request.post('/shop/signIn',{content:encrpted,nickname:app.nickname,code:app.code},function (res) {
+                    Ap.loading.end();
+                    if(res.success){
+                        Ap.msg.alert("注册成功,赶快去登录吧!",function () {
+                            window.location='/shop/login';
+                        })
+                    }else{
+                        Ap.msg.error(res.msg);
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

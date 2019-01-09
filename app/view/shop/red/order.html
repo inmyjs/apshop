@@ -1,0 +1,146 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-我的订单</title>
+<script src="/public/assets/common/vue.v2.5.1.min.js"></script>
+<script>
+    Vue.options.delimiters = ['${', '}'];
+</script>
+<style>
+    .status {
+        color: white;
+        padding: 5px 15px;
+
+    }
+    .finish_status{
+        background-color: green;
+        cursor: default;
+    }
+    .cancel_status {
+        background-color: grey;
+        cursor: default;
+    }
+
+</style>
+<script src="/public/assets/common/velocity.min.js"></script>
+<script src="/public/assets/common/vue_more.js"></script>
+<link rel="stylesheet" href="/public/assets/common/more.css">
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block body %}
+<div id="main-container" class="no-header-top">
+  <div class="page-top-leader omega">
+    <div class="container_12 relatived clearfix">
+      <h1 class="page-title">我的订单</h1>
+      <div class="breadcrumb">
+        <span class="br_before">当前位置:</span>
+        <a href="/">首页</a>
+        <span class="br_sep">/</span>
+        <span class="cur_link">我的订单</span>
+      </div>
+    </div>
+  </div><!-- .page-top-leader -->
+  <div class="container_12 aside-container">
+    <div class="grid_9" id="page_container">
+        <div v-if="listData.length==0" class="ui-page-notice  aside-container">
+            <div class="section">
+                <i class="ico iconfont icon-dianpu" ></i>
+                <div class="cont">
+                    <div class="tit">订单空空的哦~，去看看心仪的主题吧~</div>
+                    <div>
+                        <a href="/" class="style-button">去逛逛</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <transition-group name="staggered-fade" tag="ul" v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter">
+            <li v-for="(order, index) in listData" v-bind:key="order.billNo" v-bind:data-index="index">
+                    <div class="my-order">
+                        <h4 class="grid_4" style="line-height: 35px;"><a :href="order.billNo | orderUrl">订单号: ${order.billNo}</a></h4>
+                        <h5 class="grid_2" style="line-height: 35px;">${order.billDate}</h5>
+                        <a v-if="order.billStatus=='P'" class="style-button right status" v-bind:href="order.billNo | orderPayUrl">去付款</a>
+                        <a v-if="order.billStatus=='S'" class="style-button right finish_status" href="javascript:void(0);">已付款</a>
+                        <a v-if="order.billStatus=='C'" class="style-button right cancel_status" href="javascript:void(0);">已取消</a>
+                    </div>
+                    <div class="wishlist-info">
+                        <table>
+                            <thead>
+                            <tr>
+                                <td>封面</td>
+                                <td>产品名称</td>
+                                <td>类型</td>
+                                <td>金额</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(good, index) in order.goods">
+                                <td><a v-bind:href="good.goodsID | imgUrl" target="_blank" v-bind:title="good.name"><img  v-bind:src="good.imgurl" alt=""></a></td>
+                                <td>${good.name}</td>
+                                <td v-if="good.goodsType=='T'">主题</td>
+                                <td v-if="good.goodsType=='C'">组件</td>
+                                <td>${good.num}&nbsp;&nbsp;X&nbsp;&nbsp;￥${good.price}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- .wishlist-info -->
+                    <div class="my-order-amount"><h5 class="right" style="margin-right: 20px;">总计：￥${order.billAmount}</h5></div>
+            </li>
+        </transition-group>
+        <div id='load_more'v-if="listData.length>0"><p>----------${load_more_msg}----------</p></div>
+    </div>
+    <div id="column-left" style="padding-top: 0px;" class="grid_3 aside omega">
+      <div class="box">
+        <div class="box-heading">账户管理</div>
+        <div class="box-content">
+          <div class="box-category">
+            <ul>
+                <li><a  href="/shop/uc">我的账户</a></li>
+                <li><a href="/shop/wishlist">收藏夹</a></li>
+                <li><a href="/shop/myProduct">我的仓库</a></li>
+                <li><a href="/shop/order">我的订单</a>
+                    <ul style="overflow: hidden; display: block;">
+                        <li><a class="active" onclick="queryOrder(this,'A')" href="javascript:void(0);">全部</a></li>
+                        <li><a onclick="queryOrder(this,'P')" href="javascript:void(0);">待付款</a></li>
+                        <li><a onclick="queryOrder(this,'S')" href="javascript:void(0);">已付款</a></li>
+                        <li><a onclick="queryOrder(this,'C')" href="javascript:void(0);">已取消</a></li>
+                    </ul>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div><!--end #column-left -->
+  </div><!-- end .container_12 -->
+   </div><!-- end #main-container -->
+<script>
+    let more;
+    function queryOrder(me, billStatus) {
+        activeLi(me);
+        more.refreshData({billStatus});
+    }
+    function activeLi(me) {
+        let li = $(me);
+        li.parent().parent().find('a').removeClass("active");
+        li.addClass("active");
+    }
+    $(function () {
+        more=$("#page_container").more({
+            url: '/shop/orderByStatus',
+            params: {billStatus: "A"},
+            vue: {
+                filters: {
+                    imgUrl: function (value) {
+                        return '/shop/goods/' + value
+                    },
+                    orderUrl: function (value) {
+                        return '/shop/orderDetail/' + value
+                    },
+                    orderPayUrl: function (value) {
+                        return '/shop/pay/' + value
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

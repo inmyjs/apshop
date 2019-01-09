@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(20),
       allowNull: false
     },
-    email: {
+    tell: {
       type: DataTypes.STRING(30),
       allowNull: false
     },
@@ -32,11 +32,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true
     },
-      status: {
+    status: {
       type: DataTypes.CHAR(1),
       allowNull: false,
-          defaultValue:'0'
-      },
+      defaultValue: '0'
+    },
     createTime: {
       type: DataTypes.DATE,
       allowNull: true,

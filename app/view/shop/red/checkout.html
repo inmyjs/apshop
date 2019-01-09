@@ -1,0 +1,98 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-结算</title>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block body %}
+    <div id="main-container" class="no-header-top">
+      <div class="page-top-leader omega">
+        <div class="container_12 relatived clearfix">
+          <h1 class="page-title">结算</h1>
+          <div class="breadcrumb">
+              <span class="br_before">当前位置:</span>
+              <a href="/">首页</a>
+              <span class="br_sep">/</span>
+              <span class="cur_link">结算</span>
+          </div>
+        </div>
+      </div><!-- .page-top-leader -->       
+      <div class="container_12">      
+      <div class="aside-container grid_9">
+        <div class="checkout-tab">
+          <div class="checkout-heading">确认订单 <a href="/shop/cart" title="编辑"><i class="icomoon edit-tab" aria-hidden="true" data-icon="&#x2199;"></i></a></div>
+          <div class="checkout-content checkout-product clearfix">
+            <table>
+              <thead>
+                <tr>
+                    <td>产品名称</td>
+                    <td>类型</td>
+                    <td>数量</td>
+                    <td>价格</td>
+                    <td>金额</td>
+                </tr>
+              </thead>
+              <tbody>
+              {% for goods in cart %}
+                <tr>
+                  <td>{{goods.name}}</td>
+                    {% if goods.goodsType=="T" %}
+                  <td>主题</td>
+                    {% elif goods.goodsType=="C" %}
+                    <td>组件</td>
+                    {% endif %}
+                  <td>{{goods.num}}</td>
+                  <td>￥{{goods.price}}</td>
+                  <td>￥{{goods.price*goods.num}}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="4">小计:</td>
+                  <td><span class="cart_xj">￥{{sumPrice}}</span></td>
+                </tr>
+                <tr>
+                  <td colspan="4">优惠:</td>
+                  <td>￥0,00</td>
+                </tr>
+                <tr>
+                  <td colspan="4">总计</td>
+                  <td><span class="cart_total">￥{{sumPrice}}</span></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>        
+        </div><!-- checkout-tab -->
+        <a href="javascript:void(0);" onclick="addOrder()" class="button style-button right">确认订单</a>
+      </div>
+      <div id="column-left" class="grid_3 aside omega">        
+        <div class="box">
+          <div class="box-heading">账户管理</div>
+          <div class="box-content">
+            <div class="box-category">
+              <ul>
+                <li><a href="/shop/uc">我的账户</a></li>
+                <li><a href="/shop/wishlist">收藏夹</a></li>
+                <li><a href="/shop/myProduct">我的仓库</a></li>
+                <li><a href="/shop/order">我的订单</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div><!--end #column-left -->
+      </div><!-- end .container_12 -->
+    </div><!-- end #main-container -->
+<script>
+    function addOrder() {
+        let billAmount="{{sumPrice}}";
+        //Ap.loading.start("正在创建订单...");
+        Ap.request.post("/shop/order",{billAmount},function (res) {
+            //Ap.loading.end();
+            if(res.success){
+                window.location="/shop/pay/"+res.result;
+            }else Ap.msg.success(res.msg);
+        })
+    }
+</script>
+{% endblock %}

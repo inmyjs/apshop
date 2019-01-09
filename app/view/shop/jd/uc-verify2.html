@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>账号安全</title>
+    <link href="/public/css/uc.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/public/js/icheck/style.css"/>
+    <script src="/public/js/icheck/icheck.min.js"></script>
+    <script src="/public/js/laydate/laydate.js"></script>
+<script src="/public/js/jquery/jquery.validate.min.js"></script>
+<script src="/public/js/jquery/messages_zh.min.js"></script>
+<script src="/public/js/jquery/additional-methods.min.js"></script>
+<script src="/public/js/jsencrypt.min.js"></script>
+<style>
+    .error{ color:red !important;  }
+    input.error { border: 1px dotted  red !important; }
+</style>
+{% endblock %}
+{% block body %}
+<div class="uc-header-bg">
+    <div class="uc-header wrapper">
+        <a class="logo" href="/"><img src="/public/img/logo2.png" alt="" /></a>
+        <div class="back-home"><a href="/">返回首页</a></div>
+        <ul class="uc-nav">
+            <li><a href="/shop/uc">首页</a></li>
+            <li class="toggle">
+                <span class="label">账户设置<i class="iconfont"></i></span>
+                <div class="toggle-cont">
+                    <!--<a href="">个人信息</a>-->
+                    <a href="/shop/uc/safe">安全设置</a>
+                </div>
+            </li>
+            <!--<li><a href="">消息中心</a></li>-->
+        </ul>
+    </div>
+</div>
+
+<div class="wrapper uc-router">
+    <ul>
+        <li><a href="/shop/uc">首页</a></li>
+        <li><span class="divider"></span></li>
+        <li><span>账号安全</span></li>
+    </ul>
+</div>
+
+    <div class="wrapper">
+        <div class="uc-main clearfix">
+            <div class="uc-aside">
+                <div class="uc-menu">
+                    <div class="tit">个人中心</div>
+                <ul class="sublist">
+                    <!--<li><a href="uc-account.html">账户信息</a></li>-->
+                    <li><a href="/shop/uc/safe">账户安全</a></li>
+                    <li><a href="/shop/order">我的订单</a></li>
+                </ul>
+                </div>
+            </div>
+            <div class="uc-content">
+                <div class="uc-panel">
+                    <div class="uc-bigtit bd-b">修改密码</div>
+                    <div class="uc-panel-bd">
+
+                        <div class="verify-step mt20">
+                            <div class="item item-f">
+                                <i></i>1.验证身份
+                            </div>
+                            <div class="item item-m active">
+                                <i></i>2.设置新密码
+                            </div>
+                            <div class="item item-l">
+                                3.完成
+                            </div>
+                        </div>
+
+                        <div class="verify-panel mt10">
+                            <div class="inner-box">
+                                <form action="" method="" id="form_sign">
+                                <div class="control-group">
+                                    <div class="hd">原密码密码：</div>
+                                    <div class="bd">
+                                        <input style="width: 220px;" v-model="oldPassword" class="ui-txtin" minlength="6" type="password" name="oldPassword" required/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="hd">新登录密码：</div>
+                                    <div class="bd">
+                                        <input style="width: 220px;" id="password1" class="ui-txtin" type="password" minlength="6" name="password" required/>
+                                    </div>
+                                </div>
+                                <div class="control-group mt30">
+                                    <div class="hd">确认新密码：</div>
+                                    <div class="bd">
+                                        <input style="width: 220px;" class="ui-txtin" v-model="newPassword" minlength="6" equalTo="#password1" required type="password" name="comfirmPassword" />
+                                    </div>
+                                </div>
+                                <!--<div class="control-group mt30">
+                                    <div class="hd">验证码：</div>
+                                    <div class="bd">
+                                        <input style="width: 80px;" class="ui-txtin" type="text" name="" />
+                                        <img class="yzm" src="" alt="" />
+                                        <div class="yzm-tip">
+                                            看不清？<br /><a href="">换一张</a>
+                                        </div>
+                                    </div>
+                                </div>-->
+                                <div class="submit-group mt30">
+                                    <input type="submit" class="ui-btn-theme uc-btn-md" value="下一步" />
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--脚部-->
+    <div class="fatfooter">
+
+    </div>
+    <!--脚部-->
+<script>
+    let app=new Vue({
+        el:'#form_sign',
+        data:{
+            oldPassword:'',
+            newPassword:''
+        }
+    });
+    $(function() {
+        $("#form_sign").validate({
+            debug: true,
+            messages: {
+                comfirmPassword: {
+                    equalTo: '两次输入密码不一致'
+                }
+            },
+            submitHandler: function(form)
+            {
+                InmyjsKit.loading.start();
+                let encrypt = new JSEncrypt();
+                encrypt.setPublicKey(public_key);
+                let json={oldPassword:app.oldPassword,newPassword:app.newPassword};
+                let data=JSON.stringify(json);
+                let encrpted = encrypt.encrypt(data);
+                InmyjsKit.request.post('/shop/uc/updatePassword',{content:encrpted},function (res) {
+                    InmyjsKit.loading.end();
+                    if(res.success){
+                        window.location.href="/shop/uc/verify3";
+                    }else{
+                        $.msgbox({
+                            type: 'error',
+                            title:' 错误',
+                            content: res.msg
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}
+{% block footer %}
+{% endblock %}

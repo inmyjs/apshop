@@ -1,13 +1,13 @@
 /**
- * 对象
+ * user Model
  * @param app
- * @returns {void | *}
+ * @returns {*}
  */
 //导入加密模块
 var bcrypt = require('bcryptjs');
 module.exports = app => {
-    const User = app.model.import('../domain/user');
-    User.add=async function(username,pass,nickname) {
+    let user = app.model.import('../domain/user');
+    user.add=async function(username,pass,nickname) {
         const saltRounds = 10;
         var salt = bcrypt.genSaltSync(saltRounds);
         var password = bcrypt.hashSync(pass, salt);
@@ -23,5 +23,5 @@ module.exports = app => {
             salt
         });
     };
-    return User;
+    return user;
 };

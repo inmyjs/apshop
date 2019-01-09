@@ -12,6 +12,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(45),
       allowNull: false
     },
+    payType: {
+      type: DataTypes.CHAR(1),
+      allowNull: false,
+      defaultValue: '0'
+    },
+    opBy: {
+      type: DataTypes.STRING(30),
+      allowNull: true
+    },
     payCode: {
       type: DataTypes.STRING(10),
       allowNull: false
@@ -41,15 +50,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
-    },
-    opBy: {
-      type: DataTypes.STRING(45),
-      allowNull: true
-    },
-    payType: {
-      type: DataTypes.CHAR(1),
-      allowNull: true,
-      defaultValue: '0'
     }
   }, {
     tableName: 'shop_payment'

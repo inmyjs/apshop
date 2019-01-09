@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+    <link rel="shortcut icon" href=/public/favicon.ico>
+    <title>系统提示-{{baseConfig_pageTitle}}</title>
+    <style type="text/css">
+        .text-jumbo {
+            font-size: 32px;
+            font-weight: 700;
+        }
+        .div-error
+        {
+            position: absolute;
+            left: 55%;
+            top:5%;
+            font-size: 20px;
+        }
+        .div-error p{
+            font-weight: 600;
+            color:#fa5555;
+        }
+        .img-error
+        {
+            width:auto;
+            height:auto ;
+
+        }
+    </style>
+</head>
+<body>
+<div>
+    <img class="img-error" src="/public/assets/common/images/404.gif">
+    <div class="div-error">
+        <h1 class="text-jumbo">Oops!</h1>
+        <p>{{msg}}</p>
+    </div>
+    <p style="font-size: 16px;">非常抱歉给您带来不便，请联系我们的客服微信：6666</p>
+</div>
+</body>
+</html>

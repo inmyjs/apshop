@@ -1,0 +1,43 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-支付</title>
+<style>
+    .tip{
+        font-size: 14px;
+        color: #333;
+        margin-top: 50px;
+    }
+</style>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block body %}
+    <div id="main-container"  class="no-header-top">
+      <div class="page-top-leader omega">
+        <div class="container_12 relatived clearfix">
+          <h1 class="page-title">订单支付</h1>
+          <div class="breadcrumb">
+              <span class="br_before">当前位置:</span>
+              <a href="/">首页</a>
+              <span class="br_sep">/</span>
+              <span class="cur_link">订单支付</span>
+          </div>
+        </div>
+      </div><!-- .page-top-leader -->
+      <div class="container_12 full-container">
+          <div class="ui-page-notice" style="padding-bottom: 50px;">
+              <div class="section">
+                  <div class="">
+                      <div class="tit">订单编号：{{order.billNo}}，应支付：{{order.payableAmount}}元</div>
+                      <div class="tit"><span style="color: red;">请扫描下文官方微信，联系购买产品！</span></div>
+                      <div>
+                          <img src="/public/wx.png"/>
+                      </div>
+                      <div class="tip"><span style="color: red;">*平台正处于初创期，暂时未开通支付功能，给您带来不便尽请谅解，谢谢您的支持与理解。</span> </div>
+                  </div>
+              </div>
+          </div>
+    <hr class="separator">
+      </div><!-- end .container_12 -->
+    </div><!-- end #main-container -->
+{% endblock %}

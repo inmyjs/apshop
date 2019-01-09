@@ -14,6 +14,10 @@ exports.cors = {
     enable: true,
     package: 'egg-cors',
 };
+exports.lru = {
+    enable: true,
+    package: 'egg-lru',
+};
 /*
 exports.validate = {
     package: 'egg-validate',

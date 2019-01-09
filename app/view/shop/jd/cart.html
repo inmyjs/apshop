@@ -1,0 +1,369 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>购物车</title>
+
+    <link href="/public/css/cart.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/public/js/icheck/style.css"/>
+<style>
+    body {
+        background-color: #f4f4f4;
+    }
+</style>
+    <script src="/public/js/icheck/icheck.min.js"></script>
+{% endblock %}
+{% block body %}
+        <div class="cart-header wrapper">
+            <div class="logo">
+                <a href="index.html"><img src="/public/img/logo.png" alt="logo" /></a>
+            </div>
+            <div class="step-box">
+                <div class="row">
+                    <div class="step first active col-3">
+                        <span class="num">1</span><span class="line"></span><span class="label">我的购物车</span>
+                    </div>
+                    <div class="step col-3">
+                        <span class="num">2</span><span class="line"></span><span class="label">确认订单信息</span>
+                    </div>
+                    <div class="step col-3">
+                        <span class="num">3</span><span class="line"></span><span class="label">选择支付方式</span>
+                    </div>
+                    <div class="step last col-3">
+                        <span class="num">4</span><span class="line"></span><span class="label">完成付款</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!--头部-->
+
+    <div class="wrapper" id="div_cart">
+        <table class="cart-table">
+            <thead>
+                <tr class="hd">
+                    <th width="30px" class="first"><label class="check"><input id="checkall" type="checkbox" name="all" /><span>全选</span></label></th>
+                    <th width="430px">商品名称</th>
+                    <th width="180px">单价</th>
+                    <th width="190px">数量</th>
+                    <th width="180px">小计</th>
+                    <th width="190px">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="blank">
+                    <td colspan="6"></td>
+                </tr>
+                <tr class="shop">
+                    <td colspan="6" class="first">
+                        <div class="check"><input type="checkbox" name="shop"/><span>主题</span></div>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+            {% for goods in cart %}
+                <tr class="goods">
+                    <td class="first"><div class="check"><input type="checkbox" name=""/></div></td>
+                    <td>
+                        <div class="info-box">
+                            <img src="{{goods.imgurl}}" alt="">
+                            <div class="info">
+                                <div class="name">{{goods.title}}</div>
+                                <div class="meta"><span>亮丽</span></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>￥<span class="unitprice">{{goods.price}}</span></td>
+                    <td>
+                        <div class="mod-numbox cart-numbox" data-max="1">
+                            <span class="count-minus"></span>
+                            <input class="count-input" value="{{goods.num}}"  type="text" name="num" />
+                            <span class="count-plus"></span>
+                        </div>
+                    </td>
+                    <td class="txt-error">￥<span class="price">{{goods.price}}</span></td>
+                    <td><a href="javascript:;" class="del iconfont icon-shanchu" id="{{goods.id}}"></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="cart-total-box">
+            <div class="cart-total">
+                <div class="fl">
+                    <div class="back"><a href="/">继续购物</a></div><div class="count">共 <span class="num" id="totalNum">0</span> 件商品， 已选择 <span class="num" id="selectedNum">0</span> 件</div>
+                </div>
+                <div class="fr">
+                    <div class="price">
+                        合计：<span id="totalMoney"></span>元
+                    </div>
+                    <a class="go-account ui-btn-theme" href="/shop/confirmOrder">去结算</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="bd-t" name="empty_div" style="display: none;"></div>
+<div class="wrapper" name="empty_div" style="display: none;">
+    <div class="ui-page-notice cartempty">
+        <div class="section">
+            <i class="ico iconfont icon-cartempty"></i>
+            <div class="cont">
+                <div class="tit">购物车空空的哦~，去看看心仪的商品吧~</div>
+                <div>
+                    <a href="/" class="ui-btn-theme">去逛逛</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--脚部-->
+    <div class="fatfooter">
+
+    </div>
+    <!--脚部-->
+
+<script>
+    /*商品数量操作*/
+    function goodsCount(o){
+            if(!(o instanceof Object)) let o={};
+            let inputCell = o.inputCell || ".count-input",
+                minusCell = o.minusCell || ".count-minus",
+                plusCell = o.plusCell || ".count-plus",
+                disClass = o.disClass || "disabled";
+            return this.each(function(){
+                let $wrap = $(this),
+                    $input = $(inputCell,$wrap),
+                    $minus = $(minusCell,$wrap),
+                    $plus = $(plusCell,$wrap),
+                    maxnum=parseInt($wrap.attr('data-max')) || false,
+                    minnum=$wrap.attr('data-min') || 1,
+                    initnum=$input.val() || minnum;
+                /*初始*/
+                $input.val(initnum);
+                checkIlegal();
+                function checkIlegal(){
+                    let value =parseInt($input.val());
+
+                    //
+                     if (maxnum&&value>maxnum) {
+                        $input.val(maxnum);
+                    }
+                    else if (value<minnum) {
+                        $input.val(minnum);
+                    }
+                    if(value<=minnum){
+                        $minus.addClass(disClass);
+                    }else{
+                        $minus.removeClass(disClass);
+                    }
+                    if (value>=maxnum) {
+                        $plus.addClass(disClass);
+                    }else {
+                        $plus.removeClass(disClass);
+                    }
+
+                }
+                function checknull() {
+                    let value =$input.val();
+                    if(value === "" || value === "0"){
+                        $input.val(minnum);
+                    }
+                }
+                $input.keyup(function(evt){
+                    let value = $(this).val();
+                    let newvalue = value.replace(/[^\d]/g,"");
+                    $(this).val(newvalue);
+                    checknull();
+                });
+                $input.blur(function(){
+                    checknull();
+                    checkIlegal();
+                })
+
+                $minus.click(function(){
+                    minus();
+                     checkIlegal();
+                });
+
+                $plus.click(function(){
+                    add();
+                    checkIlegal();
+                });
+
+                function add () {
+                    let value = $input.val();
+                    let plus = parseInt(value)+1;
+                    $input.val(plus);
+                }
+                function minus () {
+                    let value = parseInt($input.val());
+                    let minus = value-1;
+                    $input.val(minus);
+                }
+            });
+        }
+        $.fn.goodsCount = goodsCount;
+</script>
+<script >
+    $(function () {
+
+        $('.mod-numbox').goodsCount(); //数量加减
+        $('.check input').iCheck({
+            checkboxClass: 'sty1-checkbox'
+        });
+
+        +function () {
+            let box=$('.cart-table');
+            function caculate () {
+                let selectNum=0,
+                totalNum=0,
+                totalPrice=0;
+                checkNum=0,
+                itemlen=box.find('.goods:not(.goods-useless)').length;
+                $('.goods:not(.goods-useless)').each(function () {
+                    let $check=$(this).find('.check input'),
+                    $price=$(this).find('.price'),
+                    $count=$(this).find('.count-input'),
+                    unitp=parseFloat($(this).find('.unitprice').text()),
+                    num=parseInt($count.val());
+                    let price=unitp*num;
+                    $price.text(price.toFixed(2)); //设置单个商品总价
+                    totalNum+=num;
+                    if ($check.is(':checked')) {
+                        selectNum+=num;
+                        totalPrice+=price;
+                        checkNum+=1;
+                    }
+
+                });
+                $('#selectedNum').text(selectNum);
+                $('#totalNum').text(totalNum);
+                $('#totalMoney').text(totalPrice.toFixed(2));
+                if (itemlen==0) {return false;}
+                if (checkNum<itemlen) {
+                    $('#checkall').iCheck('uncheck');
+                }
+                else {
+                   $('#checkall').iCheck('check');
+               }
+             }
+             function shopaccess () {
+                $('.shop').each(function(index, el) {
+                    let next=$(this).parents('tbody').next('tbody');
+                    if (next.find('.goods:not(.goods-useless)').length<=0) {
+                        $(this).find('.check input').iCheck('disable');
+                        return;
+                    }
+                });
+             }
+             function shopcheck (obj) {
+                let shop=obj.prev('tbody').find('.shop'),
+                    goods=obj.find('.goods:not(.goods-useless)'),
+                    len=goods.length,
+                    cur=0;
+                    goods.each(function(index, el) {
+                        if ($(this).find('.check input').is(':checked')) {
+                            cur++;
+                        }
+                    });
+                    if (cur==len) {
+                        shop.find('.check input').iCheck('check')
+                    }
+                    else {
+                        shop.find('.check input').iCheck('uncheck')
+                    }
+             }
+
+             $('.count-input').on('change blur',function () {
+                    caculate();
+             });
+             $('.mod-numbox span').on('click',function () {
+                    caculate();
+             });
+             box.find('.goods .check input').on('ifToggled',function () {
+                    caculate();
+                    let gbox=$(this).parents('tbody');
+                    shopcheck(gbox);
+             });
+             $('#checkall').on('ifClicked',function () {
+                //全选
+                if ($(this).is(':checked')) {
+                    $('.check input').iCheck('uncheck');
+                }
+                else {
+                    $('.check input').iCheck('check');
+                }
+                caculate();
+             })
+
+             box.find('.shop .check input').on('ifClicked',function () {
+                //店铺全选
+
+                let curItem=$(this).parents('tbody').next('tbody').find('.goods');
+
+                if ($(this).is(':checked')) {
+                    curItem.find('.check input').iCheck('uncheck');
+                }
+                else {
+                    curItem.find('.check input').iCheck('check');
+                }
+                caculate();
+             });
+             //删除
+             $('.goods .del').on('click',function () {
+                 let self=$(this), shop = self.parents('tbody').prev('tbody'), gbox = self.parents('tbody');
+                 InmyjsKit.request.del("/shop/cart/"+self.attr('id'),{},function (res) {
+                     if (res.success) {
+                         self.parents('.goods').remove();
+                         let len = gbox.find('.goods').length;
+                         if (len <= 0) {
+                             shop.remove();
+                             //多种商店时，此处有bug
+                             $("[name=empty_div]").show();
+                             $("#div_cart").hide();
+                         }
+                         caculate();
+                         shopaccess();
+                         shopcheck(gbox);
+                         $('#span_cartNum').html(len);
+                     }
+                 });
+             });
+             // $('#delall').on('click',function () {
+             //    $('.shop:not(.goods-useless) .check input').each(function () {
+             //        if ($(this).prop('checked')==true) {
+             //            $(this).parents('.cart-item').remove();
+             //        }
+             //    });
+             //    caculate();
+             //    shopaccess()
+             // });
+
+             box.find('.check input').iCheck('check',true);//初始化全选测试
+
+            caculate();
+            shopaccess();
+        }();
+
+
+        //结算固定显示
+        $(window).on('load resize scroll',function () {
+            let bar=$('.cart-total'),
+            barH=bar.outerHeight(),
+            barWrap=bar.parent(),
+            otop=barWrap.offset().top,
+            oleft=barWrap.offset().left,
+            sTop=$(this).scrollTop(),
+            wh=$(this).height();
+            if (sTop+wh-barH<otop) {
+                bar.addClass('fixed');
+                let left2=oleft-$(this).scrollLeft()
+                bar.css('left',left2);
+            }
+            else {
+                bar.removeClass('fixed');
+            }
+        });
+    });
+</script>
+{% endblock %}
+{% block footer %}
+{% endblock %}

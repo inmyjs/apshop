@@ -5,8 +5,37 @@
  */
 module.exports = app => {
     return class GoodsController extends app.Controller {
+        async index(ctx){
+            let data= await ctx.getUserInfo();
+            let goodsClassID=ctx.query.goodsClassID;
+            data.active_page=2;
+            const shopRecommendGoods = await ctx.model.ShopGoods.findAll({
+                where:{recommendFlag:'1',goodsStatus:'U'},
+                order:[['sortNo', 'ASC']],
+                limit:3
+            });
+            data.shopRecommendGoods=shopRecommendGoods;
+
+            if(goodsClassID){
+                data.shopGoods = await ctx.model.ShopGoods.findAll({
+                    where:{recommendFlag:'0',goodsStatus:'U',goodsClassID},
+                    order:[['sortNo', 'ASC']],
+                    limit:9
+                });
+            }else{
+                data.shopGoods = await ctx.model.ShopGoods.findAll({
+                    where:{recommendFlag:'0',goodsStatus:'U'},
+                    order:[['sortNo', 'ASC']],
+                    limit:9
+                });
+            }
+            data.goodsClass=await ctx.model.ShopGoodsClass.findAll({
+                where:{status:'0',parentID:0}
+            });
+            await ctx.render('shop/red/goods-listing', data);
+        }
         async show(ctx){
-            var data=await this.getUserInfo();
+            let data=await ctx.getUserInfo();
             const goods = await ctx.model.ShopGoods.findById(ctx.params.id);
             if(!goods){
                 ctx.throw(404);
@@ -20,14 +49,15 @@ module.exports = app => {
             data.goodsImages=goodsImages;
             const shopRecommendGoods = await ctx.model.ShopGoods.findAll({
                 where:{recommendFlag:'1',goodsStatus:'U'},
-                order:[['sortNo', 'ASC']]
+                order:[['sortNo', 'ASC']],
+                limit:3
             });
             data.shopRecommendGoods=shopRecommendGoods;
-            await this.ctx.render('shop/template/'+app.config.viewTemplate+'/product-detail', data);
+            await this.ctx.render('shop/red/product-detail', data);
         }
         async get(ctx){
-            var data=await this.getUserInfo();
-            var search=ctx.query.search;
+            let data=await ctx.getUserInfo();
+            let search=ctx.query.search;
             const Op = ctx.model.Op;
             const shopGoods = await ctx.model.ShopGoods.findAll({
                 where:{
@@ -35,15 +65,20 @@ module.exports = app => {
                 }
             });
             data.shopGoods=shopGoods;
-            const shopHotGoods = await ctx.model.query("SELECT * FROM `shop_goods` where goodsID in (SELECT goodsID FROM shop_hot_goods)", { type: ctx.model.QueryTypes.SELECT});
-            data.shopHotGoods=shopHotGoods;
-            await this.ctx.render('shop/template/'+app.config.viewTemplate+'/search', data);
+            //const shopHotGoods = await ctx.model.query("SELECT * FROM `shop_goods` where goodsID in (SELECT goodsID FROM shop_hot_goods)", { type: ctx.model.QueryTypes.SELECT});
+            const shopRecommendGoods = await ctx.model.ShopGoods.findAll({
+                where:{recommendFlag:'1',goodsStatus:'U'},
+                order:[['sortNo', 'ASC']],
+                limit:3
+            });
+            data.shopHotGoods=shopRecommendGoods;
+            await this.ctx.render('shop/red/search', data);
         }
         async myProduct(ctx){
-            var data=await this.getUserInfo();
+            let data=await ctx.getUserInfo();
             const goods = await ctx.model.ShopUserGoods.findAll({where:{uid:ctx.session.uid}});
             data.goods=goods;
-            await this.ctx.render('shop/template/'+app.config.viewTemplate+'/my-product', data);
+            await this.ctx.render('shop/red/my-product', data);
         }
     };
 };

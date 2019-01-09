@@ -20,6 +20,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: true
     },
+    subTitle: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
     goodsClassID: {
       type: DataTypes.STRING(45),
       allowNull: true
@@ -27,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
     goodsType: {
       type: DataTypes.CHAR(1),
       allowNull: false,
-      defaultValue: 'T'
+      defaultValue: 'E'
     },
     imgurl: {
       type: DataTypes.STRING(255),
@@ -110,14 +114,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     },
-    goodsStatus: {
+    recommendFlag: {
       type: DataTypes.CHAR(1),
       allowNull: false,
       defaultValue: '0'
     },
-    recommendFlag: {
+    goodsStatus: {
       type: DataTypes.CHAR(1),
-      allowNull: true
+      allowNull: false,
+      defaultValue: '0'
     }
   }, {
     tableName: 'shop_goods'

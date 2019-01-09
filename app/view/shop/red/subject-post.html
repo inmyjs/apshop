@@ -1,0 +1,75 @@
+{% extends './base.html' %}
+
+{% block nav %}
+{% endblock %}
+{% block body %}
+<div id="main-container" class="no-header-top">
+  <div class="page-top-leader omega">
+    <div class="container_12 relatived clearfix">
+      <h1 class="page-title">{{subject.title}}</h1>
+      <div class="breadcrumb">
+        <span class="br_before">当前位置:</span>
+        <a href="/">首页</a>
+        <span class="br_sep">/</span>
+        <span class="cur_link">专题</span>
+      </div>
+    </div>
+  </div><!-- .page-top-leader -->
+  <div class="container_12">
+    <div class="aside-container grid_12 omega">
+      <div class="blog-post clearfix">
+        <div class="grid_12 meta clearfix omega">
+          <span class="posted-in"><i class="icomoon" aria-hidden="true" data-icon="&#xe029;"></i>{{subject.subTitle}}</span>
+          <span class="date"><i class="icomoon" aria-hidden="true" data-icon="&#xe018;"></i><span class="day" >{{helper.formatTime(subject.createTime,'DD/MM/YYYY')}}</span></span>
+        </div>
+        <article class="grid_12 omega">
+          <a class="img-cover prettyphoto"  href="{{subject.coverImg}}">
+            <i class="icomoon" aria-hidden="true" data-icon="&#xe003;"></i>
+            <img  src="{{subject.coverImg}}" alt="news-image">
+          </a>
+          <div class="content">
+            {{ subject.content | safe }}
+          </div>
+        </article>
+        <div class="product-list grid_12 omega">
+          {% for goods in subjectGoods %}
+        <div class="product-box grid_12 omega">
+          <div class="img-cover grid_3">
+            <a href="/shop/goods/{{goods.goodsID}}">
+              <img src="{{goods.imgurl}}" alt="product-image">
+            </a>
+          </div>
+          <div class="product-content grid_7 omega">
+            <div class="title"><a href="/shop/goods/{{goods.goodsID}}">{{goods.title}}</a></div>
+            <img src="/public/assets/red/images/stars-5.png" alt="5-stars-ratting">
+            <p>{{goods.subTitle}}</p>
+            <div class="product-action">
+              <div>
+                <a href="#"><i class="icomoon" aria-hidden="true" data-icon="&#xe01c;"></i>比较产品</a>
+              </div>
+              <div>
+                <a href="javascript:void(0)" onclick="addWishList('{{goods.goodsID}}')"><i class="icomoon" aria-hidden="true" data-icon="&#xe00d;"></i>收藏</a>
+              </div>
+            </div>
+          </div>
+          <div class="product-price grid_2 omega">
+            <div class="price">
+              <span class="old-price">￥{{goods.priceMarket}}</span>
+              <span class="new-price">￥{{goods.price}}</span>
+            </div>
+            <a class="addtoCart-list" href="javascript:void(0)" onclick="addCart('{{goods.goodsID}}','1','{{goods.price}}')"><i class="icomoon" aria-hidden="true" data-icon="&#x25e0;"></i>加入购物车</a>
+          </div>
+        </div><!-- .product-box -->
+          {% endfor %}
+        </div>
+        <!-- <div class="share-in clearfix">
+
+        </div>-->
+      </div><!-- .blog-post -->
+    </div><!-- end .aside-container -->
+  </div><!-- end .container_12 -->
+</div><!-- end .main-container -->
+<script>
+
+</script>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-登录</title>
+
+
+<script src="/public/assets/common/moment.min.js"></script>
+<script src="/public/assets/common/vue.v2.5.1.min.js"></script>
+<script>
+    Vue.options.delimiters = ['${', '}'];
+</script>
+
+<style>
+    .error {
+        color: red !important;
+    }
+
+    input.error {
+        border: 1px dotted red !important;
+    }
+</style>
+<script src="/public/assets/common/jquery/jquery.validate.min.js"></script>
+<script src="/public/assets/common/jquery/messages_zh.min.js"></script>
+<script src="/public/assets/common/jsencrypt.min.js"></script>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block body %}
+<div id="main-container" class="account-page no-header-top">
+    <div class="page-top-leader omega">
+        <div class="container_12 relatived clearfix">
+            <h1 class="page-title">登录账户</h1>
+            <div class="breadcrumb">
+                <span class="br_before">当前位置:</span>
+                <a href="/">首页</a>
+                <span class="br_sep">/</span>
+                <span class="cur_link">登录</span>
+            </div>
+        </div>
+    </div><!-- .page-top-leader -->
+    <div class="container_12">
+        <div class="aside-container grid_9">
+            <div class="grid_4">
+                {% if baseConfig.isRegister=='1'%}
+                <div class="content">
+                    <h3>新客户</h3>
+                    <!--<p class="subtitle">注册账户</p>-->
+                    <p>通过创建一个账户, 您将自由地购买主题, 获取最新的主题、组件包，并第一时间使用它们。</p>
+                    <a class="style-button" href="/shop/signIn">继续</a>
+                </div>
+                {%endif%}
+            </div>
+            <div class="grid_5 omega">
+                <div class="content">
+                    <h3>我是老客户</h3>
+                    <form action="" method="" id="form_login">
+                        <!--<p class="subtitle">我是老客户</p>-->
+                        <label>用户名(邮箱):</label>
+                        <br>
+                        <input class="full-width" type="email" name="username" v-on:focus="focus" v-model="username"
+                                placeholder="请输入邮箱" required>
+                        <br>
+                        <br>
+                        <label>密码:</label>
+                        <br>
+                        <input class="full-width" type="password" v-on:focus="focus" v-model="password" minlength="6"
+                               name="password" required>
+                        <br>
+                        <label id="label_error" style="color: red;"></label>
+                        <br>
+                        <div class="checkbox_skin">
+                            <input type="checkbox" name="rememberMe" v-model="rememberMe">
+                        </div>
+                        <label class="input-label">记住我</label>
+                        <br>
+                        <br>
+                        <input class="style-button " type="submit" value="登录"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="column-left" class="grid_3 aside omega">
+            <div class="box">
+                <div class="box-heading">账户管理</div>
+                <div class="box-content">
+                    <div class="box-category">
+                        <ul>
+                            <li><a class="active" href="/shop/login">登录</a></li>
+                            {% if baseConfig.isRegister=='1'%}<li><a href="/shop/signIn">注册</a></li>{%endif%}
+                            <li><a href="/shop/forget">忘记密码</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div><!--end #column-left -->      </div><!-- end .container_12 -->
+</div><!-- end #main-container -->
+<script>
+    let app = new Vue({
+        el: '#form_login',
+        data: {
+            username: '',
+            password: '',
+            rememberMe: false
+        },
+        methods: {
+            focus: function () {
+                $('#label_error').empty();
+            }
+        }
+    });
+    $(function () {
+
+        $("#form_login").validate({
+            debug: true,
+            submitHandler: function (form) {
+                //Ap.loading.start();
+                let encrypt = new JSEncrypt();
+                encrypt.setPublicKey(public_key);
+                let json = {username: app.username, password: app.password, rememberMe: app.rememberMe};
+                let data = JSON.stringify(json);
+                let encrpted = encrypt.encrypt(data);
+                Ap.request.post('/shop/login', {content: encrpted}, function (res) {
+                    //Ap.loading.end();
+                    if (res.success) {
+                        window.location = '/';
+                    } else {
+                        $('#label_error').html(res.msg);
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

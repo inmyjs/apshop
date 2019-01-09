@@ -1,0 +1,145 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-产品详情</title>
+{% endblock %}
+
+{% block body %}
+    <div id="main-container">
+      <div class="page-top-leader omega">
+        <div class="container_12 relatived clearfix">
+        <h1 class="product-title">{{goods.title}}</h1>
+        <div class="price">
+          <span class="old-price">￥{{goods.priceMarket}}</span>
+          <span class="new-price">￥{{goods.price}}</span>
+          <span></span>
+        </div>
+        <div class="rate">
+          <img src="/public/assets/red/images/b-stars-5.png" alt="5-stars-ratting">
+        </div>
+          <div class="breadcrumb">
+              <span class="br_before">当前位置:</span>
+              <a href="/">首页</a>
+              <span class="br_sep">/</span>
+              <span class="cur_link">产品详情</span>
+          </div>
+        </div>
+      </div><!-- .page-top-leader -->
+      <div class="container_12 full-container">
+      <div class="style-block clearfix">
+    <div class="product-media grid_5 omega">
+      <div class="product_image_wraper clearfix">
+          <a rel='thumb' href="{{goods.imgurl}}" title="{{goods.title}}" class="jqzoom prettyphoto">
+              <img id="image" src="{{goods.imgurl}}" alt="{{goods.title}}" />
+          </a>
+      </div>
+        <div class="media_wraper horizontal-slider">
+            <div class="flexslider">
+                <ul class="image-additional slides clearfix">
+                    {% for img in goodsImages %}
+                    <li><a href="javascript:void(0);" title="Apple Cinema 30&quot;" rel="{gallery: 'thumb', smallimage: '{{img.imgurl}}',largeimage: '{{img.imgurl}}'}" ><img style="height: 95px;" src="{{img.imgurl}}" title="{{goods.title}}" alt="{{goods.title}}"></a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="share-it clearfix">
+            <!-- AddThis Button BEGIN -->
+
+            <!-- AddThis Button END -->
+        </div><!-- end .share-it -->
+    </div><!-- end .product-media -->
+
+    <div class="product-info fullwidth-product-info">
+      <div class="product-data-box">
+        <span class="label"> </span><span class="data in-stock">个性定制</span>
+      </div>
+      <div class="product-data-box">
+        <span class="label"> </span><span class="data">Inmyjs工作室设计</span>
+      </div>
+      <div class="product-data-box">
+        <span class="label">好评率 :</span><span class="data">100%</span>
+      </div>
+      <!--<div class="review-count">
+        (5) reviews <a class="write_review" onclick="￥('a[href=\'#tab-review\']').trigger('click');">write a review</a>
+      </div>-->
+      <hr class="separator divider">
+
+      <div class="addition-actions">
+        <a href="javascript:void(0)" onclick="addWishList('{{goods.goodsID}}')"><i aria-hidden="true" class="icomoon" data-icon="&#xe00d;"></i>收藏</a>
+      </div>
+      <div class="price-data-box">
+        <span class="qty-label">数量 :</span>
+        <span aria-hidde="true" class="icomoon minus_qty" data-icon="&#xe01b;"></span>
+        <span class="quantity">
+          <input class="quantity" type="text" v-model="num" name="quantity" value="1" data-max="1">
+        </span>
+        <span aria-hidde="true" class="icomoon plus_qty" data-icon="&#xe01a;"></span>
+        <a class="addTocart-product" href="javascript:void(0)" onclick="addCart('{{goods.goodsID}}','1','{{goods.price}}')"><i aria-hidden="true" class="icomoon" data-icon="&#x25e0;"></i>加入购物车</a>
+      </div><!-- end  .price-data-box -->
+        <div class="addition-actions">
+        <span>（限购1件）</span>
+        </div>
+    </div><!-- product-info -->
+  </div>
+  <hr class="block-separator">
+    <div class="tabs-wrapper grid_9">
+      <div id="tabs">
+        <ul class="header">
+          <li><a class="active-tab" href="#tab-description">详情描述</a></li>
+          <!--<li><a href="#tab-specification">参数</a></li>
+          <li><a href="#tab-review">评论(3)</a></li>
+          <li><a href="#tab-options">定制</a></li>-->
+        </ul>
+      <div id="tab-description" class="tab-content">
+          {{ goods.note | safe }}
+      </div>
+      <div id="tab-specification" class="tab-content">
+
+      </div>
+      <div id="tab-review" class="tab-content">
+
+      </div>
+      <div id="tab-options" class="tab-content">
+
+        </div>
+      </div>
+    </div><!-- end .tabs-wrapper -->
+    <div class="related-products grid_3 omega">
+      <div class="box-heading">
+        <h4>精品推荐</h4>
+      </div>
+      <div class="slides">
+          {% for hotGoods in shopRecommendGoods %}
+      <div class="product-box grid_3" style="margin-bottom: 20px;">
+        <span class="ribbon-new"></span>
+        <a class="img-cover" href="/shop/goods/{{hotGoods.goodsID}}">
+          <img src="{{hotGoods.imgurl}}" alt="product-image">
+        </a>
+        <div class="product-meta">
+          <div class="title"><a href="/shop/goods/{{hotGoods.goodsID}}">{{hotGoods.title}}</a></div>
+          <img src="/public/assets/red/images/stars-5.png" alt="5-stars-ratting">
+          <div class="price">
+            <span class="old-price">￥{{hotGoods.priceMarket}}</span>
+            <span class="new-price">￥{{hotGoods.price}}</span>
+          </div>
+        </div><!-- product-meta -->
+        <ul class="product-action">
+            <li>
+                <div class="tooltip-wrapper">
+                    <span class="tooltip">收藏</span>
+                </div>
+                <a href="javascript:void(0)" onclick="addWishList('{{hotGoods.goodsID}}')" class="icomoon" aria-hidden="true" data-icon="&#xe00d;"></a>
+            </li>
+            <li>
+                <div class="tooltip-wrapper">
+                    <span class="tooltip">加入购物车</span>
+                </div>
+                <a href="javascript:void(0)" onclick="addCart('{{hotGoods.goodsID}}','1','{{hotGoods.price}}')" class="icomoon" aria-hidden="true" data-icon="&#x25e0;"></a>
+            </li>
+        </ul>
+      </div><!-- .product-box -->
+          {% endfor %}
+    </div><!-- end slides -->
+    </div><!-- end related products -->
+      </div><!-- end .container_12 -->
+    </div><!-- end #main-container -->
+{% endblock %}

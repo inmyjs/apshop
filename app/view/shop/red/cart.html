@@ -1,0 +1,108 @@
+{% extends './base.html' %}
+{% block title %}
+<title>{{page_title}}-购物车</title>
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block body %}
+    <div id="main-container" class="no-header-top">
+      <div class="page-top-leader omega">
+        <div class="container_12 relatived clearfix">
+          <h1 class="page-title">购物车</h1>
+          <div class="breadcrumb">
+              <span class="br_before">当前位置:</span>
+              <a href="/">首页</a>
+              <span class="br_sep">/</span>
+              <span class="cur_link">购物车</span>
+          </div>
+        </div>
+      </div><!-- .page-top-leader --> 
+      <div class="container_12 full-container">
+          {% if cart.length==0 %}
+          <div class="grid_9">
+          <div class="ui-page-notice  aside-container" style="padding-bottom: 50px;">
+              <div class="section">
+                  <i class="ico iconfont icon-cartempty"></i>
+                  <div class="cont">
+                      <div class="tit">购物车空空的哦~，去看看心仪的主题吧~</div>
+                      <div>
+                          <a href="/" class="style-button">去逛逛</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          </div>
+          {% else %}
+        <div class="cart-info grid_9">
+          <table>            
+            <thead>
+            <tr>
+              <td class="image">封面</td>
+              <td class="name">产品名称</td>
+              <td class="model">类型</td>
+              <td class="quantity">数量</td>
+              <td class="price">价格</td>
+              <td class="total">金额</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for goods in cart %}
+              <tr class="div_cart_{{goods.id}}">
+                <td class="image"><a href="/shop/goods/{{goods.goodsID}}" target="_blank" title="{{goods.name}}"><img src="{{goods.imgurl}}" alt="product name"></a></td>
+                <td class="name">{{goods.name}}</td>
+                  {% if goods.goodsType=="T" %}
+                <td class="model">主题</td>
+                  {% elif goods.goodsType=="C" %}
+                  <td class="model">组件</td>
+                  {% endif %}
+                <td class="quantity">
+                  <div class="plus-min">
+                    <span class="icomoon plus_qty" data-icon="&#xe01a;"></span>
+                    <span class="icomoon minus_qty" data-icon="&#xe01b;"></span>                  
+                  </div>
+                  <input type="text" name="quantity[48]" value="{{goods.num}}" data-max="1">
+                  <a aria-hidden="true" data-icon="&#xe004;" class="remove_cart icomoon" href="javascript:void(0);" onclick="delCart('{{goods.id}}')"></a>
+                </td>
+                <td class="price">￥{{goods.price}}</td>
+                <td class="total">￥{{goods.price*goods.num}}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div><!-- end .cart-info -->
+
+        <div class="right grid_3 omega">      
+        <div class="cart-total">
+          <table id="total">
+              <tbody>
+              <tr>
+                  <td><strong>小计:</strong></td>
+                  <td><span class="cart_xj">￥0.00</span></td>
+              </tr>
+              <tr>
+                  <td><strong>优惠:</strong></td>
+                  <td>￥0.00</td>
+              </tr>
+              <tr>
+                    <td><strong>总计:</strong></td>
+                  <td><span class="cart_total">￥0.00</span></td>
+              </tr>
+              </tbody>
+          </table>
+        </div>
+        <div class="cart-buttons">      
+          <a class="checkout-btn" onclick="checkout()" href="javascript:void(0);">
+            <i aria-hidden="true" data-icon="&#xe019;" class="icomoon"></i>
+            <span>去结算</span>
+          </a>
+          <a class="shopping-btn" href="/">
+            <i aria-hidden="true" data-icon="&#x25e0;" class="icomoon"></i>
+            <span>继续购物</span>
+          </a>      
+        </div><!-- end .cart-buttons -->   
+      </div>
+          {% endif %}
+    <hr class="separator">
+      </div><!-- end .container_12 -->
+    </div><!-- end #main-container -->
+{% endblock %}

@@ -1,9 +1,9 @@
 /**
- * Model
+ * document Model
  * @param app
  * @returns {*}
  */
 module.exports = app => {
-    const Document = app.model.import('../domain/document');
-    return Document;
+    const document = app.model.import('../domain/document');
+    return document;
 };

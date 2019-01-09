@@ -3,12 +3,7 @@
  * @type
  */
 module.exports = {
-    keys: "AP6kls362",
-    payKeys: "appay2018",
-    server: "http://localhost:7001",
-    payServer: "http://localhost:8018",
-    viewTemplate:'red',
-    baseDir:__dirname+'',
+    keys : 'Ap38dk30sS3l',
     private_key:"-----BEGIN RSA PRIVATE KEY-----\n" +
     "MIICWwIBAAKBgGCG1hRBi7GOWftJF5sHc4at+IVxZUf/mjB2pPS3JCgi3GJn9hbp\n" +
     "GdwV08TlSAK0o55gHLfTKEShunEtqZ7i6zrIF714qntmSmXOFWHzmQqHaRGpown/\n" +
@@ -30,27 +25,26 @@ module.exports = {
             '.html': 'nunjucks',
         },
     },
+    session: {
+        renew: true,
+        maxAge: 7*24 * 3600 * 1000, // 7 天
+    },
+    lru : {
+        client: {
+            // all lru cache config available here
+            max: 1000,
+            maxAge: 1000 * 60 * 60*24, // 1 天
+        },
+        // load into app, default is open
+        app: true,
+        // load into agent, default is close
+        agent: false,
+    },
     // 配置需要的中间件，数组顺序即为中间件的加载顺序
-    middleware: ['isLoginUser','saveSession','errorHandler'],
-    isLoginUser: {
-        match: '/user',
-    },
-    errorHandler: {
-        match: '/api',
-    },
-    security: {
-        domainWhiteList: ['http://localhost:9527'],
-        csrf: {
-            ignore: /\/api|\/admin/,
-            ignoreJSON: true, // 默认为 false，当设置为 true 时，将会放过所有 content-type 为 `application/json` 的请求
-            useSession: false, // 默认为 false，当设置为 true 时，将会把 csrf token 保存到 Session 中
-            cookieName: 'ctoken', // Cookie 中的字段名，默认为 csrfToken
-            sessionName: 'ctoken', // Session 中的字段名，默认为 csrfToken
-        }
-    },
+    middleware: ['closeHandler','saveSession','errorHandler'],
     email: {
         service: 'QQ',
         user: 'xxxxxxxxx@qq.com',
-        pass: 'xxxxxxxxxxxxx',
+        pass: 'xxxxxxxxxxxxxxxxx',
     }
 };

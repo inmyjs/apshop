@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>登陆</title>
+    <link href="/public/css/login.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/public/js/icheck/style.css"/>
+    <script src="/public/js/icheck/icheck.min.js"></script>
+<style>
+    .error{ color:red !important;  }
+    input.error { border: 1px dotted  red !important; }
+</style>
+<script src="/public/js/jquery/jquery.validate.min.js"></script>
+<script src="/public/js/jquery/messages_zh.min.js"></script>
+<script src="/public/js/jquery/additional-methods.min.js"></script>
+<script src="/public/js/jsencrypt.min.js"></script>
+{% endblock %}
+{% block header %}{% endblock %}
+{% block body %}
+<!--头部-->
+    <div class="login-header">
+        <div class="wrapper">
+            <a href="" class="logo">
+                <img src="/public/img/logo3.png" alt="" />
+            </a>
+            <div class="zp">
+                <span class="ico"></span>
+                <div>正品保障</div>
+            </div>
+        </div>
+    </div>
+    <div class="login-main-wrap">
+        <div class="login-main wrapper">
+            <div class="login-box">
+                <form action="" method="" id="form_login">
+                    <div class="box-hd">
+                        <span class="tit">用户登录</span>
+                        <a href="/signIn">注册新账号</a>
+                    </div>
+                    <label class="txtin-box">
+                        <span class="ico user"></span>
+                        <input class="txtin" type="text" v-model="username" v-on:focus="focus" name="username" minlength="3" placeholder="用户名" required/>
+                    </label>
+                    <label class="txtin-box">
+                        <span class="ico pwd"></span>
+                        <input class="txtin" type="password" v-model="password" v-on:focus="focus" name="password" minlength="6" placeholder="密码" required/>
+                        <label id="label_error" style="color: red;"></label>
+                    </label>
+                    <div class="clearfix tool">
+                        <label class="check"><input type="checkbox" v-model="rememberMe" name="rememberMe" />自动登录</label>
+                        <a class="find" href="">忘记密码？</a>
+                    </div>
+                    <input class="tj" type="submit" value="登&ensp;录" />
+                   <!-- <div class="other-way clearfix">
+                        <a class="item first" href="">
+                            <img src="/public/img/login/weixin.jpg" alt="" class="ico" />
+                            <span class="label">微信</span>
+                        </a>
+                        <a class="item" href="">
+                            <img src="/public/img/login/qq.jpg" alt="" class="ico" />
+                            <span class="label">微信</span>
+                        </a>
+                        <a class="item" href="">
+                            <img src="/public/img/login/sina.jpg" alt="" class="ico" />
+                            <span class="label">微信</span>
+                        </a>
+                    </div>-->
+                </form>
+            </div>
+        </div>
+    </div>
+<script>
+       $(function() {
+           let app = new Vue({
+               el: '#form_login',
+               data: {
+                   username: '',
+                   password:'',
+                   rememberMe:false
+               },
+               methods:{
+                   focus:function () {
+                       $('#label_error').empty();
+                   }
+               }
+           });
+        $("#form_login").validate({
+            debug:true,
+            submitHandler: function(form)
+            {
+                InmyjsKit.loading.start();
+                let encrypt = new JSEncrypt();
+                encrypt.setPublicKey(public_key);
+                let json={username:app.username,password:app.password,rememberMe:app.rememberMe};
+                let data=JSON.stringify(json);
+                let encrpted = encrypt.encrypt(data);
+                InmyjsKit.request.post('/login',{content:encrpted},function (res) {
+                    InmyjsKit.loading.end();
+                        if(res.success){
+                        window.location.href='/';
+                    }else{
+                        $('#label_error').html(res.msg);
+                    }
+                });
+            }
+        });
+           $('.check input').iCheck({
+               checkboxClass: 'sty1-checkbox'
+           });
+    });
+
+</script>
+{% endblock %}
+{% block footer %}
+<div class="login-footer">
+    天启工作室 版权所有 Copyright © 2016-2018   备案号：
+</div>
+{% endblock %}

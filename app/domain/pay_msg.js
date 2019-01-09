@@ -22,8 +22,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     tradeNo: {
       type: DataTypes.STRING(100),
-      allowNull: true,
-      unique: true
+      allowNull: true
     },
     username: {
       type: DataTypes.STRING(20),

@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     systemCName: {
       type: DataTypes.STRING(100),
-      allowNull: false
+      allowNull: true
     },
     configName: {
       type: DataTypes.STRING(30),
@@ -25,9 +25,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(100),
       allowNull: false
     },
+    configDefaultValue: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
     configDESC: {
-      type: DataTypes.TEXT,
-      allowNull: false
+      type: DataTypes.STRING(30),
+      allowNull: true
     },
     status: {
       type: DataTypes.CHAR(1),

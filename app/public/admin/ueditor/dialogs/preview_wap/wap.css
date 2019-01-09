@@ -1,0 +1,41 @@
+body{
+    font-family: PingFangSC,"Microsoft Yahei",Helvetica,Tahoma,Arial,"Hiragino Sans GB","Hiragino Sans GB W3",STXihei,STHeiti,Heiti,SimSun,sans-serif!important;
+    font-weight: 400;
+    font-size: 14px;
+    color: #353535;
+    background-color: #ACACAC;
+}
+
+.preview_box{
+    width:360px;
+    overflow: hidden;
+    border-radius: 40px;
+    background-image:url("../../pic_mockup.png");
+    background-repeat:no-repeat;
+    background-size: cover;
+    height:730px;
+}
+#preview_content{
+    width: 307px;
+    background: #fff;
+    height: 528px;
+    margin: 126px 0 0 22px;
+    overflow-y: auto;
+    overflow-x:hidden;
+    word-wrap:break-word;
+    white-space:pre-wrap;
+    padding:0 5px;
+}
+
+#preview_content table,#preview_content tbody{
+    width:100%!important;
+}
+#preview_content *{
+    max-width: 100%!important;
+}
+#preview_content img{
+    height:auto!important;
+}
+#preview_content tr td,#preview_content th td{
+    border:1px solid windowtext;
+}
