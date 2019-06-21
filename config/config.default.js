@@ -4,21 +4,23 @@
  */
 module.exports = {
     keys : 'Ap38dk30sS3l',
-    private_key:"-----BEGIN RSA PRIVATE KEY-----\n" +
-    "MIICWwIBAAKBgGCG1hRBi7GOWftJF5sHc4at+IVxZUf/mjB2pPS3JCgi3GJn9hbp\n" +
-    "GdwV08TlSAK0o55gHLfTKEShunEtqZ7i6zrIF714qntmSmXOFWHzmQqHaRGpown/\n" +
-    "5hsjQ4VsLTykYAxaImqNKBxyQ92tCPxRLmnTAunLK29Es5n4bayCITQzAgMBAAEC\n" +
-    "gYApuqDZ6OwnOk8UHykhUDtVQehqZ/dNBOb3hJMTaAktgMSdliwBA4y2ZIlEWYqk\n" +
-    "AMurMAm6PoLuCKy9OOxXT+o42sdXlPWWFyc2xKZ3JodijIsKPOctx9ZG30YUZ/Qq\n" +
-    "QoUfG8ChYo4rCcDViFAVuLEGxBxrwz7BSlANAgnSD2C94QJBAKwMxBzjLlgw+7oD\n" +
-    "2i5VUtWJJm9ngajj9WM18Tb9GVdWCvDAlk1GHAeKvF3HeBN82JlUpg2PhaGPvGXJ\n" +
-    "OmUV7s0CQQCPoEJKx+NLWYO0dZyds4iscFtX215HSSTL5jjkedAvJ45ApseI2/zN\n" +
-    "pbpUAx2WlIypOZi3MGH7wBTHvzDK3a7/AkAVbAF/F0pN8Mtm/dPMsRL/Q3Rlqp2a\n" +
-    "Scfj8nN2RU1CcpQqJdCRDomu5rdNdeidhI3ziXajeZtJ4nuysLt0mqaBAkAG9mTg\n" +
-    "TSpWl8NLtzvdZTul6Fh1PNwoJoKTI9j0MneGIavCtJMNrmRl77fFpNUFXLQo6/Lc\n" +
-    "RospchlPyZPq8a4vAkEAlwH0XMPiehpZ9JKZ07uY2Z/PjPjvOoqC8Xi/bDyBUZEH\n" +
-    "G1+cJ4nKdeNgl5/h+meIobLoBjljvcbHKV2bwhQ6KQ==\n" +
-    "-----END RSA PRIVATE KEY-----",
+    private_key:`-----BEGIN PRIVATE KEY-----
+MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJ63v6yp7Q6QbReS
++iHBwsMPbw5GRXcndNyEjePxpu0ySX0taLEYh2GMwdw7Jt9yZIRbvxnM8woYLw1f
+h9noZh6uBrazFVTrM2NTVTRFzwMz004LwZY2s9umETHrmNEh6J7TFqInFwpXgWYl
+yAoO7X3JcyhWi8AUpci8rvWNwhYDAgMBAAECgYA3mshcBWw3ngGaMLPQ/8Dr9YxC
+w/uyMvCOESJkqVSB5Qw5/p6e7KkBU/7W2SJVRg5REJNyxoqfDrntRXqirPiZWb9n
+4+lRw67HB0Dy9IFdFhuWcPpRjmAjQnhQth2WWDINFtpiK3hzy/ASboUsI39zmoeW
+xP3t8/ZFDq2vFnCQAQJBAMu4jFfJlPZF7Me/LZUPsinuvHWsfWR1cdcJXbf3PFte
+TAzngvgzND2C3pR/Hf9VWhjoo39amC6NDHXhETxkLYMCQQDHcrf3jvE6UWyqicgD
+HmJwMjW//03i/odkwVOYRCP2ytgdsZujnyldNPV51H0ATSImsZLLL9/OJPG9lhQV
+Eo2BAkA2FnFsfWDHYhlTjzaS9O/gojn3JCzGl0f6R8pSJZooyAh5BJ6JN08PZcei
+tX1JZWfeZSXDklIFSf2c7nydBBvxAkAA6bmF3JWmGrFQpojP2tfAg7pTQqvsmhWs
+lGX5kHZJruwGVsXLnfLmhlOJVzurQK8jVjTB0VpI60pf/8vfvNIBAkEAwGbApTtc
+sovjwpVptJKTHvuJx+vKbiNanNwXuECZXw2RltReEtEg297ftRdOe0vLtfjPi75y
+MMo/LL547X7hbw==
+-----END PRIVATE KEY-----
+`,
     view: {
         defaultViewEngine: 'nunjucks',
         mapping: {
